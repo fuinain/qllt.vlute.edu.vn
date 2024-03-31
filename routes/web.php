@@ -3,17 +3,22 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('quanlylichtrinh');
+    return view('master');
 });
 
 Route::get('/', function () {
-    return view('quanlylichtrinh');
-})->name('quanlylichtrinh');
+    return view('master');
+})->name('master');
 
-Route::get('/login', function () {
-    return view('login');
-})->name('login');
+Route::get('/admin', function () {
+    return view('admin.master');
+})->name('admin');
 
-Route::get('/register', function () {
-    return view('register');
-})->name('register');
+Route::get('/giangvien', function () {
+    return view('giangvien.master');
+})->name('giangvien');
+
+Route::get('/thuky', function () {
+    return view('thuky.master');
+})->name('thuky');
+
