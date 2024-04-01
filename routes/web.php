@@ -2,6 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 
+//Đăng nhập SSO (single site on)
+Route::get('/admin/dashboard', 'AdminController@dashboard')->name('admin.dashboard');
+Route::get('/thuky/dashboard', 'ThukyController@dashboard')->name('thuky.dashboard');
+Route::get('/giangvien/dashboard', 'GiangvienController@dashboard')->name('giangvien.dashboard');
+
+
+
 Route::get('/', function () {
     return view('master');
 });
