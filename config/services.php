@@ -32,11 +32,11 @@ return [
     ],
 
     'keycloak' => [
-        'client_id' => env('quanlylichtrinh.vlute.edu.vn'),
-        'client_secret' => env('KEYCLOAK_CLIENT_SECRET'),
-        'redirect' => env('http://quanlylichtrinh.vn/auth/login/callback'),
-        'base_url' => env('http://sso.vlute.edu.vn/auth/'),
-        'realm' => env('master'),
+        'client_id' => env('KEYCLOAK_CLIENT_ID','quanlylichtrinh.vlute.edu.vn'),
+        'client_secret' => env('KEYCLOAK_CLIENT_SECRET',''),
+        'redirect' => env('KEYCLOAK_REDIRECT_URI','http://quanlylichtrinh.vn/auth/login/callback'),
+        'base_url' => env('KEYCLOAK_BASE_URL','http://sso.vlute.edu.vn/auth/'),
+        'realm' => env('KEYCLOAK_REALM','master'),
     ],
 
 
