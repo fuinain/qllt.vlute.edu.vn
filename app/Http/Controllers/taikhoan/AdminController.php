@@ -11,6 +11,7 @@ class AdminController extends Controller
     public function dashboard()
     {
         return Socialite::driver('keycloak')->redirect();
+
     }
     public function callback()
     {
