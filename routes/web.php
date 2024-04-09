@@ -28,6 +28,4 @@ Route::get('/giangvien', function () {
 Route::get('/thuky', function () {
     return view('thuky.dashboard');
 })->name('thuky.dashboard')->middleware('is.login');
-//Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-//Route::get('/thuky/dashboard', 'ThukyController@dashboard')->name('thuky.dashboard');
-//Route::get('/giangvien/dashboard', 'GiangvienController@dashboard')->name('giangvien.dashboard');
+

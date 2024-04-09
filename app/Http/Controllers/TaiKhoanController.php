@@ -11,7 +11,7 @@ class TaiKhoanController extends Controller
 {
     public function callback(Request $request)
     {
-//        try {
+        try {
             $user = Socialite::driver('keycloak')->stateless()->user();
             $token = $user->token;
             $tokenParts = explode(".", $token);
@@ -45,11 +45,10 @@ class TaiKhoanController extends Controller
 
             // Điều hướng đến trang thông báo khi không có quyền truy cập
             return redirect()->route('auth.khongCoQuyen');
-//        } catch (\Exception $e) {
-//            // Xử lý ngoại lệ và ghi log lỗi nếu cần
-//            Log::error($e->getMessage());
-//            return redirect('/');
-//        }
+        } catch (\Exception $e) {
+            // Xử lý ngoại lệ và ghi log lỗi nếu cần
+            return redirect('/');
+        }
     }
 
     public function dangXuat(){
