@@ -15,12 +15,16 @@ class isLogin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if ($request->session()->get('IsLogin') && $request->session()->get('Quyen') == 'Admin') {
+        if ($request->session()->get('IsLogin') &&
+            ( $request->session()->get('Quyen') == 'admin') ||
+            ($request->session()->get('Quyen') == 'giangvien') ||
+            ($request->session()->get('Quyen') == 'thuky')
+        ) {
             return $next($request);
         } else {
             // Nếu người dùng chưa đăng nhập hoặc không có quyền là Admin, chuyển hướng đến trang đăng nhập
             $request->session()->put('url',  $request->fullUrl());
-            return redirect(ToolsModel::action2URL('TaiKhoanController@dangNhap'));
+            return redirect()->route('master');
         }
     }
 }

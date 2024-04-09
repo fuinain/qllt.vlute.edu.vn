@@ -4,6 +4,7 @@ namespace App\Models\taikhoan;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class DangNhapModel extends Model
 {
