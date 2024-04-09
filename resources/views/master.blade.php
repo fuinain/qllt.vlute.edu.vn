@@ -175,6 +175,11 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
+                @if(Session::get('IsLogin'))
+                    <li class="breadcrumb-item"><a href="{{route('auth.logout')}}">Logout</a></li>
+                @else
+                    <li class="breadcrumb-item"><a href="{{route('auth.login')}}">Login</a></li>
+                @endif
               <li class="breadcrumb-item"><a href="#">Home</a></li>
               <li class="breadcrumb-item active">Dashboard v1</li>
             </ol>

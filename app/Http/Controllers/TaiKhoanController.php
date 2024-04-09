@@ -2,20 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\taikhoan\DangNhapModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Laravel\Socialite\Facades\Socialite;
 
 class TaiKhoanController extends Controller
 {
     public function callback(Request $request)
     {
-        try {
+//        try {
             $user = Socialite::driver('keycloak')->stateless()->user();
             $token = $user->token;
             $tokenParts = explode(".", $token);
             $tokenPayload = base64_decode($tokenParts[1]);
             $tttk = json_decode($tokenPayload);
-            $nk = new NhatKyModel();
+
 
             if(isset($tttk->email)){
                 $tk = new DangNhapModel();
@@ -29,10 +31,6 @@ class TaiKhoanController extends Controller
                     $request->session()->put('HoTen', $dttk->ho_ten);
                     $request->session()->put('Quyen', $dttk->quyen);
 
-                    $nk->id_tai_khoan = $dttk->id_tai_khoan;
-                    $nk->mo_ta = "Đăng nhập thành công";
-                    $nk->insertNhatKy();
-
                     // Điều hướng đến trang tương ứng với quyền
                     if($request->session()->get('Quyen') == 'admin')
                         return redirect()->route('admin.dashboard');
@@ -45,21 +43,18 @@ class TaiKhoanController extends Controller
                 }
             }
 
-            // Ghi nhật ký khi xác thực không thành công
-            $nk->mo_ta = $tttk->email .' bị từ chối đăng nhập';
-            $nk->insertNhatKy();
-
             // Điều hướng đến trang thông báo khi không có quyền truy cập
             return redirect()->route('auth.khongCoQuyen');
-        } catch (\Exception $e) {
-            // Xử lý ngoại lệ
-            return redirect('/');
-        }
+//        } catch (\Exception $e) {
+//            // Xử lý ngoại lệ và ghi log lỗi nếu cần
+//            Log::error($e->getMessage());
+//            return redirect('/');
+//        }
     }
 
     public function dangXuat(){
         session()->invalidate();
-        $redirect = ToolsModel::action2URL('TaiKhoanController@dangNhap');
+        $redirect = route('master');
         return redirect(env('KEYCLOAK_BASE_URL') . "realms/master/protocol/openid-connect/logout?redirect_uri=$redirect");
     }
 
