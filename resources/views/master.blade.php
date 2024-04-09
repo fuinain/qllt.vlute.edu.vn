@@ -46,7 +46,7 @@
         <a href="#" class="nav-link">Nhà</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="https://www.facebook.com/ditconmechungmay12345" class="nav-link">Liên hệ</a>
+        <a href="" class="nav-link">Liên hệ</a>
       </li>
     </ul>
 
