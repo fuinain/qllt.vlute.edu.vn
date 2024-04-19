@@ -24,7 +24,7 @@ class isLogin
         } else {
             // Nếu người dùng chưa đăng nhập hoặc không có quyền là Admin, chuyển hướng đến trang đăng nhập
             $request->session()->put('url',  $request->fullUrl());
-            return redirect()->route('master');
+            return redirect()->route('auth.login');
         }
     }
 }

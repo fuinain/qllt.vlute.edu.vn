@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class DangNhapModel extends Model
 {
-    protected $table = 'tai_khoan'; // Tên của bảng trong cơ sở dữ liệu
+    protected $table = 'giang_vien'; // Tên của bảng trong cơ sở dữ liệu
 
     protected $fillable = ['email']; // Các cột có thể được gán dữ liệu
 

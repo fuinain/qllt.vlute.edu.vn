@@ -1,0 +1,16 @@
+1. mã hóa id tất cả các bảng: - (sha md5) 
+2. SSO: kết nối vs sso
+3. phân quyền role: 
+	+ giangvien
+	+ thuky
+	+ admin
+	KEYCLOAK_CLIENT_ID="..."
+	KEYCLOAK_CLIENT_SECRET=""
+	KEYCLOAK_REDIRECT_URI="..."
+	KEYCLOAK_BASE_URL="..."
+	KEYCLOAK_REALM="master"
+ 
+
+http://quanlylichtrinh.vn/auth
+http://quanlyvanban.vn/auth
+
