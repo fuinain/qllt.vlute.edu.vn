@@ -18,7 +18,7 @@ Route::get('/auth/thuky', function () {
     return view('thuky.dashboard');
 })->name('thuky.dashboard')->middleware('is.login');
 
-Route::group(['prefix' => '/auth', 'middleware' => 'is.login'], function (){
+Route::group(['prefix' => '/auth'], function (){
     Route::get('/login/callback', 'App\Http\Controllers\TaiKhoanController@callback')->name('auth.callback');
     Route::get('/login', 'App\Http\Controllers\TaiKhoanController@dangNhap')->name('auth.login');
 
@@ -26,16 +26,21 @@ Route::group(['prefix' => '/auth', 'middleware' => 'is.login'], function (){
     //QL giảng viên
     Route::get('/admin/quanlygiangvien/', 'App\Http\Controllers\admin\GiangVienController@getViewDanhSach');
     Route::get('/admin/quanlygiangvien/danhsach', 'App\Http\Controllers\admin\GiangVienController@getViewDanhSach');
+
     //Thêm
     Route::get('/admin/quanlygiangvien/them', 'App\Http\Controllers\admin\GiangVienController@getViewThem');
     Route::put('/admin/quanlygiangvien/them', 'App\Http\Controllers\admin\GiangVienController@putGiangVien');
-    Route::get('/admin/quanlygiangvien/them', 'App\Http\Controllers\admin\DonViController@getDanhSach');
+    Route::post('/admin/quanlygiangvien/them', 'App\Http\Controllers\admin\GiangVienController@postImportGiangVien');
 
-    Route::get('/admin/quanlygiangvien/cap-nhat', 'App\Http\Controllers\admin\GiangVienController@getViewcap-nhat');
-    Route::get('/admin/quanlygiangvien/xoa', 'App\Http\Controllers\admin\GiangVienController@getViewxoa');
+    //Cập nhật
+    Route::get('/admin/quanlygiangvien/cap-nhat/{id_giang_vien}', 'App\Http\Controllers\admin\GiangVienController@getViewCapNhat');
+    Route::post('/admin/quanlygiangvien/cap-nhat', 'App\Http\Controllers\admin\GiangVienController@postGiangVien');
+
+    //Xoá
+    Route::delete('/admin/quanlygiangvien/xoa', 'App\Http\Controllers\admin\GiangVienController@deleteGiangVien');
 
 
-
+//'middleware' => 'is.login'
 });
 
 

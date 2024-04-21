@@ -6,12 +6,15 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "ext-fileinfo": "*",
+        "ext-gd": "*",
         "brian2694/laravel-toastr": "^5.59",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
         "laravel/socialite": "^5.12",
         "laravel/tinker": "^2.8",
+        "phpoffice/phpspreadsheet": "^2.0",
         "socialiteproviders/keycloak": "^5.3"
     },
     "require-dev": {

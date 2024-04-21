@@ -9,8 +9,11 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}"><i class="nav-icon fas fa-tachometer-alt"></i>   Home</a></li>
-                        <li class="breadcrumb-item active"><a href="{{action('App\Http\Controllers\admin\GiangVienController@getViewDanhSach')}}">Danh sách giảng viên</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}"><i
+                                    class="nav-icon fas fa-tachometer-alt"></i> Home</a></li>
+                        <li class="breadcrumb-item active"><a
+                                href="{{action('App\Http\Controllers\admin\GiangVienController@getViewDanhSach')}}">Danh
+                                sách giảng viên</a></li>
                         <li class="breadcrumb-item active">Thêm</li>
                     </ol>
                 </div>
@@ -21,7 +24,6 @@
 
     <!-- body -->
     <section class="content">
-
         <div class="container-fluid">
             <div class="card card-primary card-outline">
                 <div class="card-body pad table-responsive">
@@ -29,7 +31,8 @@
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label>Id giảng viên</label>
-                                <input class="form-control idGV" type="number" placeholder="Yêu cầu nhập trùng với hệ thống ems, mới có thể truy xuât dữ liệu">
+                                <input class="form-control idGV" type="number"
+                                       placeholder="Yêu cầu nhập trùng với hệ thống ems, mới có thể truy xuât dữ liệu">
                             </div>
                         </div>
                         <div class="col-sm-12">
@@ -64,7 +67,7 @@
                         <div>
                             <div class="form-group">
                                 <label>Ngày sinh:</label>
-                                <input class="form-control ngaySinh" type="datetime-local" placeholder="">
+                                <input class="form-control ngaySinh" type="date" placeholder="">
                             </div>
                         </div>
                         <div class="col-sm-12">
@@ -76,11 +79,11 @@
                         <div class="col-sm-12">
                             <div class="form-group donvi">
                                 <label>Đơn vị</label>
-                                    <select class="form-control donVi">
-                                        @foreach($dv as $item)
-                                            <option value="{{$item->id}}">{{$item->ten_don_vi}}</option>
-                                        @endforeach
-                                    </select>
+                                <select class="form-control donVi">
+                                    @foreach($dv as $item)
+                                        <option value="{{$item->id}}">{{$item->ten_don_vi}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <div class="col-sm-12">
@@ -96,7 +99,8 @@
 
                     </div>
                     <div class="pb-1" style="width: 150px">
-                        <button type="button" class="btn btn-block btn-outline-success btnXacNhan">Xác Nhận Thêm</button>
+                        <button type="button" class="btn btn-block btn-success btnXacNhan">Xác Nhận Thêm
+                        </button>
                     </div>
                 </div>
             </div>
@@ -108,9 +112,10 @@
 @section('script')
     <script>
         $(document).ready(function () {
-            $('.btnXacNhan').click(function (){
+            $('.btnXacNhan').click(function (event) {
+                event.preventDefault()
                 $.ajax({
-                    url:'{{action('App\Http\Controllers\admin\GiangVienController@putGiangVien')}}',
+                    url: '{{action('App\Http\Controllers\admin\GiangVienController@putGiangVien')}}',
                     type: "PUT",
                     data: {
                         '_token': "{{ csrf_token() }}",
@@ -126,18 +131,17 @@
 
                     },
                     success: function (result) {
-                        result = JSON.parse(result)
-                        if(result.status === 200) {
-                            toastr.success(result.message, "Thao tác thành công");
+                        if (result.status === 200) {
+                            toastr.success(result.message);
                             setTimeout(function () {
                                 location.reload();
                             }, 750);
-                        }else{
-                            toastr.success(result.message, "Thao tác thất bại");
+                        } else {
+                            toastr.error(result.message);
                         }
                     },
-                    error: function (error){
-                        console.log(error)
+                    error: function (error) {
+                        toastr.error("Thêm thất bại");
                     }
                 })
             });
