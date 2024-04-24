@@ -75,7 +75,7 @@
                 <div class="align-content-center"
                      style="padding: 3.5px; align-items: center; display: flex; margin-left: 5px">
                     <img src="{{asset('dist/img/icon-user.png')}}" class="mr-1" style="height: 40px; width: 40px">
-                    <div class="info text-white" style="font-size: 15px; padding: 5px;">Admin</div>
+                    <div class="info text-white" style="font-size: 15px; padding: 5px;">Thư ký</div>
                 </div>
             </div>
 
@@ -93,24 +93,11 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="{{action('App\Http\Controllers\admin\GiangVienController@getViewDanhSach')}}"
-                                       class="nav-link">
-                                        <p class="text-white">Giảng viên</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{action('App\Http\Controllers\admin\HocKyController@getViewDanhSach')}}"
-                                   class="nav-link ">
-                                    <p class="text-white">Học kỳ</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{action('App\Http\Controllers\admin\BieuMauController@getViewDanhSach')}}"
+                                <a href="{{action('App\Http\Controllers\thuky\BieuMauController@getViewDanhSach')}}"
                                    class="nav-link">
                                     <p class="text-white">Biểu mẫu</p>
                                 </a>
                             </li>
-
                         </ul>
                     </li>
                 </ul>

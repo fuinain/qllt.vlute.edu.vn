@@ -31,7 +31,7 @@ class GiangVienModel extends Model
 
     public function danhSach()
     {
-        $sql = "SELECT id_giang_vien, ho_ten,hoc_vi,email,ngay_sinh,so_dien_thoai,id_don_vi,quyen, don_vi.ten_don_vi FROM don_vi, giang_vien WHERE don_vi.id = giang_vien.id_don_vi";
+        $sql = "SELECT id_giang_vien, ho_ten,hoc_vi,email,cccd, ngay_sinh,so_dien_thoai,id_don_vi,quyen, don_vi.ten_don_vi FROM don_vi, giang_vien WHERE don_vi.id = giang_vien.id_don_vi";
         return DB::select($sql);
     }
 

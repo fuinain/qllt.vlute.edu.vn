@@ -5,13 +5,13 @@ table khoa -> rename: don_vi (id, ma_don_vi, ten_don_vi, ngay_tao)
 làm biểu mẫu excel
 
 chức năng admin, thuky:
-	quản lý giảng viên
-
-	thêm danh sách giảng viên (excel-phpSpreadSheet)
+	quản lý giảng viên [rồi]
+    đồng bộ học kì () id_hoc_ky, thong_tin_ky [rồi]
+	thêm danh sách giảng viên (excel-phpSpreadSheet) [rồi]
 
 	quản lý lt lí thuyết (thuky -> chon hoc kỳ | chọn tên giảng viên)
 		+ admin, thuky: set cứng biểu mẫu (LT)
-	đồng bộ học kì () id_hoc_ky, thong_tin_ky
+
 
 chức năng gv:
 	quản lý lt riêng của gv

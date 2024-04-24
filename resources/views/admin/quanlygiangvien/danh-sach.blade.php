@@ -9,7 +9,7 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}"><i
+                        <li class="breadcrumb-item"><a href="{{action('App\Http\Controllers\admin\DashBoardController@getViewDashBoard')}}"><i
                                     class="nav-icon fas fa-tachometer-alt"></i>Home</a></li>
                         <li class="breadcrumb-item active"><a
                                 href="{{action('App\Http\Controllers\admin\GiangVienController@getViewDanhSach')}}">Danh
@@ -54,7 +54,7 @@
                                     </label>
                                     <input accept=".xlsx" name="file-excel" type="file" class="form-control">
                                     <br>
-                                    <p class="text-danger">Khi "Import sinh viên", dữ liệu cũ sẽ được xóa khỏi hệ thống</p>
+{{--                                    <p class="text-danger">Khi "Import danh sách", dữ liệu cũ sẽ được xóa khỏi hệ thống</p>--}}
                                 </div>
                             </div>
                         </div>
@@ -74,8 +74,9 @@
                             <th>Họ tên</th>
                             <th>Học vị</th>
                             <th>Email</th>
+{{--                            <th>CCCD</th>--}}
                             <th>Ngày sinh</th>
-                            <th>SĐT</th>
+{{--                            <th>SĐT</th>--}}
                             <th>Đơn vị</th>
                             <th>Quyền</th>
                             <th></th>
@@ -89,10 +90,11 @@
                             <tr>
                                 <td>{{ $stt++ }}</td>
                                 <td>{{$item->ho_ten}}</td>
-                                <td>{{$item->hoc_vi}}</td>
-                                <td>{{$item->email}}</td>
-                                <td>{{ \Carbon\Carbon::parse($item->ngay_sinh)->format('d-m-Y') }}</td>
-                                <td>{{$item->so_dien_thoai}}</td>
+                                <td>{{ $item->hoc_vi ? $item->hoc_vi : 'Không có học vị' }}</td>
+                                <td>{{ $item->email ? $item->email : 'Không có Email' }}</td>
+{{--                                <td>{{ $item->cccd ? $item->cccd : 'Không có CCCD' }}</td>--}}
+                                <td>{{ $item->ngay_sinh ? \Carbon\Carbon::parse($item->ngay_sinh)->format('d-m-Y') : 'Không có ngày sinh' }}</td>
+{{--                                <td>{{ $item->so_dien_thoai ? $item->cccd : 'Không có SĐT' }}</td>--}}
                                 <td>{{$item->ten_don_vi}}</td>
                                 <td>{{$item->quyen}}</td>
                                 <td>
@@ -144,7 +146,7 @@
         })
 
         $('.btnExcel').click(function(){
-            $('.md2 .modal-title').text('Import dữ liệu sinh viên');
+            $('.md2 .modal-title').text('Import dữ liệu giảng viên');
             $('.md2').modal('show');
             $('.luuTT').click(function(){
                 var fileInput = $('input[name="file-excel"]')[0].files[0];

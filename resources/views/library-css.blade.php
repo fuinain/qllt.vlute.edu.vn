@@ -34,3 +34,32 @@
 <!-- Theme style -->
 <link rel="stylesheet" href="{{asset('dist/css/adminlte.min.css')}}">
 
+<style>
+    /* Tùy chỉnh cho container của danh sách đề xuất */
+    .ui-autocomplete {
+        position: absolute;
+        z-index: 1000;
+        cursor: default;
+        padding: 0;
+        margin-top: 2px;
+        list-style: none;
+        background-color: #FFFFFF;
+        border: 1px solid #ccc;
+        /* tăng độ rộng nếu cần */
+        width: 300px;
+    }
+
+    /* Tùy chỉnh cho từng mục trong danh sách đề xuất */
+    .ui-menu-item .ui-menu-item-wrapper {
+        padding: 8px 10px;
+        color: #333333;
+        background-color: #FFFFFF;
+        border-bottom: 1px solid #eeeeee;
+    }
+
+    /* CSS cho mục được hover hoặc được chọn bằng bàn phím */
+    .ui-menu-item .ui-menu-item-wrapper.ui-state-active {
+        color: #ffffff;
+        background-color: #007BFF; /* Màu nền khi hover hoặc active */
+    }
+</style>

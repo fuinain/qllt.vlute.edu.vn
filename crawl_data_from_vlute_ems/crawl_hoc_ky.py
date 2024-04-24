@@ -36,7 +36,7 @@ try:
         # Nếu dữ liệu chưa tồn tại, thêm vào bảng
         if not existing_record:
            # Sử dụng placeholder %s để tránh lỗi SQL Injection
-           cursor.execute('''INSERT INTO hoc_ky (id, ma_hoc_ky, ten_hoc_ky, ngay_bat_dau, ngay_ket_thuc, nam_hoc, tuan_bat_dau, so_tuan, loai_hoc_ky)
+           cursor.execute('''INSERT INTO hoc_ky (id, ma_hoc_ky, ten_hoc_ky, ngay_bat_dau, ngay_ht, nam_hoc, tuan_bat_dau, so_tuan, loai_hoc_ky)
                              VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)''',
                              (hoc_ky_id, maHK, tenHK, ngayBD, ngayHT, namHoc, tuanBD, soTuan, loaiHK))
 #         else:
@@ -45,6 +45,7 @@ try:
     # Lưu thay đổi và đóng kết nối
     conn.commit()
     conn.close()
+    print("thanh cong")
 except mysql.connector.Error as err:
     print("Lỗi MySQL:", err)
 

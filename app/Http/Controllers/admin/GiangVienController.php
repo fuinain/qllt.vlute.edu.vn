@@ -8,6 +8,7 @@ use App\Models\admin\GiangVienModel;
 use App\Models\SpreadsheetModel;
 use App\Models\ToolsModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class GiangVienController extends Controller
 {
@@ -113,22 +114,22 @@ class GiangVienController extends Controller
                 'hoc_vi'        => trim($item[2]),
                 'email'         => trim($item[3]),
                 'cccd'          => trim($item[4]),
-                'ngay_sinh'     => trim($item[5]),
+                'ngay_sinh'     => trim($item[5]) ? \Carbon\Carbon::parse(trim($item[5]))->format('Y-m-d') : null, // Chuyển đổi ngày tháng nếu có, nếu không thì để null
                 'so_dien_thoai' => trim($item[6]),
                 'id_don_vi'     => trim($item[7]),
                 'quyen'         => trim($item[8]),
             ];
-            if( strlen(trim($item[0])) == 0 ||
-                strlen(trim($item[1])) == 0 ||
-                strlen(trim($item[2])) == 0 ||
-                strlen(trim($item[3])) == 0 ||
-                strlen(trim($item[4])) == 0 ||
-                strlen(trim($item[5])) == 0 ||
-                strlen(trim($item[6])) == 0 ||
-                strlen(trim($item[7])) == 0 ||
-                strlen(trim($item[8])) == 0) {
-                return response()->json(['message' => 'Có trường dữ liệu trống', 'status' => 500],500);
-            }
+//            if( strlen(trim($item[0])) == 0 ||
+//                strlen(trim($item[1])) == 0 ||
+//                strlen(trim($item[2])) == 0 ||
+//                strlen(trim($item[3])) == 0 ||
+//                strlen(trim($item[4])) == 0 ||
+//                strlen(trim($item[5])) == 0 ||
+//                strlen(trim($item[6])) == 0 ||
+//                strlen(trim($item[7])) == 0 ||
+//                strlen(trim($item[8])) == 0) {
+//                return response()->json(['message' => 'Có trường dữ liệu trống', 'status' => 500],500);
+//            }
             $dataArray[] = $data;
         }
 
@@ -154,4 +155,19 @@ class GiangVienController extends Controller
         return response()->json(['message' => 'Nhập thất bại', 'status' => 500],500);
 
     }
+
+
+    public function searchGiangVien(Request $request)
+    {
+        $searchTerm = $request->input('term');  // 'term' là tham số từ AJAX request
+
+        // Sửa đổi truy vấn để sử dụng tên cột chính xác
+        $giangViens = DB::table('giang_vien') // Đảm bảo rằng 'giang_vien' là tên đúng của bảng trong CSDL
+        ->where('ho_ten', 'LIKE', '%' . $searchTerm . '%')
+            ->take(10) // giới hạn số lượng kết quả trả về
+            ->get(['id_giang_vien as id', 'ho_ten as value']); // chỉ trả về id và ten_giang_vien
+
+        return response()->json($giangViens);
+    }
+
 }
