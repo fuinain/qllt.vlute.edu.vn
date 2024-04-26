@@ -16,7 +16,7 @@ class isLogin
     public function handle(Request $request, Closure $next): Response
     {
         if ($request->session()->get('IsLogin') &&
-            ( $request->session()->get('Quyen') == 'admin') ||
+            ($request->session()->get('Quyen') == 'admin') ||
             ($request->session()->get('Quyen') == 'giangvien') ||
             ($request->session()->get('Quyen') == 'thuky')
         ) {

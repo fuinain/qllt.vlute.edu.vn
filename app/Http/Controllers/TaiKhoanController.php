@@ -19,32 +19,33 @@ class TaiKhoanController extends Controller
             $tttk = json_decode($tokenPayload);
 
 
-            if(isset($tttk->email)){
-                $tk = new DangNhapModel();
-                $tk->email = $tttk->email;
-                $dttk = $tk->dangNhap();
 
-                if($dttk) {
-                    // Lưu thông tin người dùng vào session
-                    $request->session()->put('IsLogin', true);
-                    $request->session()->put('Email', $tttk->email);
-                    $request->session()->put('HoTen', $dttk->ho_ten);
-                    $request->session()->put('Quyen', $dttk->quyen);
-
-                    // Điều hướng đến trang tương ứng với quyền
-                    if($request->session()->get('Quyen') == 'admin')
-                        return redirect()->route('admin.dashboard');
-
-                    if($request->session()->get('Quyen') == 'thuky')
-                        return redirect()->route('thuky.dashboard');
-
-                    if($request->session()->get('Quyen') == 'giangvien')
-                        return redirect()->route('giangvien.dashboard');
-                }
-            }
+//            if(isset($tttk->email)){
+//                $tk = new DangNhapModel();
+//                $tk->email = $tttk->email;
+//                $dttk = $tk->dangNhap();
+//
+//                if($dttk) {
+//                    // Lưu thông tin người dùng vào session
+//                    $request->session()->put('IsLogin', true);
+//                    $request->session()->put('Email', $tttk->email);
+//                    $request->session()->put('HoTen', $dttk->ho_ten);
+//                    $request->session()->put('Quyen', $dttk->quyen);
+//
+//                    // Điều hướng đến trang tương ứng với quyền
+//                    if($request->session()->get('Quyen') == 'admin')
+//                        return redirect()->route('admin.dashboard');
+//
+//                    if($request->session()->get('Quyen') == 'thuky')
+//                        return redirect()->route('thuky.dashboard');
+//
+//                    if($request->session()->get('Quyen') == 'giangvien')
+//                        return redirect()->route('giangvien.dashboard');
+//                }
+//            }
 
             // Điều hướng đến trang thông báo khi không có quyền truy cập
-            return redirect()->route('auth.khongCoQuyen');
+//            return redirect()->route('auth.khongCoQuyen');
         } catch (\Exception $e) {
             // Xử lý ngoại lệ và ghi log lỗi nếu cần
             return redirect('/');
