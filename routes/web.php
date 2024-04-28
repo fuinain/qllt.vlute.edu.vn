@@ -5,65 +5,86 @@ use Illuminate\Support\Facades\Route;
 
 //Đăng nhập SSO (single site on)
 Route::get('/', 'App\Http\Controllers\TaiKhoanController@dangNhap')->name('auth.login');
+Route::get('/auth/login', 'App\Http\Controllers\TaiKhoanController@dangNhap')->name('auth.login');
+Route::get('/auth/login/callback', 'App\Http\Controllers\TaiKhoanController@callback')->name('auth.callback');
 
-
-Route::get('/auth/admin', function () {
-    return view('admin.dashboard');
-})->name('admin.dashboard')->middleware('is.login');
-
-Route::get('/auth/giangvien', function () {
-    return view('giangvien.dashboard');
-})->name('giangvien.dashboard')->middleware('is.login');
-
-Route::get('/auth/thuky', function () {
-    return view('thuky.dashboard');
-})->name('thuky.dashboard')->middleware('is.login');
-
-Route::group(['prefix' => '/auth'], function (){
-    Route::get('/login/callback', 'App\Http\Controllers\TaiKhoanController@callback')->name('auth.callback');
-    Route::get('/login', 'App\Http\Controllers\TaiKhoanController@dangNhap')->name('auth.login');
-
-    //Chức năng Admin
+Route::group(['prefix' => '/auth', 'middleware' => 'is.login'], function (){
+    //Chức năng Admin---------------------------------------------------------------------------------------------------
     Route::get('/admin/', 'App\Http\Controllers\admin\DashBoardController@getViewDashBoard');
     Route::post('/admin/sync', 'App\Http\Controllers\admin\DashBoardController@syncTKBGiangVien');
     Route::get('/admin/search', 'App\Http\Controllers\admin\GiangVienController@searchGiangVien');
-
 
     //QL giảng viên
     Route::get('/admin/quanlygiangvien/', 'App\Http\Controllers\admin\GiangVienController@getViewDanhSach');
     Route::get('/admin/quanlygiangvien/danhsach', 'App\Http\Controllers\admin\GiangVienController@getViewDanhSach');
 
-    //Thêm
+    //Thêm giảng viên
     Route::get('/admin/quanlygiangvien/them', 'App\Http\Controllers\admin\GiangVienController@getViewThem');
     Route::put('/admin/quanlygiangvien/them', 'App\Http\Controllers\admin\GiangVienController@putGiangVien');
     Route::post('/admin/quanlygiangvien/them', 'App\Http\Controllers\admin\GiangVienController@postImportGiangVien');
 
-    //Cập nhật
+    //Cập nhật giảng viên
     Route::get('/admin/quanlygiangvien/cap-nhat/{id_giang_vien}', 'App\Http\Controllers\admin\GiangVienController@getViewCapNhat');
     Route::post('/admin/quanlygiangvien/cap-nhat', 'App\Http\Controllers\admin\GiangVienController@postGiangVien');
 
-    //Xoá
+    //Xoá giảng viên
     Route::delete('/admin/quanlygiangvien/xoa', 'App\Http\Controllers\admin\GiangVienController@deleteGiangVien');
 
     //QL Học kỳ
     Route::get('/admin/quanlyhocky/danhsach', 'App\Http\Controllers\admin\HocKyController@getViewDanhSach');
     Route::post('/admin/quanlyhocky/danhsach/sync', 'App\Http\Controllers\admin\HocKyController@syncHocKy');
 
-    //QL Biễu mẫu
-    Route::get('/admin/quanlybieumau', 'App\Http\Controllers\admin\BieuMauController@getViewDanhSach');
-    Route::post('/admin/quanlybieumau/upload-excel', 'App\Http\Controllers\admin\BieuMauController@uploadExcel');
-    Route::delete('/admin/quanlybieumau/delete-excel','App\Http\Controllers\admin\BieuMauController@deleteFile');
+    //QL Học phần
+    Route::get('/admin/quanlyhocphan/danhsach', 'App\Http\Controllers\admin\HocPhanController@getViewDanhSach');
 
-    //Chức năng Thư ký
+    //Thêm học phần
+    Route::get('/admin/quanlyhocphan/them', 'App\Http\Controllers\admin\HocPhanController@getViewThem');
+    Route::put('/admin/quanlyhocphan/them', 'App\Http\Controllers\admin\HocPhanController@putHocPhan');
+
+    //Cập nhật học phần
+    Route::get('/admin/quanlyhocphan/cap-nhat/{id_hoc_phan}', 'App\Http\Controllers\admin\HocPhanController@getViewCapNhat');
+    Route::post('/admin/quanlyhocphan/cap-nhat', 'App\Http\Controllers\admin\HocPhanController@postHocPhan');
+
+    //Xoá học phần
+    Route::delete('/admin/quanlyhocphan/xoa', 'App\Http\Controllers\admin\HocPhanController@deleteHocPhan');
+
+    //Chức năng Thư ký--------------------------------------------------------------------------------------------------
     Route::get('/thuky/', 'App\Http\Controllers\thuky\DashBoardController@getViewDashBoard');
     Route::post('/thuky/sync', 'App\Http\Controllers\thuky\DashBoardController@syncTKBGiangVien');
     Route::get('/thuky/search', 'App\Http\Controllers\thuky\GiangVienController@searchGiangVien');
 
-    //QL Biễu mẫu
-    Route::get('/thuky/quanlybieumau', 'App\Http\Controllers\thuky\BieuMauController@getViewDanhSach');
-    Route::post('/thuky/quanlybieumau/upload-excel', 'App\Http\Controllers\thuky\BieuMauController@uploadExcel');
-    Route::delete('/thuky/quanlybieumau/delete-excel','App\Http\Controllers\thuky\BieuMauController@deleteFile');
+    //QL giảng viên
+    Route::get('/thuky/quanlygiangvien/', 'App\Http\Controllers\thuky\GiangVienController@getViewDanhSach');
+    Route::get('/thuky/quanlygiangvien/danhsach', 'App\Http\Controllers\thuky\GiangVienController@getViewDanhSach');
 
+    //Thêm giảng viên
+    Route::get('/thuky/quanlygiangvien/them', 'App\Http\Controllers\thuky\GiangVienController@getViewThem');
+    Route::put('/thuky/quanlygiangvien/them', 'App\Http\Controllers\thuky\GiangVienController@putGiangVien');
+    Route::post('/thuky/quanlygiangvien/them', 'App\Http\Controllers\thuky\GiangVienController@postImportGiangVien');
+
+    //Cập nhật giảng viên
+    Route::get('/thuky/quanlygiangvien/cap-nhat/{id_giang_vien}', 'App\Http\Controllers\thuky\GiangVienController@getViewCapNhat');
+    Route::post('/thuky/quanlygiangvien/cap-nhat', 'App\Http\Controllers\thuky\GiangVienController@postGiangVien');
+
+    //Xoá giảng viên
+    Route::delete('/thuky/quanlygiangvien/xoa', 'App\Http\Controllers\thuky\GiangVienController@deleteGiangVien');
+
+    //QL Học kỳ
+    Route::get('/thuky/quanlyhocky/danhsach', 'App\Http\Controllers\thuky\HocKyController@getViewDanhSach');
+    Route::post('/thuky/quanlyhocky/danhsach/sync', 'App\Http\Controllers\thuky\HocKyController@syncHocKy');
+
+    //QL Học phần
+    Route::get('/thuky/quanlyhocphan/danhsach', 'App\Http\Controllers\thuky\HocPhanController@getViewDanhSach');
+
+    //Thêm học phần
+    Route::get('/thuky/quanlyhocphan/them', 'App\Http\Controllers\thuky\HocPhanController@getViewThem');
+    Route::put('/thuky/quanlyhocphan/them', 'App\Http\Controllers\thuky\HocPhanController@putHocPhan');
+
+    //Cập nhật học phần
+    Route::get('/thuky/quanlyhocphan/cap-nhat/{id_hoc_phan}', 'App\Http\Controllers\thuky\HocPhanController@getViewCapNhat');
+    Route::post('/thuky/quanlyhocphan/cap-nhat', 'App\Http\Controllers\thuky\HocPhanController@postHocPhan');
+
+    //Xoá học phần
+    Route::delete('/thuky/quanlyhocphan/xoa', 'App\Http\Controllers\thuky\HocPhanController@deleteHocPhan');
 });
-//'middleware' => 'is.login'
 

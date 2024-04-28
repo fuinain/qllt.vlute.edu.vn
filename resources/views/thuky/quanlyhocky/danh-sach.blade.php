@@ -9,10 +9,10 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{action('App\Http\Controllers\admin\DashBoardController@getViewDashBoard')}}"><i
+                        <li class="breadcrumb-item"><a href="{{action('App\Http\Controllers\thuky\DashBoardController@getViewDashBoard')}}"><i
                                     class="nav-icon fas fa-tachometer-alt"></i>Home</a></li>
                         <li class="breadcrumb-item active"><a
-                                href="{{action('App\Http\Controllers\admin\HocKyController@getViewDanhSach')}}">Danh
+                                href="{{action('App\Http\Controllers\thuky\HocKyController@getViewDanhSach')}}">Danh
                                 sách học kỳ</a></li>
                     </ol>
                 </div>

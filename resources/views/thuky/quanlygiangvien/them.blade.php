@@ -1,4 +1,4 @@
-@extends('admin.master')
+@extends('thuky.master')
 @section('body')
     <!-- Content Header (Page header) -->
     <div class="content-header">
@@ -9,10 +9,10 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{action('App\Http\Controllers\admin\DashBoardController@getViewDashBoard')}}"><i
+                        <li class="breadcrumb-item"><a href="{{action('App\Http\Controllers\thuky\DashBoardController@getViewDashBoard')}}"><i
                                     class="nav-icon fas fa-tachometer-alt"></i> Home</a></li>
                         <li class="breadcrumb-item active"><a
-                                href="{{action('App\Http\Controllers\admin\GiangVienController@getViewDanhSach')}}">Danh
+                                href="{{action('App\Http\Controllers\thuky\GiangVienController@getViewDanhSach')}}">Danh
                                 sách giảng viên</a></li>
                         <li class="breadcrumb-item active">Thêm</li>
                     </ol>

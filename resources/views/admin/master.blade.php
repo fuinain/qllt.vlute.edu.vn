@@ -105,12 +105,11 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{action('App\Http\Controllers\admin\BieuMauController@getViewDanhSach')}}"
+                                <a href="{{action('App\Http\Controllers\admin\HocPhanController@getViewDanhSach')}}"
                                    class="nav-link">
-                                    <p class="text-white">Biểu mẫu</p>
+                                    <p class="text-white">Học phần</p>
                                 </a>
                             </li>
-
                         </ul>
                     </li>
                 </ul>

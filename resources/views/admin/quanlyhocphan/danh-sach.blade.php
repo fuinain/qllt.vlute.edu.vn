@@ -5,15 +5,15 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Quản lý lịch trình / Học kỳ</h1>
+                    <h1 class="m-0">Quản lý lịch trình / Học phần</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{action('App\Http\Controllers\admin\DashBoardController@getViewDashBoard')}}"><i
                                     class="nav-icon fas fa-tachometer-alt"></i>Home</a></li>
                         <li class="breadcrumb-item active"><a
-                                href="{{action('App\Http\Controllers\admin\HocKyController@getViewDanhSach')}}">Danh
-                                sách học kỳ</a></li>
+                                href="{{action('App\Http\Controllers\admin\HocPhanController@getViewDanhSach')}}">Danh
+                                sách học phần</a></li>
                     </ol>
                 </div>
             </div>
@@ -26,7 +26,8 @@
         <div class="container-fluid">
             <div class="d-flex">
                 <div class="pb-1 me-2">
-                    <button href="" type="button" class="btn btn-block bg-gradient-success btnDongBoHK"><i class="fa fa-fw fa-history"></i> Đồng bộ học kì VLUTE EMS</button>
+                    <a href="{{action('App\Http\Controllers\admin\HocPhanController@getViewThem')}}" type="button"
+                       class="btn btn-block bg-gradient-success">Thêm mới</a>
                 </div>
             </div>
 
@@ -36,26 +37,30 @@
                         <thead>
                         <tr>
                             <th>STT</th>
-                            <th>Mã học kỳ</th>
-                            <th>Tên học kỳ</th>
-                            <th>Ngày bắt đầu</th>
-                            <th>Năm học</th>
-                            <th>Tuần bắt đầu</th>
-                            <th>Số tuần</th>
+                            <th>Mã học phần</th>
+                            <th>Tên học</th>
+                            <th>Số TC</th>
+                            <th>Tín chỉ LT</th>
+                            <th>Tín chỉ TH</th>
+                            <th></th>
+
                         </tr>
                         </thead>
 
                         <tbody>
                         @php $stt = 1;@endphp
-                        @foreach($hk as $item)
+                        @foreach($dshp as $item)
                             <tr>
                                 <td>{{ $stt++ }}</td>
-                                <td>{{$item->ma_hoc_ky}}</td>
-                                <td>{{$item->ten_hoc_ky}}</td>
-                                <td>{{ \Carbon\Carbon::parse($item->ngay_bat_dau)->format('d-m-Y') }}</td>
-                                <td>{{$item->nam_hoc}}</td>
-                                <td>{{$item->tuan_bat_dau}}</td>
-                                <td>{{$item->so_tuan}}</td>
+                                <td>{{ $item->ma_hoc_phan}}</td>
+                                <td>{{ $item->ten_hoc_phan}}</td>
+                                <td>{{ $item->so_tin_chi}}</td>
+                                <td>{{ $item->tin_chi_ly_thuyet}}</td>
+                                <td>{{ $item->tin_chi_thuc_hanh}}</td>
+                                <td>
+                                    <a href="{{action('App\Http\Controllers\admin\HocPhanController@getViewCapNhat', ['id_hoc_phan'=>$item->id_hoc_phan])}}"><i class="nav-icon fas fa-edit"></i></a> |
+                                    <a class="btnXoa" href="#" data="{{$item->id_hoc_phan}}"><i class="fa fa-fw fa-close"></i></a>
+                                </td>
                             </tr>
                         @endforeach
                         </tbody>
@@ -69,12 +74,18 @@
 @section('script')
     <script>
         $(document).ready(function () {
-            $('.btnDongBoHK').click(function () {
+            $('.btnXoa').click(function () {
+                if (!confirm("Chọn vào 'YES' để xác nhận xóa thông tin?\nSau khi xóa dữ liệu sẽ không thể phục hồi lại được.")) {
+                    return;
+                }
+
+                var id = $(this).attr('data');
                 $.ajax({
-                    url: '{{action('App\Http\Controllers\admin\HocKyController@syncHocKy')}}',
-                    type: 'POST',
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    url: '{{action('App\Http\Controllers\admin\HocPhanController@deleteHocPhan')}}',
+                    type: "DELETE",
+                    data: {
+                        '_token': "{{ csrf_token() }}",
+                        'id_hoc_phan': id
                     },
                     success: function (result) {
                         if (result.status === 200) {
@@ -87,10 +98,11 @@
                         }
                     },
                     error: function (error) {
-                        toastr.error("Thất bại");
+                        toastr.error("Xoá thất bại");
                     }
                 });
             });
-        });
+
+        })
     </script>
 @endsection

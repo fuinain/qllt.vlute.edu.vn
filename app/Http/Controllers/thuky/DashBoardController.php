@@ -52,5 +52,4 @@ class DashBoardController extends Controller
             return response()->json(['message' => 'Chỉnh sửa thất bại', 'status' => 500],500);
         }
     }
-
 }
