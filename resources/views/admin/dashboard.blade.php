@@ -72,8 +72,11 @@
                     },
                     success: function (result) {
                         if (result.status === 200) {
-                            toastr.success('Thành công');
                             $('#table-hp').empty(table);
+
+                            if((result?.data?.length) == 0) {
+                                return toastr.info('Không có dữ liệu')
+                            }
                             var table = $('<table>').addClass('table table-hover text-nowrap');
 
                             // Create the table header
@@ -111,6 +114,7 @@
 
                             // Append the table to the div with id 'table-hp'
                             $('#table-hp').append(table);
+                            toastr.success('Thành công');
                         } else {
                             toastr.error(result.message);
                         }

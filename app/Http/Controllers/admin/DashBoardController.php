@@ -18,8 +18,12 @@ class DashBoardController extends Controller
         $hk = new HocKyModel();
         $this->dataHK = $hk->danhSach();
     }
-    public function getViewDashBoard()
+    public function getViewDashBoard(Request $request)
     {
+        $role =  $request->session()->get('Quyen');
+        if(!$role || $role  != 'admin') {
+            return redirect('auth/login');
+        }
         $gv = new GiangVienModel();
         $dataGV = $gv->danhSach();
 

@@ -86,5 +86,18 @@ Route::group(['prefix' => '/auth', 'middleware' => 'is.login'], function (){
 
     //Xoá học phần
     Route::delete('/thuky/quanlyhocphan/xoa', 'App\Http\Controllers\thuky\HocPhanController@deleteHocPhan');
+
+    //Chức năng Giảng viên----------------------------------------------------------------------------------------------
+    Route::get('/giangvien/', 'App\Http\Controllers\giangvien\DashBoardController@getViewDashBoard');
+//    Route::get('/giangvien/quanlyhocphan/chitiet/{ma_hoc_phan}', function (\Illuminate\Http\Request $request) {
+//        return $request->ma_hoc_phan;
+//    });
+
+    Route::get('/giangvien/quanlyhocphan/chitiet/{ma_hoc_phan}', 'App\Http\Controllers\giangvien\HocPhanController@getViewChiTiet')->name('giangvien.quanlyhocphan.chitiet.view');
+    Route::post('/giangvien/quanlyhocphan/chitiet', 'App\Http\Controllers\giangvien\HocPhanController@postChiTiet')->name('giangvien.quanlyhocphan.chitiet');
+    Route::get('/giangvien/quanlyhocphan/export/{ma_hoc_phan}', 'App\Http\Controllers\giangvien\HocPhanController@exportFromTemplate')->name('giangvien.quanlyhocphan.chitiet.export');
+    Route::post('/giangvien/quanlyhocphan/import', 'App\Http\Controllers\giangvien\HocPhanController@importFromTemplate')->name('giangvien.quanlyhocphan.chitiet.import');
+
+
 });
 
