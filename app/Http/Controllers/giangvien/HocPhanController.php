@@ -48,7 +48,7 @@ class HocPhanController extends Controller
         $hoc_phan = $hocPhanModel->getHocPhan($ma_hoc_phan);
         $hoc_phan_main = $hocPhanModel->getMain($hoc_phan->ten_hoc_phan_cut);
         $lich_day = $hocPhanModel->getLich($ma_hoc_phan)->toArray();
-        $tuan_hoc = $hocPhanModel->getTuanHoc($hoc_phan->tuan_hoc);
+        $tuan_hoc = $hocPhanModel->getTuanHoc($hoc_phan->tuan_hoc, $hoc_phan_main->ma_hoc_phan);
         $all_tuan = '';
         foreach ($tuan_hoc as $tuan) {
         $all_tuan = $all_tuan . $tuan->ma_hoc_phan . PHP_EOL;

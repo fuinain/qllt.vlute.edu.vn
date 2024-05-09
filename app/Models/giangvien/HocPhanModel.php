@@ -22,9 +22,11 @@ class HocPhanModel extends Model
             ->firstOrFail();
     }
 
-    public  function getTuanHoc($tuan_hoc)
+    public  function getTuanHoc($tuan_hoc, $ma_hoc_phan)
     {
-        return $this
+        $ma_hoc_phan = $ma_hoc_phan . '%';
+        return $this->select('*', DB::raw("TRIM(SUBSTRING_INDEX(data_crawl_from_vlute_ems.ten_hoc_phan, '-', 1)) AS ten_hoc_phan_cut"))
+            ->whereRaw("TRIM(SUBSTRING_INDEX(data_crawl_from_vlute_ems.ten_hoc_phan, '-', 1)) LIKE  ?", [$ma_hoc_phan])
             ->where('tuan_hoc', $tuan_hoc)
             ->get();
     }
