@@ -92,8 +92,15 @@
                                 <label class="m-0">Tổng số giờ giảng: </label>
                             </div>
                             <div class="col-8">
-                                <div class="text-red font-weight-bold">{{!empty($hoc_phan_main) ?
-                                ((int)$hoc_phan_main->tin_chi_ly_thuyet * 18 + (int)$hoc_phan_main->tin_chi_thuc_hanh * 36) : 0}} </div>
+                                <div class="text-red font-weight-bold">
+                                    @if(str_contains($ten_hoc_phan_cut, 'BT'))
+                                        <div class="text-red font-weight-bold">{{!empty($hoc_phan_main) ?
+                                ((int)$hoc_phan_main->tin_chi_thuc_hanh * 36) : 0}}</div>
+                                    @else
+                                        <div class="text-red font-weight-bold">{{!empty($hoc_phan_main) ?
+                                ((int)$hoc_phan_main->tin_chi_ly_thuyet * 18)  : 0}}</div>
+                                    @endif
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -126,7 +133,11 @@
                                 <label class="m-0">Số giờ giảng trực tiếp: </label>
                             </div>
                             <div class="col-8">
-                                <div class="text-red font-weight-bold">{{!empty($hoc_phan_main) ? $hoc_phan_main->tin_chi_ly_thuyet * 15 + $hoc_phan_main->tin_chi_thuc_hanh * 30 : 0}}</div>
+                                @if(str_contains($ten_hoc_phan_cut, 'BT'))
+                                    <div class="text-red font-weight-bold">{{!empty($hoc_phan_main) ? $hoc_phan_main->tin_chi_thuc_hanh * 30  : 0}}</div>
+                                @else
+                                    <div class="text-red font-weight-bold">{{!empty($hoc_phan_main) ? $hoc_phan_main->tin_chi_ly_thuyet * 15  : 0}}</div>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -159,7 +170,13 @@
                                 <label class="m-0">Số giờ giảng trực tuyến: </label>
                             </div>
                             <div class="col-8">
-                                <div class="text-red font-weight-bold">{{!empty($hoc_phan_main)  ? $hoc_phan_main->tin_chi_ly_thuyet * 3 + $hoc_phan_main->tin_chi_thuc_hanh * 6 : 0}}</div>
+                                <div class="text-red font-weight-bold">@if(str_contains($ten_hoc_phan_cut, 'BT'))
+                                        <div class="text-red font-weight-bold">{{!empty($hoc_phan_main) ?
+                                ((int)$hoc_phan_main->tin_chi_thuc_hanh * 6) : 0}}</div>
+                                    @else
+                                        <div class="text-red font-weight-bold">{{!empty($hoc_phan_main) ?
+                                ((int)$hoc_phan_main->tin_chi_ly_thuyet * 3)  : 0}}</div>
+                                    @endif</div>
                             </div>
                         </div>
                     </div>
@@ -183,6 +200,7 @@
                             <div class="col-10">
                                 <input class="rounded w-75 form-control" type="text" name="ten_can_bo" value="{{array_key_exists(0,$lich_day) ? $lich_day[0]->gv_giang_day_chinh : ''}}">
                                 <input class="rounded w-75 form-control" type="hidden" name="ma_hoc_phan" value="{{$mhp}}">
+                                <input class="rounded w-75 form-control" type="hidden" name="ten_hoc_phan" value="{{$hoc_phan->ten_hoc_phan}}">
                                 <input class="rounded w-75 form-control" type="hidden" name="id_hoc_phan" value="{{$hoc_phan_main->id_hoc_phan}}">
                                 <input class="rounded w-75 form-control" type="hidden" name="id_don_vi" value="{{$hoc_phan->id_don_vi}}">
                                 <input class="rounded w-75 form-control" type="hidden" name="id_hoc_ky" value="{{$hoc_phan->id_hoc_ky}}">

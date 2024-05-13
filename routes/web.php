@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 //Đăng nhập SSO (single site on)
 Route::get('/', 'App\Http\Controllers\TaiKhoanController@dangNhap')->name('auth.login');
 Route::get('/auth/login', 'App\Http\Controllers\TaiKhoanController@dangNhap')->name('auth.login');
+Route::get('/auth/logout', 'App\Http\Controllers\TaiKhoanController@dangxuat');
 Route::get('/auth/login/callback', 'App\Http\Controllers\TaiKhoanController@callback')->name('auth.callback');
 
 Route::group(['prefix' => '/auth', 'middleware' => 'is.login'], function (){

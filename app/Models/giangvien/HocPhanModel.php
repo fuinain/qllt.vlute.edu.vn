@@ -35,12 +35,18 @@ class HocPhanModel extends Model
     {
         return DB::table('hoc_phan')->where('ma_hoc_phan', trim(explode("_",$ma)[0]))->first();
     }
-    public function saveLichDay($data,$ma_hoc_phan)
+    public function saveLichDay($data,$ma_hoc_phan,$ten_hoc_phan_cut)
     {
-        DB::table('lich_day')->where('ma_hoc_phan',$ma_hoc_phan)->delete();
+        DB::table('lich_day')->where('ma_hoc_phan',$ten_hoc_phan_cut)->delete();
         return DB::table('lich_day')->insert($data);
     }
     public  function  getLich($ma_hoc_phan){
         return DB::table('lich_day')->where('ma_hoc_phan', $ma_hoc_phan)->get();
+    }
+    public function getHocPhanChung($ten_hoc_phan)
+    {
+        $a = $this->select('*', DB::raw("TRIM(SUBSTRING_INDEX(data_crawl_from_vlute_ems.ten_hoc_phan, '-', 1)) AS ten_hoc_phan_cut"))
+            ->get();
+        return $a->where('ten_hoc_phan_cut', trim(explode("-",$ten_hoc_phan)[0]));
     }
 }

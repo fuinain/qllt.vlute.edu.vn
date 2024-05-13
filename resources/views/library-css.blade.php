@@ -32,7 +32,11 @@
 <!-- dropzonejs -->
 <link rel="stylesheet" href="{{asset('plugins/dropzone/min/dropzone.min.css')}}">
 <!-- Theme style -->
+<link rel="stylesheet" href="{{asset('docs/assets/css/adminlte.min.css')}}">
 <link rel="stylesheet" href="{{asset('dist/css/adminlte.min.css')}}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.2.3/dist/js/bootstrap.min.js">
+
+
 
 <style>
     /* Tùy chỉnh cho container của danh sách đề xuất */

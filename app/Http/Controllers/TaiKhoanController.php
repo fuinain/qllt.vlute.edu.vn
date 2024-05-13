@@ -51,6 +51,11 @@ class TaiKhoanController extends Controller
         return Socialite::driver('keycloak')->redirect();
     }
 
+    public function dangXuat(){
+        session()->invalidate();
+        return redirect(env('KEYCLOAK_BASE_URL') . "realms/master/protocol/openid-connect/logout?");
+    }
+
     public function khongCoQuyen() {
         return view('auth.thong-bao.deny-access');
     }

@@ -13,15 +13,17 @@ class HocPhanController extends Controller
         $hocPhanModel = new HocPhanModel();
         $hoc_phan = $hocPhanModel->getHocPhan($ma_hoc_phan);
         $hoc_phan_main = $hocPhanModel->getMain($hoc_phan->ten_hoc_phan_cut);
-        $lich_day = $hocPhanModel->getLich($ma_hoc_phan);
+        $lich_day = $hocPhanModel->getLich(trim(explode("-",$hoc_phan->ten_hoc_phan)[0]));
         return view('giangvien.quanlyhocphan.chitiet-chinh',
-            ['mhp'=>$ma_hoc_phan, 'hoc_phan' => $hoc_phan, 'hoc_phan_main'=> $hoc_phan_main,'lich_day' => $lich_day->toArray()]);
+            ['mhp'=>$ma_hoc_phan, 'hoc_phan' => $hoc_phan,'ten_hoc_phan_cut' => $hoc_phan->ten_hoc_phan_cut,
+             'hoc_phan_main'=> $hoc_phan_main,'lich_day' => $lich_day->toArray()]);
     }
     public function postChiTiet(Request $request) {
         $data_insert = [];
+        $hocPhanModel = new HocPhanModel();
         foreach ($request->noi_dung as $i => $value){
             $data = [
-                'ma_hoc_phan' => $request->ma_hoc_phan,
+                'ma_hoc_phan' => trim(explode("-",$request->ten_hoc_phan)[0]),
                 'id_hoc_phan' => $request->id_hoc_phan,
                 'noi_dung_giang_day' => $value,
                 'bai_giang' => $request->bai_giang[$i],
@@ -33,12 +35,10 @@ class HocPhanController extends Controller
                 'id_hoc_ky' => $request->id_hoc_ky,
                 'id_giang_vien' => $request->id_giang_vien,
                 'gv_giang_day_chinh' =>  $request->ten_can_bo,
-
             ];
-        array_push($data_insert, $data);
+            array_push($data_insert, $data);
         }
-        $hocPhanModel = new HocPhanModel();
-        $hocPhanModel->saveLichDay($data_insert,$request->ma_hoc_phan);
+        $hocPhanModel->saveLichDay($data_insert,$request->ma_hoc_phan,trim(explode("-",$request->ten_hoc_phan)[0]));
         return redirect()->route('giangvien.quanlyhocphan.chitiet.view', $request->ma_hoc_phan);
     }
     public function exportFromTemplate($ma_hoc_phan)
@@ -58,7 +58,15 @@ class HocPhanController extends Controller
             $templatePath = storage_path('/public/excel/BieuMauHPPhu.xlsx');
         }
             $spreadsheet = IOFactory::load($templatePath);
-
+        if(str_contains($hoc_phan->ten_hoc_phan_cut, 'BT')) {
+            $total =  $hoc_phan_main->tin_chi_thuc_hanh * 36 ?? 0;
+            $online = $hoc_phan_main->tin_chi_thuc_hanh * 30 ?? 0;
+            $offline = $hoc_phan_main->tin_chi_thuc_hanh * 6 ?? 0;
+        } else {
+            $total =  $hoc_phan_main->tin_chi_ly_thuyet * 18 ?? 0;
+            $online = $hoc_phan_main->tin_chi_ly_thuyet * 15 ?? 0;
+            $offline = $hoc_phan_main->tin_chi_ly_thuyet * 3 ?? 0;
+        }
         // Get the active sheet
         $sheet = $spreadsheet->getActiveSheet();
         // Example: Replace placeholder with dynamic content
@@ -70,9 +78,9 @@ class HocPhanController extends Controller
         $sheet->setCellValue('D8', 'Cán bộ giảng dạy chính: ' .  (array_key_exists(0, $lich_day) ? $lich_day[0]->gv_giang_day_chinh : ''));
         $sheet->setCellValue('D7', 'Cán bộ giảng dạy: ' . $hoc_phan->ho_ten);
         $sheet->setCellValue('J34', $hoc_phan->ho_ten);
-        $sheet->setCellValue('J5','Tổng số giờ giảng: ' . ($hoc_phan_main->tin_chi_ly_thuyet * 18 + $hoc_phan_main->tin_chi_thuc_hanh * 36));
-        $sheet->setCellValue('J6', 'Số giờ giảng trực tiếp: ' . ($hoc_phan_main->tin_chi_ly_thuyet * 15 + $hoc_phan_main->tin_chi_thuc_hanh * 30));
-        $sheet->setCellValue('J7','Số giờ giảng trực tuyến: ' . ($hoc_phan_main->tin_chi_ly_thuyet * 3 + $hoc_phan_main->tin_chi_thuc_hanh * 6));
+        $sheet->setCellValue('J5','Tổng số giờ giảng: ' . ($total ?? 0));
+        $sheet->setCellValue('J6', 'Số giờ giảng trực tiếp: ' . $online);
+        $sheet->setCellValue('J7','Số giờ giảng trực tuyến: ' . $offline);
         $sheet->setCellValue('H11',$all_tuan);
         $sheet->mergeCells('J28:K28');
         $sheet->setCellValue('J28', 'Vĩnh Long, ngày ' . date('d') .' tháng ' . date('m') . ' năm ' . date('Y') );
@@ -120,7 +128,8 @@ class HocPhanController extends Controller
         }
 
         // Save the modified spreadsheet as a new file
-        $exportPath = storage_path('/public/excel/export.xlsx');
+        $nameExport = $hoc_phan->ten_hoc_phan_cut . '_' . $hoc_phan_main->ten_hoc_phan;
+        $exportPath = storage_path('/public/excel/'. $nameExport . '.xlsx');
         $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
         $writer->save($exportPath);
 
@@ -141,24 +150,29 @@ class HocPhanController extends Controller
         $dataSheet = $worksheet->toArray();
         $hoc_phan = $hocPhanModel->getHocPhan($request->ma_hoc_phan);
         $cellValue = [];
-        for ($row = 11; $row < (($hoc_phan->loai_hoc_ky == 1 || $hoc_phan->loai_hoc_ky == 2) ? 26 : 16); $row++) {
-            $data = [
-                'ma_hoc_phan' => $request->ma_hoc_phan,
-                'id_hoc_phan' => $request->id_hoc_phan,
-                'noi_dung_giang_day' => $dataSheet[$row][2],
-                'bai_giang' => $dataSheet[$row][4],
-                'bai_tap' => $dataSheet[$row][5],
-                'thuc_hanh' =>$dataSheet[$row][6],
-                'cong_viec_chuan_bi' => $dataSheet[$row][9],
-                'ghi_chu' => $dataSheet[$row][10],
-                'id_don_vi' => $hoc_phan->id_don_vi,
-                'id_hoc_ky' => $hoc_phan->id_hoc_ky,
-                'id_giang_vien' => $hoc_phan->id_giang_vien,
-                'gv_giang_day_chinh' =>  trim(explode(":",$dataSheet[7][3])[1] ?? ''),
-            ];
-            array_push($cellValue, $data);
-        }
-        $hocPhanModel->saveLichDay($cellValue,$request->ma_hoc_phan);
+        $getHocPhanChung = $hocPhanModel->getHocPhanChung($hoc_phan->ten_hoc_phan);
+                for (
+                    $row = 11; $row < (($hoc_phan->loai_hoc_ky == 1
+                    || $hoc_phan->loai_hoc_ky == 2) ? 26 : 16); $row++
+                ) {
+                    $data = [
+                        'ma_hoc_phan' => trim(explode("-",$request->ten_hoc_phan)[0]),
+                        'id_hoc_phan' => $request->id_hoc_phan,
+                        'noi_dung_giang_day' => $dataSheet[$row][2],
+                        'bai_giang' => $dataSheet[$row][4],
+                        'bai_tap' => $dataSheet[$row][5],
+                        'thuc_hanh' => $dataSheet[$row][6],
+                        'cong_viec_chuan_bi' => $dataSheet[$row][9],
+                        'ghi_chu' => $dataSheet[$row][10],
+                        'id_don_vi' => $hoc_phan->id_don_vi,
+                        'id_hoc_ky' => $hoc_phan->id_hoc_ky,
+                        'id_giang_vien' => $hoc_phan->id_giang_vien,
+                        'gv_giang_day_chinh' => trim(explode(":",
+                            $dataSheet[7][3])[1] ?? ''),
+                    ];
+                    array_push($cellValue, $data);
+                }
+        $hocPhanModel->saveLichDay($cellValue,$request->ma_hoc_phan,trim(explode("-",$request->ten_hoc_phan)[0]));
 
         return response()->json([
             'message' => 'Thành công',

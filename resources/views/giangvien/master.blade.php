@@ -21,7 +21,7 @@
     <nav class="main-header navbar navbar-expand navbar-white navbar-light">
         <!-- Left navbar links -->
         <ul class="navbar-nav">
-            <li class="nav-item ">
+            <li class="nav-item">
                 <a class="nav-link btnCollape" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
             </li>
         </ul>
@@ -29,34 +29,36 @@
         <!-- Right navbar links -->
         <ul class="navbar-nav ml-auto">
             <!-- Navbar Search -->
-            <li class="nav-item">
-                <a class="nav-link" data-widget="navbar-search" href="#" role="button">
-                    <i class="fas fa-search"></i>
-                </a>
-                <div class="navbar-search-block">
-                    <form class="form-inline">
-                        <div class="input-group input-group-sm">
-                            <input class="form-control form-control-navbar" type="search" placeholder="Search"
-                                   aria-label="Search">
-                            <div class="input-group-append">
-                                <button class="btn btn-navbar" type="submit">
-                                    <i class="fas fa-search"></i>
-                                </button>
-                                <button class="btn btn-navbar" type="button" data-widget="navbar-search">
-                                    <i class="fas fa-times"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-
-            {{--full-screen--}}
-            <li class="nav-item">
-                <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-                    <i class="fas fa-expand-arrows-alt"></i>
-                </a>
-            </li>
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown user user-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                            <img src="{{asset('dist/img/logovlute.png')}}" class="user-image" alt="User Image">
+                            <span class="hidden-xs">{{ session('HoTen') }}</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="user-header">
+                                <img src="{{asset('dist/img/logovlute.png')}}" class="img-circle" alt="User Image">
+                                <p>
+                                    {{ session('HoTen') }}
+                                    <small>
+                                        {{ session('Email') }}
+                                    </small>
+                                </p>
+                            </li>
+                            <li class="user-footer">
+                                <div class="pull-right">
+                                    <a href="{{action('App\Http\Controllers\TaiKhoanController@dangxuat')}}"
+                                       class="btn btn-default btn-flat">Đăng xuất</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
         </ul>
+
+
     </nav>
     <!-- /.navbar -->
 
@@ -71,15 +73,6 @@
 
         <!-- Sidebar -->
         <div class="sidebar">
-            <!-- Sidebar user panel (optional) -->
-            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                <div class="align-content-center"
-                     style="padding: 3.5px; align-items: center; display: flex; margin-left: 5px">
-                    <img src="{{asset('dist/img/icon-user.png')}}" class="mr-1" style="height: 40px; width: 40px">
-                    <div class="info text-white nameGiangVien" style="font-size: 15px; padding: 5px;">{{ session('HoTen') }}</div>
-                </div>
-            </div>
-
             <!-- Sidebar Menu -->
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
@@ -107,8 +100,11 @@
 </div>
 @include('library-js');
 <script>
-
-    console.log(btnCollape);
+    $(document).ready(function(){
+        $('.dropdown-toggle').click(function(){
+            $(this).next('.dropdown-menu').toggle();
+        });
+    });
 
     $(function () {
         //Datemask dd/mm/yyyy
