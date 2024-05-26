@@ -22,7 +22,7 @@
         <!-- Left navbar links -->
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link btnCollape" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+                <a class="nav-link btnCollape" data-widget="pushmenu" href="" role="button"><i class="fas fa-bars"></i></a>
             </li>
         </ul>
 
@@ -32,7 +32,7 @@
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
                     <li class="dropdown user user-menu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        <a href="#" class="dropdown-toggle" aria-expanded="false">
                             <img src="{{asset('dist/img/logovlute.png')}}" class="user-image" alt="User Image">
                             <span class="hidden-xs">{{ session('HoTen') }}</span>
                         </a>
@@ -78,7 +78,7 @@
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                     data-accordion="false">
                     <li class="nav-item">
-                        <a href="#" class="nav-link active">
+                        <a href="{{ action('App\Http\Controllers\giangvien\DashBoardController@getViewDashBoard') }}" class="nav-link active">
                             <i class="nav-icon fas fa-info"></i>
                             <p>
                                 Quản lý thông tin
