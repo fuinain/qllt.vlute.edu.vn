@@ -22,7 +22,8 @@ class HocKyController extends Controller
     public function syncHocKy()
     {
         // Đường dẫn đến trình thông dịch Python
-        $pythonPath = 'C:\Users\ADMIN\AppData\Local\Programs\Python\Python312\python.exe';
+//        $pythonPath = 'C:\Users\ADMIN\AppData\Local\Programs\Python\Python312\python.exe';
+        $pythonPath = 'C:\Users\huynh\AppData\Local\Programs\Python\Python312\python.exe';
 
         // Đường dẫn đến file Python
         $pythonScriptPath = base_path('crawl_data_from_vlute_ems/crawl_hoc_ky.py');
