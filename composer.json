@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "ext-curl": "*",
         "ext-fileinfo": "*",
         "ext-gd": "*",
         "brian2694/laravel-toastr": "^5.59",
@@ -14,9 +15,8 @@
         "laravel/sanctum": "^3.3",
         "laravel/socialite": "^5.12",
         "laravel/tinker": "^2.8",
-        "phpoffice/phpspreadsheet": "^2.0",
-        "socialiteproviders/keycloak": "^5.3",
-      "ext-curl": "*"
+        "phpoffice/phpspreadsheet": "^2.1",
+        "socialiteproviders/keycloak": "^5.3"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
