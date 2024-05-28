@@ -6,7 +6,6 @@ trùng mã hp trong hk chính (LT): lấy nội dung
 
 chỉnh lại tgian, số tc,
 
-
 quy định về số giờ
 
 Lý thuyết: 1 chỉ
@@ -18,3 +17,4 @@ Thực hành: 1 chỉ
 Tổng số giờ giảng: 36
 Giờ giảng trực tiếp: 30
 Giờ giảng trực tuyến: 6
+
