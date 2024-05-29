@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-9">
-                    <h1 class="m-0">Quản lý lịch trình / Lớp học phần / {{$mhp}}</h1>
+                    <h1 class="m-0">Quản lý lịch trình / Lớp học phần lý thuyết/ <b>{{$mhp}}</b> </h1>
                 </div><!-- /.col -->
                 <div class="col-sm-3">
                     <ol class="breadcrumb float-sm-right">
@@ -93,7 +93,7 @@
                             </div>
                             <div class="col-8">
                                 <div class="text-red font-weight-bold">
-                                    @if(str_contains($ten_hoc_phan_cut, 'BT'))
+                                    @if(str_contains($ten_hoc_phan_cut, 'BT') || str_contains($hoc_phan_main->ten_hoc_phan, 'CNTT'))
                                         <div class="text-red font-weight-bold">{{!empty($hoc_phan_main) ?
                                 ((int)$hoc_phan_main->tin_chi_thuc_hanh * 36) : 0}}</div>
                                     @else
@@ -133,7 +133,7 @@
                                 <label class="m-0">Số giờ giảng trực tiếp: </label>
                             </div>
                             <div class="col-8">
-                                @if(str_contains($ten_hoc_phan_cut, 'BT'))
+                                @if(str_contains($ten_hoc_phan_cut, 'BT') || str_contains($hoc_phan_main->ten_hoc_phan, 'CNTT'))
                                     <div class="text-red font-weight-bold">{{!empty($hoc_phan_main) ? $hoc_phan_main->tin_chi_thuc_hanh * 30  : 0}}</div>
                                 @else
                                     <div class="text-red font-weight-bold">{{!empty($hoc_phan_main) ? $hoc_phan_main->tin_chi_ly_thuyet * 15  : 0}}</div>
@@ -170,7 +170,8 @@
                                 <label class="m-0">Số giờ giảng trực tuyến: </label>
                             </div>
                             <div class="col-8">
-                                <div class="text-red font-weight-bold">@if(str_contains($ten_hoc_phan_cut, 'BT'))
+                                <div class="text-red font-weight-bold">
+                                    @if(str_contains($ten_hoc_phan_cut, 'BT') || str_contains($hoc_phan_main->ten_hoc_phan, 'CNTT'))
                                         <div class="text-red font-weight-bold">{{!empty($hoc_phan_main) ?
                                 ((int)$hoc_phan_main->tin_chi_thuc_hanh * 6) : 0}}</div>
                                     @else
@@ -181,7 +182,7 @@
                         </div>
                     </div>
                 </div>
-                <form action="{{route('giangvien.quanlyhocphan.chitiet')}}" method="POST" class="form-group">
+                <form action="{{route('giangvien.quanlyhocphan.chitietlt')}}" method="POST" class="form-group">
                     @csrf
                 <div class="row my-3">
                     <div class="col-xxl-3">
@@ -247,11 +248,23 @@
                     </thead>
 
                     <tbody >
-                    @if($hoc_phan->loai_hoc_ky == 1 || $hoc_phan->loai_hoc_ky == 2)
+                    @php
+                        function extractWeeks($input) {
+                            // Loại bỏ phần đầu của chuỗi không cần thiết
+                            $trimmedInput = trim(str_replace('Tuần học:', '', $input));
+                            // Tách các tuần bằng dấu -
+                            $weeks = array_map('trim', explode('-', $trimmedInput));
+                            // Lọc các giá trị rỗng và chuyển đổi sang số nguyên
+                            $weeks = array_filter($weeks, fn($week) => is_numeric($week));
+                            return array_values(array_map('intval', $weeks));
+                        }
+                        $weeks = extractWeeks($hoc_phan->tuan_hoc);
+                    @endphp
+                    @if(count($weeks) > 5)
                         @for($i=0;$i<15;$i++)
                             <tr>
                                 <td>{{ \Carbon\Carbon::parse($hoc_phan->ngay_bat_dau)->addDays(($i) * 7)->format('m') }}</td>
-                                <td>{{$hoc_phan->tuan_bat_dau + $i }}</td>
+                                <td>{{ $i > count($weeks) - 1 ? '' : $weeks[$i] }}</td>
                                 <td class="p-1 w-25">
                                     <textarea class="h-100 py-2 border border-white form-control" rows="3" name="noi_dung[{{$i}}]">
                                         {{array_key_exists($i,$lich_day) ? trim($lich_day[$i]->noi_dung_giang_day) : ''}}
@@ -278,7 +291,7 @@
                         @for($i=0;$i<5;$i++)
                             <tr>
                                 <td>{{ \Carbon\Carbon::parse($hoc_phan->ngay_bat_dau)->addDays(($i) * 7)->format('m') }}</td>
-                                <td>{{$hoc_phan->tuan_bat_dau + $i }}</td>
+                                <td>{{$i > count($weeks) - 1 ? '' : $weeks[$i] }}</td>
                                 <td class="p-1 w-25">
                                     <textarea class="h-100 py-2 border border-white form-control" rows="3" name="noi_dung[{{$i}}]">
                                         {{array_key_exists($i,$lich_day) ? trim($lich_day[$i]->noi_dung_giang_day) : ''}}

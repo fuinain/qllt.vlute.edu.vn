@@ -35,13 +35,13 @@ class HocPhanModel extends Model
     {
         return DB::table('hoc_phan')->where('ma_hoc_phan', trim(explode("_",$ma)[0]))->first();
     }
-    public function saveLichDay($data,$ma_hoc_phan,$ten_hoc_phan_cut)
+    public function saveLichDay($data,$ma_hoc_phan,$ten_hoc_phan_cut,$table = 'lich_day')
     {
-        DB::table('lich_day')->where('ma_hoc_phan',$ten_hoc_phan_cut)->delete();
-        return DB::table('lich_day')->insert($data);
+        DB::table($table)->where('ma_hoc_phan',$ten_hoc_phan_cut)->delete();
+        return DB::table($table)->insert($data);
     }
-    public  function  getLich($ma_hoc_phan){
-        return DB::table('lich_day')->where('ma_hoc_phan', $ma_hoc_phan)->get();
+    public  function  getLich($ma_hoc_phan,$table = 'lich_day'){
+        return DB::table($table)->where('ma_hoc_phan', $ma_hoc_phan)->get();
     }
     public function getHocPhanChung($ten_hoc_phan)
     {

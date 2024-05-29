@@ -95,9 +95,15 @@ Route::group(['prefix' => '/auth', 'middleware' => 'is.login'], function (){
 //    });
 
     Route::get('/giangvien/quanlyhocphan/chitiet/{ma_hoc_phan}', 'App\Http\Controllers\giangvien\HocPhanController@getViewChiTiet')->name('giangvien.quanlyhocphan.chitiet.view');
-    Route::post('/giangvien/quanlyhocphan/chitiet', 'App\Http\Controllers\giangvien\HocPhanController@postChiTiet')->name('giangvien.quanlyhocphan.chitiet');
+
+    Route::post('/giangvien/quanlyhocphan/chitietlythuyet', 'App\Http\Controllers\giangvien\HocPhanController@postChiTietLyThuyet')->name('giangvien.quanlyhocphan.chitietlt');
     Route::get('/giangvien/quanlyhocphan/export/{ma_hoc_phan}', 'App\Http\Controllers\giangvien\HocPhanController@exportFromTemplate')->name('giangvien.quanlyhocphan.chitiet.export');
     Route::post('/giangvien/quanlyhocphan/import', 'App\Http\Controllers\giangvien\HocPhanController@importFromTemplate')->name('giangvien.quanlyhocphan.chitiet.import');
+
+    Route::post('/giangvien/quanlyhocphan/chitietthuchanh', 'App\Http\Controllers\giangvien\HocPhanController@postChiTietThucHanh')->name('giangvien.quanlyhocphan.chitietth');
+    Route::get('/giangvien/quanlyhocphan/export-th/{ma_hoc_phan}', 'App\Http\Controllers\giangvien\HocPhanController@exportFromTemplateTH')->name('giangvien.quanlyhocphan.chitiet.export-th');
+    Route::post('/giangvien/quanlyhocphan/import-th', 'App\Http\Controllers\giangvien\HocPhanController@importFromTemplateTH')->name('giangvien.quanlyhocphan.chitiet.import-th');
+
 
 
 });
