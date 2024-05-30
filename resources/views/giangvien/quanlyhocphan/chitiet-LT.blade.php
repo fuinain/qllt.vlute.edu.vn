@@ -46,7 +46,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <label for="">Chọn file (*.xlsx) hoặc tải về
-                                    <a target="_blank" href="{{asset('excel/BieuMauHP.xlsx')}}">
+                                    <a target="_blank" href="{{asset('excel/filemau_hp_lt.xlsx')}}">
                                         File mẫu
                                     </a>
                                 </label>
@@ -249,14 +249,16 @@
 
                     <tbody >
                     @php
-                        function extractWeeks($input) {
-                            // Loại bỏ phần đầu của chuỗi không cần thiết
-                            $trimmedInput = trim(str_replace('Tuần học:', '', $input));
-                            // Tách các tuần bằng dấu -
-                            $weeks = array_map('trim', explode('-', $trimmedInput));
-                            // Lọc các giá trị rỗng và chuyển đổi sang số nguyên
-                            $weeks = array_filter($weeks, fn($week) => is_numeric($week));
-                            return array_values(array_map('intval', $weeks));
+                        if (!function_exists('extractWeeks'))   {
+                          function extractWeeks($input) {
+                                // Loại bỏ phần đầu của chuỗi không cần thiết
+                                $trimmedInput = trim(str_replace('Tuần học:', '', $input));
+                                // Tách các tuần bằng dấu -
+                                $weeks = array_map('trim', explode('-', $trimmedInput));
+                                // Lọc các giá trị rỗng và chuyển đổi sang số nguyên
+                                $weeks = array_filter($weeks, fn($week) => is_numeric($week));
+                                return array_values(array_map('intval', $weeks));
+                            }
                         }
                         $weeks = extractWeeks($hoc_phan->tuan_hoc);
                     @endphp

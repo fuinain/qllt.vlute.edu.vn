@@ -101,12 +101,13 @@ class GiangVienController extends Controller
         $dataExcel = SpreadsheetModel::readExcel($request->file('file-excel'));
         $tong = 0;
         $num_row = 0;
-
+        $dataArray = array();
         foreach ($dataExcel['data'] as $item) {
+            if (trim($item[0]) == '')
+                break;
             $num_row++;
             if ($num_row == 1)
                 continue;
-
 
             $data = [
                 'id_giang_vien' => trim($item[0]),
@@ -135,21 +136,20 @@ class GiangVienController extends Controller
 
         foreach ($dataArray as $data) {
             $gv = new GiangVienModel();
-            $gv->id_giang_vien = $data['id_giang_vien'];
+            $gv->id_giang_vien = (int)$data['id_giang_vien'];
             $gv->ho_ten = $data['ho_ten'];
             $gv->hoc_vi = $data['hoc_vi'];
             $gv->email = $data['email'];
             $gv->cccd = $data['cccd'];
             $gv->ngay_sinh = $data['ngay_sinh'];
             $gv->so_dien_thoai = $data['so_dien_thoai'];
-            $gv->id_don_vi = $data['id_don_vi'];
+            $gv->id_don_vi = (int)$data['id_don_vi'];
             $gv->quyen = $data['quyen'];
 
             $count = $gv->them();
             if ($count)
                 $tong++;
         }
-
         if($tong == $num_row-1)
             return response()->json(['message' => 'Nhập thành công', 'status' => 200],200);
         return response()->json(['message' => 'Nhập thất bại', 'status' => 500],500);

@@ -88,6 +88,11 @@
 <script src="{{asset('dist/js/pages/dashboard.js')}}"></script>
 <script src="{{asset('plugins/toastr/toastr.min.js')}}"></script>
 <script>
+    $(document).ready(function(){
+        $('.dropdown-toggle').click(function(){
+            $(this).next('.dropdown-menu').toggle();
+        });
+    });
 
     $(function () {
         //Datemask dd/mm/yyyy

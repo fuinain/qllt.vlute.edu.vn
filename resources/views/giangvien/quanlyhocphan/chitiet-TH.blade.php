@@ -46,7 +46,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <label for="">Chọn file (*.xlsx) hoặc tải về
-                                    <a target="_blank" href="{{asset('excel/BieuMauHP.xlsx')}}">
+                                    <a target="_blank" href="{{asset('excel/filemau_hp_th.xlsx')}}">
                                         File mẫu
                                     </a>
                                 </label>
@@ -102,15 +102,15 @@
                                 <label class="m-0">Tổng số giờ giảng: </label>
                             </div>
                             <div class="col-4">
-                                                                <div class="text-red font-weight-bold">
-                                                                    @if(str_contains($ten_hoc_phan_cut, 'BT'))
-                                                                        <div class="text-red font-weight-bold">{{!empty($hoc_phan_main) ?
-                                                                ((int)$hoc_phan_main->tin_chi_thuc_hanh * 36) : 0}}</div>
-                                                                    @else
-                                                                        <div class="text-red font-weight-bold">{{!empty($hoc_phan_main) ?
-                                                                ((int)$hoc_phan_main->tin_chi_ly_thuyet * 18)  : 0}}</div>
-                                                                    @endif
-                                                                </div>
+                                <div class="text-red font-weight-bold">
+                                    @if(str_contains($ten_hoc_phan_cut, 'BT') || str_contains($hoc_phan_main->ten_hoc_phan, 'CNTT'))
+                                        <div class="text-red font-weight-bold">{{!empty($hoc_phan_main) ?
+                                ((int)$hoc_phan_main->tin_chi_thuc_hanh * 36) : 0}}</div>
+                                    @else
+                                        <div class="text-red font-weight-bold">{{!empty($hoc_phan_main) ?
+                                ((int)$hoc_phan_main->tin_chi_ly_thuyet * 18)  : 0}}</div>
+                                    @endif
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -143,13 +143,13 @@
                                 <label class="m-0">Số giờ giảng trực tiếp: </label>
                             </div>
                             <div class="col-4">
-                                                                @if(str_contains($ten_hoc_phan_cut, 'BT'))
-                                                                    <div
-                                                                        class="text-red font-weight-bold">{{!empty($hoc_phan_main) ? $hoc_phan_main->tin_chi_thuc_hanh * 30  : 0}}</div>
-                                                                @else
-                                                                    <div
-                                                                        class="text-red font-weight-bold">{{!empty($hoc_phan_main) ? $hoc_phan_main->tin_chi_ly_thuyet * 15  : 0}}</div>
-                                                                @endif
+                                @if(str_contains($ten_hoc_phan_cut, 'BT') || str_contains($hoc_phan_main->ten_hoc_phan, 'CNTT'))
+                                    <div
+                                        class="text-red font-weight-bold">{{!empty($hoc_phan_main) ? $hoc_phan_main->tin_chi_thuc_hanh * 30  : 0}}</div>
+                                @else
+                                    <div
+                                        class="text-red font-weight-bold">{{!empty($hoc_phan_main) ? $hoc_phan_main->tin_chi_ly_thuyet * 15  : 0}}</div>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -190,13 +190,13 @@
                                 </div>
                                 <div class="col-4">
                                     <div class="text-red font-weight-bold">
-                                                                                @if(str_contains($ten_hoc_phan_cut, 'BT'))
-                                                                                    <div class="text-red font-weight-bold">{{!empty($hoc_phan_main) ?
-                                                                                                            ((int)$hoc_phan_main->tin_chi_thuc_hanh * 6) : 0}}</div>
-                                                                                @else
-                                                                                    <div class="text-red font-weight-bold">{{!empty($hoc_phan_main) ?
-                                                                                                            ((int)$hoc_phan_main->tin_chi_ly_thuyet * 3)  : 0}}</div>
-                                                                                @endif</div>
+                                        @if(str_contains($ten_hoc_phan_cut, 'BT') || str_contains($hoc_phan_main->ten_hoc_phan, 'CNTT'))
+                                            <div class="text-red font-weight-bold">{{!empty($hoc_phan_main) ?
+                                                                    ((int)$hoc_phan_main->tin_chi_thuc_hanh * 6) : 0}}</div>
+                                        @else
+                                            <div class="text-red font-weight-bold">{{!empty($hoc_phan_main) ?
+                                                                    ((int)$hoc_phan_main->tin_chi_ly_thuyet * 3)  : 0}}</div>
+                                        @endif</div>
                                     </div>
                                 </div>
                             </div>

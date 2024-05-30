@@ -13,7 +13,7 @@ class HocPhanController extends Controller
         $hocPhanModel = new HocPhanModel();
         $hoc_phan = $hocPhanModel->getHocPhan($ma_hoc_phan);
         $hoc_phan_main = $hocPhanModel->getMain($hoc_phan->ten_hoc_phan_cut);
-        if(str_contains($hoc_phan->ten_hoc_phan_cut, 'BT')) {
+        if(str_contains($hoc_phan->ten_hoc_phan_cut, 'BT') || str_contains($hoc_phan_main->ten_hoc_phan, 'CNTT')) {
             $lich_day = $hocPhanModel->getLich(trim(explode("-",$hoc_phan->ten_hoc_phan)[0]),'lich_day_th');
             return view('giangvien.quanlyhocphan.chitiet-TH',
                 ['mhp'=>$ma_hoc_phan, 'hoc_phan' => $hoc_phan,'ten_hoc_phan_cut' => $hoc_phan->ten_hoc_phan_cut,
