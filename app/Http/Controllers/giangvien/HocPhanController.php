@@ -307,4 +307,55 @@ class HocPhanController extends Controller
 
         return response()->download($exportPath)->deleteFileAfterSend(true);
     }
+    public function  importFromTemplate(Request $request)
+    {
+        try {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls',
+        ]);
+        $hocPhanModel = new HocPhanModel();
+        $file = $request->file('file');
+
+        $spreadsheet = IOFactory::load($file);
+
+        $worksheet = $spreadsheet->getActiveSheet();
+        $dataSheet = $worksheet->toArray();
+        $hoc_phan = $hocPhanModel->getHocPhan($request->ma_hoc_phan);
+        $cellValue = [];
+        $getHocPhanChung = $hocPhanModel->getHocPhanChung($hoc_phan->ten_hoc_phan);
+                for (
+                    $row = 11; $row < (($hoc_phan->loai_hoc_ky == 1
+                    || $hoc_phan->loai_hoc_ky == 2) ? 26 : 16); $row++
+                ) {
+                    $data = [
+                        'ma_hoc_phan' => trim(explode("-",$request->ten_hoc_phan)[0]),
+                        'id_hoc_phan' => $request->id_hoc_phan,
+                        'noi_dung_giang_day' => $dataSheet[$row][2],
+                        'bai_giang' => $dataSheet[$row][4],
+                        'bai_tap' => $dataSheet[$row][5],
+                        'thuc_hanh' => $dataSheet[$row][6],
+                        'cong_viec_chuan_bi' => $dataSheet[$row][9],
+                        'ghi_chu' => $dataSheet[$row][10],
+                        'id_don_vi' => $hoc_phan->id_don_vi,
+                        'id_hoc_ky' => $hoc_phan->id_hoc_ky,
+                        'id_giang_vien' => $hoc_phan->id_giang_vien,
+                        'gv_giang_day_chinh' => trim(explode(":",
+                            $dataSheet[7][3])[1] ?? ''),
+                    ];
+                    array_push($cellValue, $data);
+                }
+        $hocPhanModel->saveLichDay($cellValue,$request->ma_hoc_phan,trim(explode("-",$request->ten_hoc_phan)[0]));
+
+        return response()->json([
+            'message' => 'Thành công',
+            'status' => 200
+        ]);
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+            return response()->json([
+                'message' => 'Thất bại',
+                'status' => 500
+            ]);
+        }
+    }
 }
