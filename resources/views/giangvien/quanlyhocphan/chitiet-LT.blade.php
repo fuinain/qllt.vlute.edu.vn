@@ -280,7 +280,7 @@
                                 </td>
                                 <td></td>
                                 <td class="p-1 w-25">
-                                    <textarea class="h-100 py-2 border border-white form-control" style="resize: none; rows="3" name="cong_viec[{{$i}}]">
+                                    <textarea class="h-100 py-2 border border-white form-control" style="resize: none;" rows="3" name="cong_viec[{{$i}}]">
                                     {{array_key_exists($i,$lich_day) ? $lich_day[$i]->cong_viec_chuan_bi : ''}}
                                     </textarea></td>
                                 <td class="p-1 w-25">
@@ -307,7 +307,7 @@
                                 </td>
                                 <td></td>
                                 <td class="p-1 w-25">
-                                    <textarea class="h-100 py-2 border border-white form-control" style="resize: none; rows="3" name="cong_viec[{{$i}}]">
+                                    <textarea class="h-100 py-2 border border-white form-control" style="resize: none;" rows="3" name="cong_viec[{{$i}}]">
                                         {{array_key_exists($i,$lich_day) ? $lich_day[$i]->cong_viec_chuan_bi : ''}}
                                     </textarea></td>
                                 <td class="p-1 w-25">
@@ -352,9 +352,9 @@
                             success: function (result) {
                                 if (result.status === 200) {
                                     toastr.success(result.message);
-                                    setTimeout(function () {
-                                        location.reload();
-                                    }, 750);
+                                    // setTimeout(function () {
+                                    //     location.reload();
+                                    // }, 750);
                                 } else {
                                     toastr.error(result.message);
                                 }
