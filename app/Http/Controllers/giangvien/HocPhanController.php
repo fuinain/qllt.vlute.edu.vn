@@ -387,7 +387,7 @@ class HocPhanController extends Controller
                 ];
                 array_push($cellValue, $data);
             }
-            $hocPhanModel->saveLichDay($cellValue, $request->ma_hoc_phan, trim(explode("-", $request->ten_hoc_phan)[0]));
+            $hocPhanModel->saveLichDay($cellValue, $request->ma_hoc_phan, trim(explode("-", $request->ten_hoc_phan)[0]),'lich_day');
 
             return response()->json([
                 'message' => 'Thành công',
