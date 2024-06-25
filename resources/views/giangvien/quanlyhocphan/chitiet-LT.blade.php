@@ -352,9 +352,9 @@
                             success: function (result) {
                                 if (result.status === 200) {
                                     toastr.success(result.message);
-                                    // setTimeout(function () {
-                                    //     location.reload();
-                                    // }, 750);
+                                    setTimeout(function () {
+                                        location.reload();
+                                    }, 750);
                                 } else {
                                     toastr.error(result.message);
                                 }
