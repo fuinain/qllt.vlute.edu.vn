@@ -14,19 +14,6 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
---
--- Current Database: `qllt`
---
-
-CREATE DATABASE /*!32312 IF NOT EXISTS*/ `qllt` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-
-USE `qllt`;
-
---
--- Table structure for table `crawl`
---
-
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE IF NOT EXISTS `crawl` (
@@ -284,7 +271,7 @@ BEGIN
     DECLARE done INT DEFAULT FALSE;
     DECLARE tableName VARCHAR(100);
     DECLARE idColumn VARCHAR(100);
-    DECLARE cur CURSOR FOR 
+    DECLARE cur CURSOR FOR
         SELECT TABLE_NAME, COLUMN_NAME
         FROM information_schema.columns
         WHERE TABLE_SCHEMA = 'quanlylichtrinh' AND COLUMN_NAME LIKE 'id_%';

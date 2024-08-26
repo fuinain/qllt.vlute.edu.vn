@@ -15,7 +15,7 @@
         "laravel/sanctum": "^3.3",
         "laravel/socialite": "^5.12",
         "laravel/tinker": "^2.8",
-        "phpoffice/phpspreadsheet": "^2.1",
+        "phpoffice/phpspreadsheet": "^2.2",
         "socialiteproviders/keycloak": "^5.3"
     },
     "require-dev": {
