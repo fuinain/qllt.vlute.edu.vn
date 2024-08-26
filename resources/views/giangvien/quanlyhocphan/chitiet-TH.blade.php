@@ -245,26 +245,18 @@
                                     <tr>
                                         <td>{{$i+1}}</td>
                                         <td class="p-1 w-25">
-                                    <textarea class="h-100 py-2 border border-white form-control" style=" " rows="3" name="ten_de_muc[{{$i}}]">
-                                        {{array_key_exists($i,$lich_day) ? $lich_day[$i]->ten_de_muc : ''}}
-                                    </textarea>
+                                    <textarea class="h-100 py-2 border border-white form-control" style=" " rows="3" name="ten_de_muc[{{$i}}]">{{array_key_exists($i,$lich_day) ? $lich_day[$i]->ten_de_muc : ''}}</textarea>
                                         </td>
                                         <td class="p-1 w-25">
-                                    <textarea class="h-100 py-2 border border-white form-control" style=" " rows="3" name="so_gio_quy_dinh[{{$i}}]">
-                                        {{array_key_exists($i,$lich_day) ? $lich_day[$i]->so_gio_quy_dinh : ''}}
-                                    </textarea>
+                                    <textarea class="h-100 py-2 border border-white form-control" style=" " rows="3" name="so_gio_quy_dinh[{{$i}}]">{{array_key_exists($i,$lich_day) ? $lich_day[$i]->so_gio_quy_dinh : ''}}</textarea>
                                         </td>
                                         <th></th>
                                         <td class="p-1 w-25">
-                                    <textarea class="h-100 py-2 border border-white form-control" style=" " rows="3" name="noi_dung[{{$i}}]">
-                                        {{array_key_exists($i,$lich_day) ? $lich_day[$i]->noi_dung : ''}}
-                                    </textarea>
+                                    <textarea class="h-100 py-2 border border-white form-control" style=" " rows="3" name="noi_dung[{{$i}}]">{{array_key_exists($i,$lich_day) ? $lich_day[$i]->noi_dung : ''}}</textarea>
                                         </td>
                                         <td>{{$i > count($weeks) - 1 ? '' : $weeks[$i] }}</td>
                                         <td class="" style="width: 200px">
-                                    <textarea class="h-100 py-2 border border-white form-control" style=" " rows="3" name="ghi_chu[{{$i}}]">
-                                        {{array_key_exists($i,$lich_day) ? $lich_day[$i]->ghi_chu : ''}}
-                                    </textarea>
+                                    <textarea class="h-100 py-2 border border-white form-control" style=" " rows="3" name="ghi_chu[{{$i}}]">{{array_key_exists($i,$lich_day) ? $lich_day[$i]->ghi_chu : ''}}</textarea>
                                         </td>
                                     </tr>
                                 @endfor
@@ -273,26 +265,18 @@
                                     <tr>
                                         <td>{{$i+1}}</td>
                                         <td class="p-1 w-25">
-                                    <textarea class="h-100 py-2 border border-white form-control" style=" " rows="3" name="ten_de_muc[{{$i}}]">
-                                        {{array_key_exists($i,$lich_day) ? $lich_day[$i]->ten_de_muc : ''}}
-                                    </textarea>
+                                    <textarea class="h-100 py-2 border border-white form-control" style=" " rows="3" name="ten_de_muc[{{$i}}]">{{array_key_exists($i,$lich_day) ? $lich_day[$i]->ten_de_muc : ''}}</textarea>
                                         </td>
                                         <td class="p-1 w-25">
-                                    <textarea class="h-100 py-2 border border-white form-control" style=" " rows="3" name="so_gio_quy_dinh[{{$i}}]">
-                                        {{array_key_exists($i,$lich_day) ? $lich_day[$i]->so_gio_quy_dinh : ''}}
-                                    </textarea>
+                                    <textarea class="h-100 py-2 border border-white form-control" style=" " rows="3" name="so_gio_quy_dinh[{{$i}}]">{{array_key_exists($i,$lich_day) ? $lich_day[$i]->so_gio_quy_dinh : ''}}</textarea>
                                         </td>
                                         <th></th>
                                         <td class="p-1 w-25">
-                                    <textarea class="h-100 py-2 border border-white form-control" style=" " rows="3" name="noi_dung[{{$i}}]">
-                                        {{array_key_exists($i,$lich_day) ? $lich_day[$i]->noi_dung : ''}}
-                                    </textarea>
+                                    <textarea class="h-100 py-2 border border-white form-control" style=" " rows="3" name="noi_dung[{{$i}}]">{{array_key_exists($i,$lich_day) ? $lich_day[$i]->noi_dung : ''}}</textarea>
                                         </td>
                                         <td>{{$i > count($weeks) - 1 ? '' : $weeks[$i] }}</td>
                                         <td class="" style="width: 200px">
-                                    <textarea class="h-100 py-2 border border-white form-control" style=" " rows="3" name="ghi_chu[{{$i}}]">
-                                        {{array_key_exists($i,$lich_day) ? $lich_day[$i]->ghi_chu : ''}}
-                                    </textarea>
+                                    <textarea class="h-100 py-2 border border-white form-control" style=" " rows="3" name="ghi_chu[{{$i}}]">{{array_key_exists($i,$lich_day) ? $lich_day[$i]->ghi_chu : ''}}</textarea>
                                         </td>
                                     </tr>
                                 @endfor
@@ -310,6 +294,11 @@
         @endsection
         @section('script')
             <script>
+                $(document).ready(function(){
+                    $('textarea').on('blur', function(){
+                        $(this).val($.trim($(this).val()));
+                    });
+                });
                 $('.btnExcel').click(function () {
                     $('.md2 .modal-title').text('Import dữ liệu');
                     $('.md2').modal('show');

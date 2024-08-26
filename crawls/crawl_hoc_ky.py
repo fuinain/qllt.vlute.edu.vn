@@ -5,9 +5,9 @@ try:
     # Kết nối tới cơ sở dữ liệu MySQL
     conn = mysql.connector.connect(
         host='localhost',
-        database='quanlylichtrinh',
-        user='root',
-        password='root',
+        database='qllt',
+        user='qllt',
+        password='X07zKDG5LkGSxNT',
         port=3306
     )
     cursor = conn.cursor()

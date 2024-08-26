@@ -33,12 +33,12 @@ class HocPhanController extends Controller
             $data = [
                 'ma_hoc_phan' => trim(explode("-",$request->ten_hoc_phan)[0]),
                 'id_hoc_phan' => $request->id_hoc_phan,
-                'noi_dung_giang_day' => $value,
+                'noi_dung_giang_day' => trim($value),
                 'bai_giang' => $request->bai_giang[$i],
                 'bai_tap' => $request->bai_tap[$i],
                 'thuc_hanh' => $request->thuc_hanh[$i],
-                'cong_viec_chuan_bi' => $request->cong_viec[$i],
-                'ghi_chu' => $request->ghi_chu[$i],
+                'cong_viec_chuan_bi' => trim($request->cong_viec[$i]),
+                'ghi_chu' => trim($request->ghi_chu[$i]),
                 'id_don_vi' => $request->id_don_vi,
                 'id_hoc_ky' => $request->id_hoc_ky,
                 'id_giang_vien' => $request->id_giang_vien,
@@ -57,10 +57,10 @@ class HocPhanController extends Controller
             $data = [
                 'ma_hoc_phan' => trim(explode("-",$request->ten_hoc_phan)[0]),
                 'id_hoc_phan' => $request->id_hoc_phan,
-                'ten_de_muc' => $request->ten_de_muc[$i],
+                'ten_de_muc' => trim($request->ten_de_muc[$i]),
                 'so_gio_quy_dinh' => $request->so_gio_quy_dinh[$i],
-                'noi_dung' => $request->noi_dung[$i],
-                'ghi_chu' => $request->ghi_chu[$i],
+                'noi_dung' => trim($request->noi_dung[$i]),
+                'ghi_chu' => trim($request->ghi_chu[$i]),
                 'id_don_vi' => $request->id_don_vi,
                 'id_hoc_ky' => $request->id_hoc_ky,
                 'id_giang_vien' => $request->id_giang_vien,
@@ -277,7 +277,7 @@ class HocPhanController extends Controller
             $sheet->mergeCells('E21:G21');
             $sheet->setCellValue('E21', 'Vĩnh Long, ngày ' . date('d') .' tháng ' . date('m') . ' năm ' . date('Y') );
             $sheet->mergeCells('E26:G26');
-            $sheet->setCellValue('E26', (array_key_exists(0, $lich_day) ? $lich_day[0]->gv_giang_day_chinh : '') );
+            $sheet->setCellValue('F26', $hoc_phan->ho_ten);
             for ($i = 0; $i < 10; $i++) {
                 $sheet->setCellValue('A' . (11 + $i), $i + 1);
                 $sheet->setCellValue('B' . (11 + $i), array_key_exists($i,$lich_day) ? trim($lich_day[$i]->ten_de_muc) : '');

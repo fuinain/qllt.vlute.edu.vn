@@ -268,9 +268,7 @@
                                 <td>{{ \Carbon\Carbon::parse($hoc_phan->ngay_bat_dau)->addDays(($i) * 7)->format('m') }}</td>
                                 <td>{{$i > count($weeks) - 1 ? '' : $weeks[$i] }}</td>
                                 <td class="p-1 w-25">
-                                    <textarea class="h-100 py-2 border border-white form-control" style="resize: none;" rows="3" name="noi_dung[{{$i}}]">
-                                        {{array_key_exists($i,$lich_day) ? trim($lich_day[$i]->noi_dung_giang_day) : ''}}
-                                    </textarea>
+                                    <textarea class="h-100 py-2 border border-white form-control" style="resize: none;" rows="6" name="noi_dung[{{$i}}]">{{array_key_exists($i,$lich_day) ? trim($lich_day[$i]->noi_dung_giang_day) : ''}}</textarea>
                                 </td>
                                 <td class="p-1"><input class="w-100 h-100 py-2" type="number" name="bai_giang[{{$i}}]" value={{array_key_exists($i,$lich_day) ? $lich_day[$i]->bai_giang : ''}}>
                                 </td>
@@ -280,13 +278,9 @@
                                 </td>
                                 <td></td>
                                 <td class="p-1 w-25">
-                                    <textarea class="h-100 py-2 border border-white form-control" style="resize: none;" rows="3" name="cong_viec[{{$i}}]">
-                                    {{array_key_exists($i,$lich_day) ? $lich_day[$i]->cong_viec_chuan_bi : ''}}
-                                    </textarea></td>
+                                    <textarea class="h-100 py-2 border border-white form-control" style="resize: none;" rows="6" name="cong_viec[{{$i}}]">{{array_key_exists($i,$lich_day) ? $lich_day[$i]->cong_viec_chuan_bi : ''}}</textarea></td>
                                 <td class="p-1 w-25">
-                                    <textarea class="h-100 py-2 border border-white form-control" style="resize: none;" rows="3" name="ghi_chu[{{$i}}]">
-                                        {{array_key_exists($i,$lich_day) ? $lich_day[$i]->ghi_chu : ''}}
-                                    </textarea></td>
+                                    <textarea class="h-100 py-2 border border-white form-control" style="resize: none;" rows="6" name="ghi_chu[{{$i}}]">{{array_key_exists($i,$lich_day) ? $lich_day[$i]->ghi_chu : ''}}</textarea></td>
                             </tr>
                         @endfor
                     @else
@@ -295,9 +289,7 @@
                                 <td>{{ \Carbon\Carbon::parse($hoc_phan->ngay_bat_dau)->addDays(($i) * 7)->format('m') }}</td>
                                 <td>{{$i > count($weeks) - 1 ? '' : $weeks[$i] }}</td>
                                 <td class="p-1 w-25">
-                                    <textarea class="h-100 py-2 border border-white form-control" style="resize: none;" rows="3" name="noi_dung[{{$i}}]">
-                                        {{array_key_exists($i,$lich_day) ? trim($lich_day[$i]->noi_dung_giang_day) : ''}}
-                                    </textarea>
+                                    <textarea class="h-100 py-2 border border-white form-control" style="resize: none;" rows="5" name="noi_dung[{{$i}}]">{{array_key_exists($i,$lich_day) ? trim($lich_day[$i]->noi_dung_giang_day) : ''}}</textarea>
                                 </td>
                                 <td class="p-1"><input class="w-100 h-100 py-2" type="number" name="bai_giang[{{$i}}]" value={{array_key_exists($i,$lich_day) ? $lich_day[$i]->bai_giang : ''}}>
                                 </td>
@@ -307,13 +299,11 @@
                                 </td>
                                 <td></td>
                                 <td class="p-1 w-25">
-                                    <textarea class="h-100 py-2 border border-white form-control" style="resize: none;" rows="3" name="cong_viec[{{$i}}]">
-                                        {{array_key_exists($i,$lich_day) ? $lich_day[$i]->cong_viec_chuan_bi : ''}}
-                                    </textarea></td>
+                                    <textarea class="h-100 py-2 border border-white form-control" style="resize: none;" rows="5" name="cong_viec[{{$i}}]">{{array_key_exists($i,$lich_day) ? $lich_day[$i]->cong_viec_chuan_bi : ''}}</textarea>
+                                </td>
                                 <td class="p-1 w-25">
-                                    <textarea class="h-100 py-2 border border-white form-control" style="resize: none;" rows="3" name="ghi_chu[{{$i}}]">
-                                        {{array_key_exists($i,$lich_day) ? $lich_day[$i]->ghi_chu : ''}}
-                                    </textarea></td>
+                                    <textarea class="h-100 py-2 border border-white form-control" style="resize: none;" rows="5" name="ghi_chu[{{$i}}]">{{array_key_exists($i,$lich_day) ? $lich_day[$i]->ghi_chu : ''}}</textarea>
+                                </td>
                             </tr>
                         @endfor
                     @endif
@@ -365,8 +355,15 @@
                         });
 
                     })
-                })
+                });
+
+                $(document).ready(function(){
+                    $('textarea').on('blur', function(){
+                        $(this).val($.trim($(this).val()));
+                    });
+                });
             </script>
+
         @endsection
         @section('style')
             <style>
