@@ -5,7 +5,7 @@ import re
 # Kết nối tới cơ sở dữ liệu MySQL
 conn = mysql.connector.connect(
     host='localhost',
-    database='qllt',
+    database='quanlylichtrinh',
     user='root',
     password='root',
     port=3306
@@ -81,45 +81,32 @@ else:
 try:
     for detail in all_data:
         if len(detail) > 1:  # Kiểm tra chi tiết xem có đủ thông tin không
-            ma_hoc_phan = detail[1]
+                ma_hoc_phan = detail[1]
+                # Kiểm tra xem mã học phần đã tồn tại chưa
+                cursor.execute("SELECT 1 FROM data_crawl_from_vlute_ems WHERE ma_hoc_phan = %s", (ma_hoc_phan,))
+                exists = cursor.fetchone()
+                switcher = {
+                    "Ngoài giờ học": 1,
+                    "Thứ 2": 2,
+                    "Thứ 3": 3,
+                    "Thứ 4": 4,
+                    "Thứ 5": 5,
+                    "Thứ 6": 6,
+                    "Thứ 7": 7,
+                    "Chủ nhật": 8,
+                 }
+                key_thu = (switcher.get(detail[0], 1))
+                if not exists:  # Chỉ insert nếu mã học phần chưa tồn tại
 
-            switcher = {
-                "Ngoài giờ học": 1,
-                "Thứ 2": 2,
-                "Thứ 3": 3,
-                "Thứ 4": 4,
-                "Thứ 5": 5,
-                "Thứ 6": 6,
-                "Thứ 7": 7,
-                "Chủ nhật": 8,
-            }
-            key_thu = switcher.get(detail[0], 1)
-
-            # Nếu mã học phần đã tồn tại, ghi đè lên bản ghi cũ
-            insert_query = """
-                INSERT INTO data_crawl_from_vlute_ems (thu, key_thu, ma_hoc_phan, ten_hoc_phan, giang_vien, phong, tuan_hoc, ngay_hoc, id_giang_vien, id_hoc_ky)
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-                ON DUPLICATE KEY UPDATE
-                    thu = VALUES(thu),
-                    key_thu = VALUES(key_thu),
-                    ten_hoc_phan = VALUES(ten_hoc_phan),
-                    giang_vien = VALUES(giang_vien),
-                    phong = VALUES(phong),
-                    tuan_hoc = VALUES(tuan_hoc),
-                    ngay_hoc = VALUES(ngay_hoc),
-                    id_giang_vien = VALUES(id_giang_vien),
-                    id_hoc_ky = VALUES(id_hoc_ky)
-            """
-
-            thu = detail[0]
-            ten_hoc_phan = detail[2] if len(detail) > 2 else None
-            giang_vien = detail[3] if len(detail) > 3 else None
-            phong = detail[4] if len(detail) > 4 else None
-            tuan_hoc = detail[5] if len(detail) > 5 else None
-            ngay_hoc = detail[6] if len(detail) > 6 else None
-
-            cursor.execute(insert_query, (thu, key_thu, ma_hoc_phan, ten_hoc_phan, giang_vien, phong, tuan_hoc, ngay_hoc, id_giang_vien, id_hoc_ky))
-
+                    insert_query = """INSERT INTO data_crawl_from_vlute_ems (thu,key_thu, ma_hoc_phan, ten_hoc_phan, giang_vien, phong, tuan_hoc, ngay_hoc, id_giang_vien, id_hoc_ky)
+                                      VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+                    thu = detail[0]
+                    ten_hoc_phan = detail[2] if len(detail) > 2 else None
+                    giang_vien = detail[3] if len(detail) > 3 else None
+                    phong = detail[4] if len(detail) > 4 else None
+                    tuan_hoc = detail[5] if len(detail) > 5 else None
+                    ngay_hoc = detail[6] if len(detail) > 6 else None
+                    cursor.execute(insert_query, (thu, key_thu, ma_hoc_phan, ten_hoc_phan, giang_vien, phong, tuan_hoc, ngay_hoc, id_giang_vien, id_hoc_ky))
 
     # Xóa tất cả dữ liệu từ bảng crawl
     delete_query = "DELETE FROM crawl"

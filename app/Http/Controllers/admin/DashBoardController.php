@@ -38,11 +38,12 @@ class DashBoardController extends Controller
             $cr->hocky = $request->id_hoc_ky;
             $cr->themCrawlField();
             // Đường dẫn đến trình thông dịch Python
-            $pythonPath = 'C:\Users\asus\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Python 3.6';
+            $pythonPath = 'C:\Users\ADMIN\AppData\Local\Programs\Python\Python312\python.exe';
+//            $pythonPath = 'C:\Users\asus\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Python 3.6';
 
 
             // Đường dẫn đến file Python
-            $pythonScriptPath = base_path('crawl_data_from_vlute_ems/crawl_tkb_gv.py');
+            $pythonScriptPath = base_path('crawls/crawl_tkb_gv.py');
 
             // Thực thi script Python
             $output = null;

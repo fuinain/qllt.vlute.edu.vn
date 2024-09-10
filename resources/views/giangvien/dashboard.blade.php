@@ -52,7 +52,7 @@
         $(document).ready(function () {
             $('.btnTimKiem').click(function (event) {
                 event.preventDefault();
-                var giangVienId ={{$id_giang_vien}};
+                var giangVienId = {{$id_giang_vien}};
                 var hocKyId = $('.hocKy').val(); // Lấy ID học kỳ từ select box
 
                 $.ajax({
@@ -65,10 +65,12 @@
                     },
                     success: function (result) {
                         if (result.status === 200) {
-                            $('#table-hp').empty(table);
+                            $('#table-hp').empty();
+
                             if((result?.data?.length) == 0) {
-                                return toastr.info('Không có dữ liệu')
+                                return toastr.info('Không có dữ liệu');
                             }
+
                             var table = $('<table>').addClass('table table-hover text-nowrap');
 
                             // Create the table header
@@ -98,9 +100,18 @@
                                         "" + (item.ngay_hoc ?  item.ngay_hoc : "")
                                     )
                                 );
-                                row.on('click', function() {
-                                    rowClickHandler(item.ma_hoc_phan);
-                                });
+
+                                // Kiểm tra nếu tên học phần chứa "Đồ án" hoặc "Khóa luận"
+                                if (item.ten_hoc_phan.includes("Đồ án") || item.ten_hoc_phan.includes("Khóa luận")) {
+                                    // Không gắn sự kiện click nếu chứa "Đồ án" hoặc "Khóa luận"
+                                    row.css('background-color', '#f5f5f5');  // Đổi màu hàng nếu muốn
+                                } else {
+                                    // Gắn sự kiện click cho các học phần không chứa "Đồ án" hoặc "Khóa luận"
+                                    row.on('click', function() {
+                                        rowClickHandler(item.ma_hoc_phan);
+                                    });
+                                }
+
                                 tbody.append(row);
                             });
 
@@ -120,6 +131,7 @@
                 });
             });
         });
+
 
         function rowClickHandler(maHocPhan) {
             // Implement your action here

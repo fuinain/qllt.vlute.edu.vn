@@ -15,20 +15,47 @@ class HocPhanController extends Controller
         $hocPhanModel = new HocPhanModel();
         $hoc_phan = $hocPhanModel->getHocPhan($ma_hoc_phan);
         $hoc_phan_main = $hocPhanModel->getMain($hoc_phan->ten_hoc_phan_cut);
-        if(str_contains($hoc_phan->ten_hoc_phan_cut, 'BT') || str_contains($hoc_phan_main->ten_hoc_phan, 'CNTT')) {
-            $lich_day = $hocPhanModel->getLich(trim(explode("-",$hoc_phan->ten_hoc_phan)[0]),'lich_day_th');
-            return view('giangvien.quanlyhocphan.chitiet-TH',
-                ['mhp'=>$ma_hoc_phan, 'hoc_phan' => $hoc_phan,'ten_hoc_phan_cut' => $hoc_phan->ten_hoc_phan_cut,
-                 'hoc_phan_main'=> $hoc_phan_main,'lich_day' => $lich_day->toArray()]);
+
+        // Kiểm tra nếu tên học phần có chứa "Đồ án" hoặc "Khóa luận"
+        if (str_contains($hoc_phan->ten_hoc_phan, 'Đồ án') || str_contains($hoc_phan->ten_hoc_phan, 'Khóa luận')) {
+
         }
-        $lich_day = $hocPhanModel->getLich(trim(explode("-",$hoc_phan->ten_hoc_phan)[0]),'lich_day');
-        return view('giangvien.quanlyhocphan.chitiet-LT',
-            ['mhp'=>$ma_hoc_phan,
-             'hoc_phan' => $hoc_phan,
-             'ten_hoc_phan_cut' => $hoc_phan->ten_hoc_phan_cut,
-             'hoc_phan_main'=> $hoc_phan_main,
-             'lich_day' => $lich_day->toArray()]);
+
+        // Kiểm tra nếu tên học phần có chứa "(0.2)"
+        if (str_contains($hoc_phan->ten_hoc_phan, '(0.2)')) {
+            $lich_day = $hocPhanModel->getLich(trim(explode("-", $hoc_phan->ten_hoc_phan)[0]), 'lich_day_th');
+            return view('giangvien.quanlyhocphan.chitiet-TH', [
+                'mhp' => $ma_hoc_phan,
+                'hoc_phan' => $hoc_phan,
+                'ten_hoc_phan_cut' => $hoc_phan->ten_hoc_phan_cut,
+                'hoc_phan_main' => $hoc_phan_main,
+                'lich_day' => $lich_day->toArray()
+            ]);
+        }
+
+        // Kiểm tra điều kiện khác cho BT hoặc CNTT
+        if (str_contains($hoc_phan->ten_hoc_phan_cut, 'BT') || str_contains($hoc_phan_main->ten_hoc_phan, 'CNTT')) {
+            $lich_day = $hocPhanModel->getLich(trim(explode("-", $hoc_phan->ten_hoc_phan)[0]), 'lich_day_th');
+            return view('giangvien.quanlyhocphan.chitiet-TH', [
+                'mhp' => $ma_hoc_phan,
+                'hoc_phan' => $hoc_phan,
+                'ten_hoc_phan_cut' => $hoc_phan->ten_hoc_phan_cut,
+                'hoc_phan_main' => $hoc_phan_main,
+                'lich_day' => $lich_day->toArray()
+            ]);
+        }
+
+        // Nếu không rơi vào trường hợp nào ở trên, trả về view chi tiết LT
+        $lich_day = $hocPhanModel->getLich(trim(explode("-", $hoc_phan->ten_hoc_phan)[0]), 'lich_day');
+        return view('giangvien.quanlyhocphan.chitiet-LT', [
+            'mhp' => $ma_hoc_phan,
+            'hoc_phan' => $hoc_phan,
+            'ten_hoc_phan_cut' => $hoc_phan->ten_hoc_phan_cut,
+            'hoc_phan_main' => $hoc_phan_main,
+            'lich_day' => $lich_day->toArray()
+        ]);
     }
+
     public function postChiTietLyThuyet(Request $request) {
         $data_insert = [];
         $hocPhanModel = new HocPhanModel();
@@ -74,6 +101,44 @@ class HocPhanController extends Controller
         $hocPhanModel->saveLichDay($data_insert,$request->ma_hoc_phan,trim(explode("-",$request->ten_hoc_phan)[0]),'lich_day_th');
         return redirect()->route('giangvien.quanlyhocphan.chitiet.view', $request->ma_hoc_phan);
     }
+
+     function extractMonthsFromNgayHoc($ngay_hoc) {
+        // Loại bỏ phần đầu của chuỗi "Ngày học:"
+        $trimmedInput = trim(str_replace('Ngày học:', '', $ngay_hoc));
+        // Tách chuỗi ngày theo dấu phẩy
+        $dates = array_map('trim', explode(',', $trimmedInput));
+        // Lấy phần tháng sau dấu "/"
+        $months = array_map(function($date) {
+            return (int)substr(explode('/', $date)[1], 0, 2);
+        }, $dates);
+        return $months;
+    }
+
+    function getFirstDayMinus7WithFixedYear($ngay_hoc, $fixedYear) {
+        // Loại bỏ phần đầu của chuỗi "Ngày học:"
+        $trimmedInput = trim(str_replace('Ngày học:', '', $ngay_hoc));
+        // Tách chuỗi ngày theo dấu phẩy
+        $dates = array_map('trim', explode(',', $trimmedInput));
+        // Lấy ngày đầu tiên và tạo đối tượng Carbon với năm mặc định hiện tại
+        $firstDate = \Carbon\Carbon::createFromFormat('d/m', $dates[0]);
+
+        // Trừ đi 7 ngày
+        $adjustedDate = $firstDate->subDays(7);
+
+        // Đặt lại năm theo năm học đã cố định ($fixedYear)
+        $adjustedDate->year($fixedYear);
+
+        // Trả về ngày đã trừ đi 7 ngày và giữ nguyên năm học
+        return $adjustedDate;
+    }
+
+    function extractYearFromHocKy($ten_hoc_ky) {
+        // Tách chuỗi theo dấu phẩy và dấu gạch ngang
+        $parts = explode('-', trim(explode(",", $ten_hoc_ky)[1]));
+        // Lấy năm học đầu tiên
+        return trim($parts[0]);
+    }
+
     public function exportFromTemplate($ma_hoc_phan)
     {
         // Load the template file
@@ -97,6 +162,16 @@ class HocPhanController extends Controller
         // Lọc các giá trị rỗng và chuyển đổi sang số nguyên
         $weeks = array_filter($weeks, fn($week) => is_numeric($week));
         $weeks =  array_values(array_map('intval', $weeks));
+
+
+        // Trích xuất năm học từ "ten_hoc_ky"
+        $yearHocKy = $this->extractYearFromHocKy($hoc_phan->ten_hoc_ky);
+
+        // Trích xuất ngày đầu tiên - 7 ngày, nhưng giữ nguyên năm học từ $yearHocKy
+        $firstDayMinus7 = $this->getFirstDayMinus7WithFixedYear($hoc_phan->ngay_hoc, $yearHocKy);
+
+        // Lấy tháng từ "ngay_hoc"
+        $months = $this->extractMonthsFromNgayHoc($hoc_phan->ngay_hoc);
 
         $spreadsheet = IOFactory::load($templatePath);
         if(str_contains($hoc_phan->ten_hoc_phan_cut, 'BT') || str_contains($hoc_phan_main->ten_hoc_phan, 'CNTT')) {
@@ -124,11 +199,11 @@ class HocPhanController extends Controller
         $sheet->setCellValue('J7','Số giờ giảng trực tuyến: ' . $offline);
         $sheet->setCellValue('H11',$all_tuan);
         $sheet->mergeCells('J28:K28');
-        $sheet->setCellValue('J28', 'Vĩnh Long, ngày ' . date('d') .' tháng ' . date('m') . ' năm ' . date('Y') );
+        $sheet->setCellValue('J28', 'Vĩnh Long, ngày ' . $firstDayMinus7->format('d') .' tháng ' . $firstDayMinus7->format('m') . ' năm ' . $yearHocKy);
 
         if (count($weeks) > 5) {
             for ($i = 0; $i < 15; $i++) {
-                $sheet->setCellValue('A' . (12 + $i), \Carbon\Carbon::parse($hoc_phan->ngay_bat_dau)->addDays(($i) * 7)->format('m'));
+                $sheet->setCellValue('A' . (12 + $i), ($i > count($months) - 1 ? '' : $months[$i]));
                 $sheet->setCellValue('B' . (12 + $i), ($i > count($weeks) - 1 ? '' : $weeks[$i]));
                 $sheet->mergeCells('C' . (12 + $i) . ':D' . (12 + $i));
                 $sheet->setCellValue('C' . (12 + $i), array_key_exists($i,$lich_day) ? trim($lich_day[$i]->noi_dung_giang_day) : '');
@@ -140,9 +215,7 @@ class HocPhanController extends Controller
             }
         } else {
             for ($i = 0; $i < 5; $i++) {
-                $sheet->setCellValue('A' . (12 + $i),
-                    \Carbon\Carbon::parse($hoc_phan->ngay_bat_dau)->addDays(($i)
-                        * 7)->format('m'));
+                $sheet->setCellValue('A' . (12 + $i), ($i > count($months) - 1 ? '' : $months[$i]));
                 $sheet->setCellValue('B' . (12 + $i),
                     ($i > count($weeks) - 1 ? '' : $weeks[$i]));
                 $sheet->mergeCells('C' . (12 + $i) . ':D' . (12 + $i));

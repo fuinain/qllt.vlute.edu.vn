@@ -22,11 +22,11 @@ class HocKyController extends Controller
     public function syncHocKy()
     {
         // Đường dẫn đến trình thông dịch Python
-//        $pythonPath = 'C:\Users\ADMIN\AppData\Local\Programs\Python\Python312\python.exe';
-        $pythonPath = 'C:\Users\asus\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Python 3.6';
+//        $pythonPath = 'C:\Users\asus\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Python 3.6';
+        $pythonPath = 'C:\Users\ADMIN\AppData\Local\Programs\Python\Python312\python.exe';
 
         // Đường dẫn đến file Python
-        $pythonScriptPath = base_path('crawl_data_from_vlute_ems/crawl_hoc_ky.py');
+        $pythonScriptPath = base_path('crawls/crawl_hoc_ky.py');
 
         // Thực thi script Python
         $output = null;

@@ -222,6 +222,7 @@
                 <table class="table-bordered table mt-5">
                     <thead>
                     <tr>
+                        <th rowspan="2" class="align-items-center">STT</th>
                         <th rowspan="2" class="align-items-center">Tháng</th>
                         <th rowspan="2">Tuần lễ</th>
                         <th rowspan="2">Tóm tắt nội dung giảng dạy
@@ -262,10 +263,28 @@
                         }
                         $weeks = extractWeeks($hoc_phan->tuan_hoc);
                     @endphp
+                    @php
+                        function extractMonths($input) {
+                            // Loại bỏ phần đầu của chuỗi không cần thiết
+                            $trimmedInput = trim(str_replace('Ngày học:', '', $input));
+                            // Tách các ngày tháng bằng dấu phẩy
+                            $dates = array_map('trim', explode(',', $trimmedInput));
+                            // Lấy phần tháng (sau dấu "/")
+                            $months = array_map(function($date) {
+                                return (int)substr(explode('/', $date)[1], 0, 2);
+                            }, $dates);
+                            return $months;
+                        }
+                        $months = extractMonths($hoc_phan->ngay_hoc);
+                    @endphp
+                    @php
+                        $stt = 1;
+                    @endphp
                     @if(count($weeks) > 5)
                         @for($i=0;$i<15;$i++)
                             <tr>
-                                <td>{{ \Carbon\Carbon::parse($hoc_phan->ngay_bat_dau)->addDays(($i) * 7)->format('m') }}</td>
+                                <td>{{$stt++}}</td>
+                                <td>{{$i > count($months) - 1 ? '' : $months[$i] }}</td>
                                 <td>{{$i > count($weeks) - 1 ? '' : $weeks[$i] }}</td>
                                 <td class="p-1 w-25">
                                     <textarea class="h-100 py-2 border border-white form-control" style="resize: none;" rows="6" name="noi_dung[{{$i}}]">{{array_key_exists($i,$lich_day) ? trim($lich_day[$i]->noi_dung_giang_day) : ''}}</textarea>
@@ -286,7 +305,8 @@
                     @else
                         @for($i=0;$i<5;$i++)
                             <tr>
-                                <td>{{ \Carbon\Carbon::parse($hoc_phan->ngay_bat_dau)->addDays(($i) * 7)->format('m') }}</td>
+                                <td>{{$stt++}}</td>
+                                <td>{{$i > count($months) - 1 ? '' : $months[$i] }}</td>
                                 <td>{{$i > count($weeks) - 1 ? '' : $weeks[$i] }}</td>
                                 <td class="p-1 w-25">
                                     <textarea class="h-100 py-2 border border-white form-control" style="resize: none;" rows="5" name="noi_dung[{{$i}}]">{{array_key_exists($i,$lich_day) ? trim($lich_day[$i]->noi_dung_giang_day) : ''}}</textarea>
@@ -307,6 +327,12 @@
                             </tr>
                         @endfor
                     @endif
+                    <tr>
+                        <td colspan="4" class="text-right font-weight-bold"></td>
+                        <td colspan="3" class="text-danger font-weight-bold text-center tongTietLT"></td>
+                        <td colspan="2"></td>
+                        <td class="text-danger font-weight-bold text-center tongTietTH"></td>
+                    </tr>
                     </tbody>
                 </table>
                 <div class="pb-1" style="width: 150px">
@@ -362,6 +388,68 @@
                         $(this).val($.trim($(this).val()));
                     });
                 });
+
+
+                // Hàm tính tổng cho bai_giang và bai_tap
+                function calculateTongTietLT() {
+                    let totalBaiGiang = 0;
+                    let totalBaiTap = 0;
+
+                    document.querySelectorAll('input[name^="bai_giang"]').forEach(input => {
+                        totalBaiGiang += parseFloat(input.value) || 0; // Nếu giá trị không hợp lệ, lấy 0
+                    });
+
+                    document.querySelectorAll('input[name^="bai_tap"]').forEach(input => {
+                        totalBaiTap += parseFloat(input.value) || 0;
+                    });
+
+                    let totalLT = totalBaiGiang + totalBaiTap;
+                    if (totalLT < 15) {
+                        document.querySelector('.tongTietLT').textContent = totalLT + ' (TC đang nhỏ hơn 15)';
+                    } else if (totalLT > 15){
+                        document.querySelector('.tongTietLT').textContent = totalLT + ' (TC đang lớn hơn 15)';
+                    }else{
+                        document.querySelector('.tongTietLT').textContent = totalLT;
+
+                    }
+                }
+
+                // Hàm tính tổng cho ghi_chu (lấy số giờ từ dữ liệu nhập)
+                function calculateTongTietTH() {
+                    let totalGhiChu = 0;
+
+                    document.querySelectorAll('textarea[name^="ghi_chu"]').forEach(textarea => {
+                        let value = textarea.value.match(/\d+/g); // Lấy tất cả các số trong chuỗi
+                        if (value) {
+                            totalGhiChu += parseInt(value[0]); // Chỉ lấy số đầu tiên
+                        }
+                    });
+
+                    if (totalGhiChu < 30) {
+                        document.querySelector('.tongTietTH').textContent = totalGhiChu + ' (TC đang nhỏ hơn 30)';
+                    } else if (totalGhiChu > 30){
+                        document.querySelector('.tongTietTH').textContent = totalGhiChu + ' (TC đang lớn hơn 30)';
+                    }else{
+                        document.querySelector('.tongTietTH').textContent = totalGhiChu;
+
+                    }
+                    // document.querySelector('.tongTietTH').textContent = totalGhiChu;
+                }
+
+                // Gắn sự kiện khi người dùng nhập liệu
+                document.querySelectorAll('input[name^="bai_giang"], input[name^="bai_tap"]').forEach(input => {
+                    input.addEventListener('input', calculateTongTietLT);
+                });
+
+                document.querySelectorAll('textarea[name^="ghi_chu"]').forEach(textarea => {
+                    textarea.addEventListener('input', calculateTongTietTH);
+                });
+
+                // Gọi các hàm tính tổng khi trang được load (nếu có dữ liệu ban đầu)
+                window.onload = function () {
+                    calculateTongTietLT();
+                    calculateTongTietTH();
+                };
             </script>
 
         @endsection

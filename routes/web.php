@@ -90,9 +90,7 @@ Route::group(['prefix' => '/auth', 'middleware' => 'is.login'], function (){
 
     //Chức năng Giảng viên----------------------------------------------------------------------------------------------
     Route::get('/giangvien/', 'App\Http\Controllers\giangvien\DashBoardController@getViewDashBoard');
-//    Route::get('/giangvien/quanlyhocphan/chitiet/{ma_hoc_phan}', function (\Illuminate\Http\Request $request) {
-//        return $request->ma_hoc_phan;
-//    });
+
 
     Route::get('/giangvien/quanlyhocphan/chitiet/{ma_hoc_phan}', 'App\Http\Controllers\giangvien\HocPhanController@getViewChiTiet')->name('giangvien.quanlyhocphan.chitiet.view');
 
