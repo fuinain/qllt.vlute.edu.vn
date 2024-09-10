@@ -52,7 +52,7 @@
                                 </label>
                                 <input accept=".xlsx" name="file-excel" type="file" class="form-control">
                                 <br>
-                                {{--                                    <p class="text-danger">Khi "Import danh sách", dữ liệu cũ sẽ được xóa khỏi hệ thống</p>--}}
+                                {{--<p class="text-danger">Khi "Import danh sách", dữ liệu cũ sẽ được xóa khỏi hệ thống</p>--}}
                             </div>
                         </div>
                     </div>
@@ -66,32 +66,32 @@
         <div class="card card-primary card-outline">
             <div class="card-body pad table-responsive">
                 <div class="row my-3">
-                    <div class="col-xxl-3">
+                    <div class="col-xxl-2">
                         <div class="row align-items-center">
-                            <div class="col-2">
+                            <div class="col-5 text-right">
                                 <label class="m-0">Khoa: </label>
                             </div>
-                            <div class="col-10">
+                            <div class="col-6">
                                 <div class="text-red font-weight-bold">{{$hoc_phan->ma_don_vi}}</div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xxl-6">
+                    <div class="col-xxl-7">
                         <div class="row align-items-center">
-                            <div class="col-2">
+                            <div class="col-3  text-right">
                                 <label class="m-0">Học phần: </label>
                             </div>
-                            <div class="col-10">
+                            <div class="col-9">
                                 <div class="text-red font-weight-bold">{{$hoc_phan_main->ten_hoc_phan ?? $hoc_phan->ten_hoc_ky}}</div>
                             </div>
                         </div>
                     </div>
                     <div class="col-xxl-3">
                         <div class="row align-items-center">
-                            <div class="col-4">
+                            <div class="col-7 text-right">
                                 <label class="m-0">Tổng số giờ giảng: </label>
                             </div>
-                            <div class="col-8">
+                            <div class="col-3">
                                 <div class="text-red font-weight-bold">
                                     @if(str_contains($ten_hoc_phan_cut, 'BT') || str_contains($hoc_phan_main->ten_hoc_phan, 'CNTT'))
                                         <div class="text-red font-weight-bold">{{!empty($hoc_phan_main) ?
@@ -107,32 +107,32 @@
                 </div>
 
                 <div class="row my-3">
-                    <div class="col-xxl-3">
+                    <div class="col-xxl-2">
                         <div class="row align-items-center">
-                            <div class="col-2">
+                            <div class="col-5 text-right">
                                 <label class="m-0">Năm học: </label>
                             </div>
-                            <div class="col-10">
+                            <div class="col-6">
                                 <div class="text-red font-weight-bold">{{trim(explode(",",$hoc_phan->ten_hoc_ky)[1])}}</div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xxl-6">
+                    <div class="col-xxl-7">
                         <div class="row align-items-center">
-                            <div class="col-2">
+                            <div class="col-3  text-right">
                                 <label class="m-0">Mã số học phần: </label>
                             </div>
-                            <div class="col-10">
+                            <div class="col-9">
                                 <div class="text-red font-weight-bold">{{$hoc_phan_main->ma_hoc_phan ?? ''}}</div>
                             </div>
                         </div>
                     </div>
                     <div class="col-xxl-3">
                         <div class="row align-items-center">
-                            <div class="col-4">
+                            <div class="col-7 text-right">
                                 <label class="m-0">Số giờ giảng trực tiếp: </label>
                             </div>
-                            <div class="col-8">
+                            <div class="col-3">
                                 @if(str_contains($ten_hoc_phan_cut, 'BT') || str_contains($hoc_phan_main->ten_hoc_phan, 'CNTT'))
                                     <div class="text-red font-weight-bold">{{!empty($hoc_phan_main) ? $hoc_phan_main->tin_chi_thuc_hanh * 30  : 0}}</div>
                                 @else
@@ -144,32 +144,32 @@
                 </div>
 
                 <div class="row my-3">
-                    <div class="col-xxl-3">
+                    <div class="col-xxl-2">
                         <div class="row align-items-center">
-                            <div class="col-2">
+                            <div class="col-5 text-right">
                                 <label class="m-0">Học kỳ: </label>
                             </div>
-                            <div class="col-10">
+                            <div class="col-6">
                                 <div class="text-red font-weight-bold">{{trim(explode(",",$hoc_phan->ten_hoc_ky)[0])}}</div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xxl-6">
+                    <div class="col-xxl-7">
                         <div class="row align-items-center">
-                            <div class="col-2">
+                            <div class="col-3 text-right">
                                 <label class="m-0">Cán bộ giảng dạy: </label>
                             </div>
-                            <div class="col-10">
+                            <div class="col-9">
                                 <div class="text-red font-weight-bold">{{$hoc_phan->ho_ten}}</div>
                             </div>
                         </div>
                     </div>
                     <div class="col-xxl-3">
                         <div class="row align-items-center">
-                            <div class="col-4">
+                            <div class="col-7 text-right">
                                 <label class="m-0">Số giờ giảng trực tuyến: </label>
                             </div>
-                            <div class="col-8">
+                            <div class="col-3">
                                 <div class="text-red font-weight-bold">
                                     @if(str_contains($ten_hoc_phan_cut, 'BT') || str_contains($hoc_phan_main->ten_hoc_phan, 'CNTT'))
                                         <div class="text-red font-weight-bold">{{!empty($hoc_phan_main) ?
@@ -181,139 +181,130 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <form action="{{route('giangvien.quanlyhocphan.chitietlt')}}" method="POST" class="form-group">
-                    @csrf
-                <div class="row my-3">
-                    <div class="col-xxl-3">
-                        <div class="row align-items-center">
-                            <div class="col-2">
+                    <form action="{{route('giangvien.quanlyhocphan.chitietlt')}}" method="POST" class="form-group">
+                        @csrf
+                        <div class="row my-3">
+                            <div class="col-xxl-2">
+                                <div class="row align-items-center">
+                                    <div class="col-2">
+                                    </div>
+                                    <div class="col-10">
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-10">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xxl-6">
-                        <div class="row align-items-center">
-                            <div class="col-2">
-                                <label class="m-0">Cán bộ giảng dạy chính </label>
-                            </div>
-                            <div class="col-10">
-                                <input class="rounded w-75 form-control" type="text" name="ten_can_bo" value="{{array_key_exists(0,$lich_day) ? $lich_day[0]->gv_giang_day_chinh : ''}}">
-                                <input class="rounded w-75 form-control" type="hidden" name="ma_hoc_phan" value="{{$mhp}}">
-                                <input class="rounded w-75 form-control" type="hidden" name="ten_hoc_phan" value="{{$hoc_phan->ten_hoc_phan}}">
-                                <input class="rounded w-75 form-control" type="hidden" name="id_hoc_phan" value="{{$hoc_phan_main->id_hoc_phan}}">
-                                <input class="rounded w-75 form-control" type="hidden" name="id_don_vi" value="{{$hoc_phan->id_don_vi}}">
-                                <input class="rounded w-75 form-control" type="hidden" name="id_hoc_ky" value="{{$hoc_phan->id_hoc_ky}}">
-                                <input class="rounded w-75 form-control" type="hidden" name="id_giang_vien" value="{{$hoc_phan->id_giang_vien}}">
+                            <div class="col-xxl-7">
+                                <div class="row align-items-center">
+                                    <div class="col-3 text-right">
+                                        <label class="m-0">Cán bộ giảng dạy chính: </label>
+                                    </div>
+                                    <div class="col-9">
+                                        <input class="rounded w-75 form-control" type="text" name="ten_can_bo" value="{{array_key_exists(0,$lich_day) ? $lich_day[0]->gv_giang_day_chinh : ''}}">
+                                        <input class="rounded w-75 form-control" type="hidden" name="ma_hoc_phan" value="{{$mhp}}">
+                                        <input class="rounded w-75 form-control" type="hidden" name="ten_hoc_phan" value="{{$hoc_phan->ten_hoc_phan}}">
+                                        <input class="rounded w-75 form-control" type="hidden" name="id_hoc_phan" value="{{$hoc_phan_main->id_hoc_phan}}">
+                                        <input class="rounded w-75 form-control" type="hidden" name="id_don_vi" value="{{$hoc_phan->id_don_vi}}">
+                                        <input class="rounded w-75 form-control" type="hidden" name="id_hoc_ky" value="{{$hoc_phan->id_hoc_ky}}">
+                                        <input class="rounded w-75 form-control" type="hidden" name="id_giang_vien" value="{{$hoc_phan->id_giang_vien}}">
 
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xxl-3">
+                                <div class="row align-items-center">
+                                    <div class="col-4">
+                                    </div>
+                                    <div class="col-8">
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-xxl-3">
-                        <div class="row align-items-center">
-                            <div class="col-4">
-                            </div>
-                            <div class="col-8">
-                            </div>
+                        <table class="table-bordered table mt-5">
+                            <thead>
+                            <tr>
+                                <th rowspan="2" class="align-items-center">Tháng</th>
+                                <th rowspan="2">Tuần lễ</th>
+                                <th rowspan="2" style="width: 270px">Tóm tắt nội dung giảng dạy trong tuần (trực tiếp và trực tuyến)</th>
+                                <th colspan="3">Thời gian phân theo chương trình</th>
+                                <th colspan="1">Thời gian thực tế thực hiện</th>
+                                <th rowspan="2" style="width: 280px">Công việc chuẩn bị trước cho giảng dạy (trực tiếp và trực tuyến)</th>
+                                <th rowspan="2">Ghi chú</th>
+                            </tr>
+                            <tr>
+                                <th style="width: 100px">Bài giảng</th>
+                                <th style="width: 100px">Bài tập</th>
+                                <th style="width: 100px">Thực hành</th>
+                                <th style="width: 235px; font-size: 13px">{{$mhp}}</th>
+                            </tr>
+                            </thead>
+                            <tbody >
+                            @php
+                                if (!function_exists('extractWeeks'))   {
+                                  function extractWeeks($input) {
+                                        // Loại bỏ phần đầu của chuỗi không cần thiết
+                                        $trimmedInput = trim(str_replace('Tuần học:', '', $input));
+                                        // Tách các tuần bằng dấu -
+                                        $weeks = array_map('trim', explode('-', $trimmedInput));
+                                        // Lọc các giá trị rỗng và chuyển đổi sang số nguyên
+                                        $weeks = array_filter($weeks, fn($week) => is_numeric($week));
+                                        return array_values(array_map('intval', $weeks));
+                                    }
+                                }
+                                $weeks = extractWeeks($hoc_phan->tuan_hoc);
+                            @endphp
+                            @if(count($weeks) > 5)
+                                @for($i=0;$i<15;$i++)
+                                    <tr>
+                                        <td class="align-middle text-center">{{ \Carbon\Carbon::parse($hoc_phan->ngay_bat_dau)->addDays(($i) * 7)->format('m') }}</td>
+                                        <td class="align-middle text-center">{{$i > count($weeks) - 1 ? '' : $weeks[$i] }}</td>
+                                        <td class="align-middle text-left">
+                                            <textarea class="h-100 py-2 border border-white form-control" style="resize: none;" rows="6" name="noi_dung[{{$i}}]">{{array_key_exists($i,$lich_day) ? trim($lich_day[$i]->noi_dung_giang_day) : ''}}</textarea>
+                                        </td>
+                                        <td class="align-middle text-left"><input class="w-100 h-100 py-2" type="number" name="bai_giang[{{$i}}]" value={{array_key_exists($i,$lich_day) ? $lich_day[$i]->bai_giang : ''}}>
+                                        </td>
+                                        <td class="align-middle text-left"><input class="w-100 h-100 py-2" type="number" name="bai_tap[{{$i}}]" value={{array_key_exists($i,$lich_day)? $lich_day[$i]->bai_tap : ''}}>
+                                        </td>
+                                        <td class="align-middle text-left"><input class="w-100 h-100 py-2" type="number" name="thuc_hanh[{{$i}}]" value={{array_key_exists($i,$lich_day) ? $lich_day[$i]->thuc_hanh : ''}}>
+                                        </td>
+                                        <td></td>
+                                        <td class="align-middle text-left">
+                                            <textarea class="h-100 py-2 border border-white form-control" style="resize: none;" rows="6" name="cong_viec[{{$i}}]">{{array_key_exists($i,$lich_day) ? $lich_day[$i]->cong_viec_chuan_bi : ''}}</textarea>
+                                        </td>
+                                        <td class="align-middle text-center">
+                                            <textarea class="h-100 py-2 border border-white form-control" style="resize: none;" rows="6" name="ghi_chu[{{$i}}]">{{array_key_exists($i,$lich_day) ? $lich_day[$i]->ghi_chu : ''}}</textarea>
+                                        </td>
+                                    </tr>
+                                @endfor
+                            @else
+                                @for($i=0;$i<5;$i++)
+                                    <tr>
+                                        <td class="align-middle text-center">{{ \Carbon\Carbon::parse($hoc_phan->ngay_bat_dau)->addDays(($i) * 7)->format('m') }}</td>
+                                        <td class="align-middle text-center">{{$i > count($weeks) - 1 ? '' : $weeks[$i] }}</td>
+                                        <td class="align-middle text-left">
+                                            <textarea class="h-100 py-2 border border-white form-control" style="resize: none;" rows="5" name="noi_dung[{{$i}}]">{{array_key_exists($i,$lich_day) ? trim($lich_day[$i]->noi_dung_giang_day) : ''}}</textarea>
+                                        </td>
+                                        <td class="align-middle text-left"><input class="w-100 h-100 py-2" type="number" name="bai_giang[{{$i}}]" value={{array_key_exists($i,$lich_day) ? $lich_day[$i]->bai_giang : ''}}>
+                                        </td>
+                                        <td class="align-middle text-left"><input class="w-100 h-100 py-2" type="number" name="bai_tap[{{$i}}]" value={{array_key_exists($i,$lich_day)? $lich_day[$i]->bai_tap : ''}}>
+                                        </td>
+                                        <td class="align-middle text-left"><input class="w-100 h-100 py-2" type="number" name="thuc_hanh[{{$i}}]" value={{array_key_exists($i,$lich_day) ? $lich_day[$i]->thuc_hanh : ''}}>
+                                        </td>
+                                        <td></td>
+                                        <td class="align-middle text-left">
+                                            <textarea class="h-100 py-2 border border-white form-control" style="resize: none;" rows="5" name="cong_viec[{{$i}}]">{{array_key_exists($i,$lich_day) ? $lich_day[$i]->cong_viec_chuan_bi : ''}}</textarea>
+                                        </td>
+                                        <td class="align-middle text-left">
+                                            <textarea class="h-100 py-2 border border-white form-control" style="resize: none;" rows="5" name="ghi_chu[{{$i}}]">{{array_key_exists($i,$lich_day) ? $lich_day[$i]->ghi_chu : ''}}</textarea>
+                                        </td>
+                                    </tr>
+                                @endfor
+                            @endif
+                            </tbody>
+                        </table>
+                        <div class="pb-1" style="width: 150px">
+                            <button type="submit" class="btn btn-success bg-gradient-success btnXacNhan">Lưu nội dung</button>
                         </div>
-                    </div>
+                    </form>
                 </div>
-                <table class="table-bordered table mt-5">
-                    <thead>
-                    <tr>
-                        <th rowspan="2" class="align-items-center">Tháng</th>
-                        <th rowspan="2">Tuần lễ</th>
-                        <th rowspan="2">Tóm tắt nội dung giảng dạy
-                            trong tuần (trực tiếp và trực tuyến)
-                        </th>
-                        <th colspan="3">
-                            Thời gian phân theo chương trình
-                        </th>
-                        <th colspan="1">Thời gian
-                            thực tế thực hiện
-                        </th>
-                        <th rowspan="2">Công việc chuẩn bị
-                            trước cho giảng dạy
-                            (trực tiếp và trực tuyến)
-                        </th>
-                        <th rowspan="2">Ghi chú</th>
-                    </tr>
-                    <tr>
-                        <th>Bài giảng</th>
-                        <th>Bài tập</th>
-                        <th>Thực hành</th>
-                        <th>{{$mhp}}</th>
-                    </tr>
-                    </thead>
-
-                    <tbody >
-                    @php
-                        if (!function_exists('extractWeeks'))   {
-                          function extractWeeks($input) {
-                                // Loại bỏ phần đầu của chuỗi không cần thiết
-                                $trimmedInput = trim(str_replace('Tuần học:', '', $input));
-                                // Tách các tuần bằng dấu -
-                                $weeks = array_map('trim', explode('-', $trimmedInput));
-                                // Lọc các giá trị rỗng và chuyển đổi sang số nguyên
-                                $weeks = array_filter($weeks, fn($week) => is_numeric($week));
-                                return array_values(array_map('intval', $weeks));
-                            }
-                        }
-                        $weeks = extractWeeks($hoc_phan->tuan_hoc);
-                    @endphp
-                    @if(count($weeks) > 5)
-                        @for($i=0;$i<15;$i++)
-                            <tr>
-                                <td>{{ \Carbon\Carbon::parse($hoc_phan->ngay_bat_dau)->addDays(($i) * 7)->format('m') }}</td>
-                                <td>{{$i > count($weeks) - 1 ? '' : $weeks[$i] }}</td>
-                                <td class="p-1 w-25">
-                                    <textarea class="h-100 py-2 border border-white form-control" style="resize: none;" rows="6" name="noi_dung[{{$i}}]">{{array_key_exists($i,$lich_day) ? trim($lich_day[$i]->noi_dung_giang_day) : ''}}</textarea>
-                                </td>
-                                <td class="p-1"><input class="w-100 h-100 py-2" type="number" name="bai_giang[{{$i}}]" value={{array_key_exists($i,$lich_day) ? $lich_day[$i]->bai_giang : ''}}>
-                                </td>
-                                <td class="p-1"><input class="w-100 h-100 py-2" type="number" name="bai_tap[{{$i}}]" value={{array_key_exists($i,$lich_day)? $lich_day[$i]->bai_tap : ''}}>
-                                </td>
-                                <td class="p-1"><input class="w-100 h-100 py-2" type="number" name="thuc_hanh[{{$i}}]" value={{array_key_exists($i,$lich_day) ? $lich_day[$i]->thuc_hanh : ''}}>
-                                </td>
-                                <td></td>
-                                <td class="p-1 w-25">
-                                    <textarea class="h-100 py-2 border border-white form-control" style="resize: none;" rows="6" name="cong_viec[{{$i}}]">{{array_key_exists($i,$lich_day) ? $lich_day[$i]->cong_viec_chuan_bi : ''}}</textarea></td>
-                                <td class="p-1 w-25">
-                                    <textarea class="h-100 py-2 border border-white form-control" style="resize: none;" rows="6" name="ghi_chu[{{$i}}]">{{array_key_exists($i,$lich_day) ? $lich_day[$i]->ghi_chu : ''}}</textarea></td>
-                            </tr>
-                        @endfor
-                    @else
-                        @for($i=0;$i<5;$i++)
-                            <tr>
-                                <td>{{ \Carbon\Carbon::parse($hoc_phan->ngay_bat_dau)->addDays(($i) * 7)->format('m') }}</td>
-                                <td>{{$i > count($weeks) - 1 ? '' : $weeks[$i] }}</td>
-                                <td class="p-1 w-25">
-                                    <textarea class="h-100 py-2 border border-white form-control" style="resize: none;" rows="5" name="noi_dung[{{$i}}]">{{array_key_exists($i,$lich_day) ? trim($lich_day[$i]->noi_dung_giang_day) : ''}}</textarea>
-                                </td>
-                                <td class="p-1"><input class="w-100 h-100 py-2" type="number" name="bai_giang[{{$i}}]" value={{array_key_exists($i,$lich_day) ? $lich_day[$i]->bai_giang : ''}}>
-                                </td>
-                                <td class="p-1"><input class="w-100 h-100 py-2" type="number" name="bai_tap[{{$i}}]" value={{array_key_exists($i,$lich_day)? $lich_day[$i]->bai_tap : ''}}>
-                                </td>
-                                <td class="p-1"><input class="w-100 h-100 py-2" type="number" name="thuc_hanh[{{$i}}]" value={{array_key_exists($i,$lich_day) ? $lich_day[$i]->thuc_hanh : ''}}>
-                                </td>
-                                <td></td>
-                                <td class="p-1 w-25">
-                                    <textarea class="h-100 py-2 border border-white form-control" style="resize: none;" rows="5" name="cong_viec[{{$i}}]">{{array_key_exists($i,$lich_day) ? $lich_day[$i]->cong_viec_chuan_bi : ''}}</textarea>
-                                </td>
-                                <td class="p-1 w-25">
-                                    <textarea class="h-100 py-2 border border-white form-control" style="resize: none;" rows="5" name="ghi_chu[{{$i}}]">{{array_key_exists($i,$lich_day) ? $lich_day[$i]->ghi_chu : ''}}</textarea>
-                                </td>
-                            </tr>
-                        @endfor
-                    @endif
-                    </tbody>
-                </table>
-                <div class="pb-1" style="width: 150px">
-                    <button type="submit" class="btn btn-block btn-success btnXacNhan">Xác Nhận Thêm
-                    </button>
-                </div>
-                </form>
             </div>
         </div>
         <!-- end body -->

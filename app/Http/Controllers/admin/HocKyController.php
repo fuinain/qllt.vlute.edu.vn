@@ -23,7 +23,7 @@ class HocKyController extends Controller
     {
         // Đường dẫn đến trình thông dịch Python
 //        $pythonPath = 'C:\Users\ADMIN\AppData\Local\Programs\Python\Python312\python.exe';
-        $pythonPath = 'C:\Users\huynh\AppData\Local\Programs\Python\Python312\python.exe';
+        $pythonPath = 'C:\Users\asus\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Python 3.6';
 
         // Đường dẫn đến file Python
         $pythonScriptPath = base_path('crawl_data_from_vlute_ems/crawl_hoc_ky.py');
