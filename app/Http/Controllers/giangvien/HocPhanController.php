@@ -23,8 +23,11 @@ class HocPhanController extends Controller
         }
         $lich_day = $hocPhanModel->getLich(trim(explode("-",$hoc_phan->ten_hoc_phan)[0]),'lich_day');
         return view('giangvien.quanlyhocphan.chitiet-LT',
-            ['mhp'=>$ma_hoc_phan, 'hoc_phan' => $hoc_phan,'ten_hoc_phan_cut' => $hoc_phan->ten_hoc_phan_cut,
-             'hoc_phan_main'=> $hoc_phan_main,'lich_day' => $lich_day->toArray()]);
+            ['mhp'=>$ma_hoc_phan,
+             'hoc_phan' => $hoc_phan,
+             'ten_hoc_phan_cut' => $hoc_phan->ten_hoc_phan_cut,
+             'hoc_phan_main'=> $hoc_phan_main,
+             'lich_day' => $lich_day->toArray()]);
     }
     public function postChiTietLyThuyet(Request $request) {
         $data_insert = [];

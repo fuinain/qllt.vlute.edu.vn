@@ -6,8 +6,8 @@ try:
     conn = mysql.connector.connect(
         host='localhost',
         database='qllt',
-        user='qllt',
-        password='X07zKDG5LkGSxNT',
+        user='root',
+        password='root',
         port=3306
     )
     cursor = conn.cursor()

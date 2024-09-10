@@ -5,10 +5,10 @@ import re
 # Kết nối tới cơ sở dữ liệu MySQL
 conn = mysql.connector.connect(
     host='localhost',
-    database='qllt',
-    user='qllt',
-    password='X07zKDG5LkGSxNT',
-    port=3306
+            database='qllt',
+            user='root',
+            password='root',
+            port=3306
 )
 
 
