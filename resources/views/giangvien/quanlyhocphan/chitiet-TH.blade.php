@@ -244,15 +244,14 @@
                                 @for($i=0;$i<10;$i++)
                                     <tr>
                                         <td>{{$i+1}}</td>
-                                        <td class="p-1 w-25">
-                                    <textarea class="h-100 py-2 border border-white form-control" style=" " rows="3" name="ten_de_muc[{{$i}}]">{{array_key_exists($i,$lich_day) ? $lich_day[$i]->ten_de_muc : ''}}</textarea>
+                                        <td class="p-1 w-25"><textarea class="h-100 py-2 border border-white form-control" style=" " rows="3" name="ten_de_muc[{{$i}}]">{{array_key_exists($i,$lich_day) ? $lich_day[$i]->ten_de_muc : ''}}</textarea></td>
+                                        <td class="p-1">
+                                            <input class="input-custom" type="number" name="so_gio_quy_dinh[{{$i}}]" value="{{array_key_exists($i,$lich_day) ? $lich_day[$i]->so_gio_quy_dinh : ''}}">
                                         </td>
-                                        <td class="p-1 w-25">
-                                    <textarea class="h-100 py-2 border border-white form-control" style=" " rows="3" name="so_gio_quy_dinh[{{$i}}]">{{array_key_exists($i,$lich_day) ? $lich_day[$i]->so_gio_quy_dinh : ''}}</textarea>
+                                        <td class="p-1">
+                                            <input class="input-custom" type="number" name="thu_tu_bai_hoc[{{$i}}]" value="{{array_key_exists($i,$lich_day) ? $lich_day[$i]->thu_tu_bai_hoc : ''}}">
                                         </td>
-                                        <th></th>
-                                        <td class="p-1 w-25">
-                                    <textarea class="h-100 py-2 border border-white form-control" style=" " rows="3" name="noi_dung[{{$i}}]">{{array_key_exists($i,$lich_day) ? $lich_day[$i]->noi_dung : ''}}</textarea>
+                                        <td class="p-1 w-25"><textarea class="h-100 py-2 border border-white form-control" style=" " rows="3" name="noi_dung[{{$i}}]">{{array_key_exists($i,$lich_day) ? $lich_day[$i]->noi_dung : ''}}</textarea>
                                         </td>
                                         <td>{{$i > count($weeks) - 1 ? '' : $weeks[$i] }}</td>
                                         <td class="" style="width: 200px">
@@ -264,13 +263,13 @@
                                 @for($i=0;$i<5;$i++)
                                     <tr>
                                         <td>{{$i+1}}</td>
-                                        <td class="p-1 w-25">
-                                    <textarea class="h-100 py-2 border border-white form-control" style=" " rows="3" name="ten_de_muc[{{$i}}]">{{array_key_exists($i,$lich_day) ? $lich_day[$i]->ten_de_muc : ''}}</textarea>
+                                        <td class="p-1 w-25"><textarea class="h-100 py-2 border border-white form-control" style=" " rows="3" name="ten_de_muc[{{$i}}]">{{array_key_exists($i,$lich_day) ? $lich_day[$i]->ten_de_muc : ''}}</textarea></td>
+                                        <td class="p-1">
+                                            <input class="input-custom" type="number" name="so_gio_quy_dinh[{{$i}}]" value="{{array_key_exists($i,$lich_day) ? $lich_day[$i]->so_gio_quy_dinh : ''}}">
                                         </td>
-                                        <td class="p-1 w-25">
-                                    <textarea class="h-100 py-2 border border-white form-control" style=" " rows="3" name="so_gio_quy_dinh[{{$i}}]">{{array_key_exists($i,$lich_day) ? $lich_day[$i]->so_gio_quy_dinh : ''}}</textarea>
+                                        <td class="p-1">
+                                            <input class="input-custom" type="number" name="thu_tu_bai_hoc[{{$i}}]" value="{{array_key_exists($i,$lich_day) ? $lich_day[$i]->thu_tu_bai_hoc : ''}}">
                                         </td>
-                                        <th></th>
                                         <td class="p-1 w-25">
                                     <textarea class="h-100 py-2 border border-white form-control" style=" " rows="3" name="noi_dung[{{$i}}]">{{array_key_exists($i,$lich_day) ? $lich_day[$i]->noi_dung : ''}}</textarea>
                                         </td>
@@ -348,11 +347,13 @@
                 /*    outline: none;*/
                 /*}*/
 
-                table tbody tr td input {
-                    border: transparent;
-                    font-size: 18px;
-                    /*text-align: center;*/
-                    /*align-content: center;*/
+                .input-custom {
+                    width: 100%;
+                    height: 100%;
+                    box-sizing: border-box;
+                    padding: 0;
+                    margin: 0;
+                    border: none;
                 }
 
                 table tbody tr td input:focus {

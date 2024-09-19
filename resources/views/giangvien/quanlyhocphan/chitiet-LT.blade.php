@@ -176,7 +176,7 @@
                                 ((int)$hoc_phan_main->tin_chi_thuc_hanh * 6) : 0}}</div>
                                     @else
                                         <div class="text-red font-weight-bold">{{!empty($hoc_phan_main) ?
-                                ((int)$hoc_phan_main->tin_chi_ly_thuyet * 3)  : 0}}</div>
+                                ((int)$hoc_phan_main->tin_chi_ly_thuyet * 3) : 0}}</div>
                                     @endif</div>
                             </div>
                         </div>
@@ -295,7 +295,9 @@
                                 </td>
                                 <td class="p-1"><input class="w-100 h-100 py-2" type="number" name="thuc_hanh[{{$i}}]" value={{array_key_exists($i,$lich_day) ? $lich_day[$i]->thuc_hanh : ''}}>
                                 </td>
-                                <td></td>
+                                <td class="p-1">
+                                    <input class="w-100 h-100 py-2" type="number" name="thoi_gian_thuc_te[{{$i}}]" value="{{array_key_exists($i,$lich_day) ? $lich_day[$i]->thoi_gian_thuc_te : ''}}">
+                                </td>
                                 <td class="p-1 w-25">
                                     <textarea class="h-100 py-2 border border-white form-control" style="resize: none;" rows="6" name="cong_viec[{{$i}}]">{{array_key_exists($i,$lich_day) ? $lich_day[$i]->cong_viec_chuan_bi : ''}}</textarea></td>
                                 <td class="p-1 w-25">
@@ -317,7 +319,9 @@
                                 </td>
                                 <td class="p-1"><input class="w-100 h-100 py-2" type="number" name="thuc_hanh[{{$i}}]" value={{array_key_exists($i,$lich_day) ? $lich_day[$i]->thuc_hanh : ''}}>
                                 </td>
-                                <td></td>
+                                <td class="p-1">
+                                    <input class="w-100 h-100 py-2" type="number" name="thoi_gian_thuc_te[{{$i}}]" value="{{array_key_exists($i,$lich_day) ? $lich_day[$i]->thoi_gian_thuc_te : ''}}">
+                                </td>
                                 <td class="p-1 w-25">
                                     <textarea class="h-100 py-2 border border-white form-control" style="resize: none;" rows="5" name="cong_viec[{{$i}}]">{{array_key_exists($i,$lich_day) ? $lich_day[$i]->cong_viec_chuan_bi : ''}}</textarea>
                                 </td>
@@ -346,6 +350,44 @@
         @endsection
         @section('script')
             <script>
+                // Sự kiện khi click vào nút Xác Nhận
+                document.querySelector('.btnXacNhan').addEventListener('click', function (e) {
+                    e.preventDefault(); // Ngăn chặn form submit ngay lập tức
+
+                    let tinChiLyThuyet = {{$hoc_phan_main->tin_chi_ly_thuyet}};
+                    let totalLT = parseFloat(document.querySelector('.tongTietLT').textContent) || 0;
+                    let totalGhiChu = parseFloat(document.querySelector('.tongTietTH').textContent) || 0;
+
+                    // Kiểm tra các điều kiện dựa trên tin_chi_ly_thuyet
+                    if (tinChiLyThuyet == 1) {
+                        // Kiểm tra tổng LT phải bằng 15
+                        if (totalLT !== 15) {
+                            toastr.error('Tổng số tiết lý thuyết phải bằng 15.');
+                            return;
+                        }
+                        // Kiểm tra tổng ghi chú phải bằng 3
+                        if (totalGhiChu !== 3) {
+                            toastr.error('Tổng số giờ giảng trực tuyến phải bằng 3.');
+                            return;
+                        }
+                    } else if (tinChiLyThuyet == 2) {
+                        // Kiểm tra tổng LT phải bằng 30
+                        if (totalLT !== 30) {
+                            toastr.error('Tổng số tiết lý thuyết phải bằng 30.');
+                            return;
+                        }
+                        // Kiểm tra tổng ghi chú phải bằng 6
+                        if (totalGhiChu !== 6) {
+                            toastr.error('Tổng số giờ giảng trực tuyến phải bằng 6.');
+                            return;
+                        }
+                    }
+
+                    // Nếu vượt qua kiểm tra, submit form
+                    this.closest('form').submit();
+                });
+
+
                 $('.btnExcel').click(function(){
                     $('.md2 .modal-title').text('Import dữ liệu');
                     $('.md2').modal('show');
@@ -394,6 +436,7 @@
                 function calculateTongTietLT() {
                     let totalBaiGiang = 0;
                     let totalBaiTap = 0;
+                    let totalThucHanh = 0;
 
                     document.querySelectorAll('input[name^="bai_giang"]').forEach(input => {
                         totalBaiGiang += parseFloat(input.value) || 0; // Nếu giá trị không hợp lệ, lấy 0
@@ -403,15 +446,14 @@
                         totalBaiTap += parseFloat(input.value) || 0;
                     });
 
-                    let totalLT = totalBaiGiang + totalBaiTap;
-                    if (totalLT < 15) {
-                        document.querySelector('.tongTietLT').textContent = totalLT + ' (TC đang nhỏ hơn 15)';
-                    } else if (totalLT > 15){
-                        document.querySelector('.tongTietLT').textContent = totalLT + ' (TC đang lớn hơn 15)';
-                    }else{
-                        document.querySelector('.tongTietLT').textContent = totalLT;
+                    document.querySelectorAll('input[name^="thuc_hanh"]').forEach(input => {
+                        totalThucHanh += parseFloat(input.value) || 0;
+                    });
 
-                    }
+                    let totalLT = totalBaiGiang + totalBaiTap + totalThucHanh;
+                    document.querySelector('.tongTietLT').textContent = totalLT;
+
+
                 }
 
                 // Hàm tính tổng cho ghi_chu (lấy số giờ từ dữ liệu nhập)
@@ -425,19 +467,14 @@
                         }
                     });
 
-                    if (totalGhiChu < 30) {
-                        document.querySelector('.tongTietTH').textContent = totalGhiChu + ' (TC đang nhỏ hơn 30)';
-                    } else if (totalGhiChu > 30){
-                        document.querySelector('.tongTietTH').textContent = totalGhiChu + ' (TC đang lớn hơn 30)';
-                    }else{
-                        document.querySelector('.tongTietTH').textContent = totalGhiChu;
+                    document.querySelector('.tongTietTH').textContent = totalGhiChu;
 
-                    }
+
                     // document.querySelector('.tongTietTH').textContent = totalGhiChu;
                 }
 
                 // Gắn sự kiện khi người dùng nhập liệu
-                document.querySelectorAll('input[name^="bai_giang"], input[name^="bai_tap"]').forEach(input => {
+                document.querySelectorAll('input[name^="bai_giang"], input[name^="bai_tap"], input[name^="thuc_hanh"]').forEach(input => {
                     input.addEventListener('input', calculateTongTietLT);
                 });
 
@@ -450,6 +487,8 @@
                     calculateTongTietLT();
                     calculateTongTietTH();
                 };
+
+
             </script>
 
         @endsection

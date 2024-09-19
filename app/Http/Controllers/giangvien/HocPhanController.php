@@ -15,7 +15,6 @@ class HocPhanController extends Controller
         $hocPhanModel = new HocPhanModel();
         $hoc_phan = $hocPhanModel->getHocPhan($ma_hoc_phan);
         $hoc_phan_main = $hocPhanModel->getMain($hoc_phan->ten_hoc_phan_cut);
-
         // Kiểm tra nếu tên học phần có chứa "Đồ án" hoặc "Khóa luận"
         if (str_contains($hoc_phan->ten_hoc_phan, 'Đồ án') || str_contains($hoc_phan->ten_hoc_phan, 'Khóa luận')) {
 
@@ -67,6 +66,7 @@ class HocPhanController extends Controller
                 'bai_giang' => $request->bai_giang[$i],
                 'bai_tap' => $request->bai_tap[$i],
                 'thuc_hanh' => $request->thuc_hanh[$i],
+                'thoi_gian_thuc_te' => $request->thoi_gian_thuc_te[$i],
                 'cong_viec_chuan_bi' => trim($request->cong_viec[$i]),
                 'ghi_chu' => trim($request->ghi_chu[$i]),
                 'id_don_vi' => $request->id_don_vi,
@@ -89,6 +89,7 @@ class HocPhanController extends Controller
                 'id_hoc_phan' => $request->id_hoc_phan,
                 'ten_de_muc' => trim($request->ten_de_muc[$i]),
                 'so_gio_quy_dinh' => $request->so_gio_quy_dinh[$i],
+                'thu_tu_bai_hoc' => $request->thu_tu_bai_hoc[$i],
                 'noi_dung' => trim($request->noi_dung[$i]),
                 'ghi_chu' => trim($request->ghi_chu[$i]),
                 'id_don_vi' => $request->id_don_vi,
@@ -325,6 +326,13 @@ class HocPhanController extends Controller
             $templatePath = storage_path('/public/excel/BieuMau_TH10.xlsx');
         }
 
+
+        // Trích xuất năm học từ "ten_hoc_ky"
+        $yearHocKy = $this->extractYearFromHocKy($hoc_phan->ten_hoc_ky);
+
+        // Trích xuất ngày đầu tiên - 7 ngày, nhưng giữ nguyên năm học từ $yearHocKy
+        $firstDayMinus7 = $this->getFirstDayMinus7WithFixedYear($hoc_phan->ngay_hoc, $yearHocKy);
+
         $spreadsheet = IOFactory::load($templatePath);
         if(str_contains($hoc_phan->ten_hoc_phan_cut, 'BT') || str_contains($hoc_phan_main->ten_hoc_phan, 'CNTT')) {
             $total =  $hoc_phan_main->tin_chi_thuc_hanh * 36 ?? 0;
@@ -351,26 +359,28 @@ class HocPhanController extends Controller
 
         if (count($weeks) > 5) {
             $sheet->mergeCells('E21:G21');
-            $sheet->setCellValue('E21', 'Vĩnh Long, ngày ' . date('d') .' tháng ' . date('m') . ' năm ' . date('Y') );
+            $sheet->setCellValue('E21', 'Vĩnh Long, ngày ' . $firstDayMinus7->format('d') .' tháng ' . $firstDayMinus7->format('m') . ' năm ' . $yearHocKy);
             $sheet->mergeCells('E26:G26');
             $sheet->setCellValue('F26', $hoc_phan->ho_ten);
             for ($i = 0; $i < 10; $i++) {
                 $sheet->setCellValue('A' . (11 + $i), $i + 1);
                 $sheet->setCellValue('B' . (11 + $i), array_key_exists($i,$lich_day) ? trim($lich_day[$i]->ten_de_muc) : '');
                 $sheet->setCellValue('C' . (11 + $i), array_key_exists($i,$lich_day) ? trim($lich_day[$i]->so_gio_quy_dinh) : '');
+                $sheet->setCellValue('D' . (11 + $i), array_key_exists($i,$lich_day) ? trim($lich_day[$i]->thu_tu_bai_hoc) : '');
                 $sheet->setCellValue('E' . (11 + $i), array_key_exists($i,$lich_day) ? $lich_day[$i]->noi_dung : '');
                 $sheet->setCellValue('F' . (11 + $i), ($i > count($weeks) - 1 ? '' : $weeks[$i]));
                 $sheet->setCellValue('G' . (11 + $i), array_key_exists($i,$lich_day) ? $lich_day[$i]->ghi_chu : '');
             }
         } else {
             $sheet->mergeCells('E16:G16');
-            $sheet->setCellValue('E16', 'Vĩnh Long, ngày ' . date('d') .' tháng ' . date('m') . ' năm ' . date('Y') );
+            $sheet->setCellValue('E16', 'Vĩnh Long, ngày ' . $firstDayMinus7->format('d') .' tháng ' . $firstDayMinus7->format('m') . ' năm ' . $yearHocKy);
             $sheet->mergeCells('E21:G21');
             $sheet->setCellValue('E21', (array_key_exists(0, $lich_day) ? $lich_day[0]->gv_giang_day_chinh : '') );
             for ($i = 0; $i < 5; $i++) {
                 $sheet->setCellValue('A' . (11 + $i), $i + 1);
                 $sheet->setCellValue('B' . (11 + $i), array_key_exists($i,$lich_day) ? trim($lich_day[$i]->ten_de_muc) : '');
                 $sheet->setCellValue('C' . (11 + $i), array_key_exists($i,$lich_day) ? trim($lich_day[$i]->so_gio_quy_dinh) : '');
+                $sheet->setCellValue('D' . (11 + $i), array_key_exists($i,$lich_day) ? trim($lich_day[$i]->thu_tu_bai_hoc) : '');
                 $sheet->setCellValue('E' . (11 + $i), array_key_exists($i,$lich_day) ? $lich_day[$i]->noi_dung : '');
                 $sheet->setCellValue('F' . (11 + $i), ($i > count($weeks) - 1 ? '' : $weeks[$i]));
                 $sheet->setCellValue('G' . (11 + $i), array_key_exists($i,$lich_day) ? $lich_day[$i]->ghi_chu : '');

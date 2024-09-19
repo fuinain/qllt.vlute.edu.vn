@@ -39,8 +39,6 @@ class DashBoardController extends Controller
             $cr->themCrawlField();
             // Đường dẫn đến trình thông dịch Python
             $pythonPath = 'C:\Users\ADMIN\AppData\Local\Programs\Python\Python312\python.exe';
-//            $pythonPath = 'C:\Users\asus\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Python 3.6';
-
 
             // Đường dẫn đến file Python
             $pythonScriptPath = base_path('crawls/crawl_tkb_gv.py');
