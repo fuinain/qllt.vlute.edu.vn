@@ -206,7 +206,6 @@
                                 <input class="rounded w-100 form-control" type="hidden" name="id_don_vi" value="{{$hoc_phan->id_don_vi}}">
                                 <input class="rounded w-100 form-control" type="hidden" name="id_hoc_ky" value="{{$hoc_phan->id_hoc_ky}}">
                                 <input class="rounded w-100 form-control" type="hidden" name="id_giang_vien" value="{{$hoc_phan->id_giang_vien}}">
-
                             </div>
                         </div>
                     </div>

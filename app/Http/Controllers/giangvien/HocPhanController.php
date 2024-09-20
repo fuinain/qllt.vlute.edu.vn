@@ -12,15 +12,9 @@ class HocPhanController extends Controller
 {
     public function getViewChiTiet($ma_hoc_phan, Request $request)
     {
-//        $ma_hoc_phan = preg_replace('/\s*\(\d+\s*sv\)$/', '', $ma_hoc_phan);
-//        dd($ma_hoc_phan);
         $hocPhanModel = new HocPhanModel();
         $hoc_phan = $hocPhanModel->getHocPhan($ma_hoc_phan);
         $hoc_phan_main = $hocPhanModel->getMain($hoc_phan->ten_hoc_phan_cut);
-        // Kiểm tra nếu tên học phần có chứa "Đồ án" hoặc "Khóa luận"
-        if (str_contains($hoc_phan->ten_hoc_phan, 'Đồ án') || str_contains($hoc_phan->ten_hoc_phan, 'Khóa luận')) {
-
-        }
 
         // Kiểm tra nếu tên học phần có chứa "(0.2)"
         if (str_contains($hoc_phan->ten_hoc_phan, '(0.2)')) {

@@ -156,12 +156,7 @@
                             </div>
                             <div class="col-6">
                                 <input class="rounded w-100 form-control" type="text" name="ten_can_bo" value="{{array_key_exists(0,$lich_day) ? $lich_day[0]->gv_giang_day_chinh : ''}}">
-                                <input class="rounded w-100 form-control" type="hidden" name="ma_hoc_phan" value="{{$mhp}}">
-                                <input class="rounded w-100 form-control" type="hidden" name="ten_hoc_phan" value="{{$hoc_phan->ten_hoc_phan}}">
-                                <input class="rounded w-100 form-control" type="hidden" name="id_hoc_phan" value="{{$hoc_phan_main->id_hoc_phan}}">
-                                <input class="rounded w-100 form-control" type="hidden" name="id_don_vi" value="{{$hoc_phan->id_don_vi}}">
-                                <input class="rounded w-100 form-control" type="hidden" name="id_hoc_ky" value="{{$hoc_phan->id_hoc_ky}}">
-                                <input class="rounded w-100 form-control" type="hidden" name="id_giang_vien" value="{{$hoc_phan->id_giang_vien}}">
+
                             </div>
                         </div>
                     </div>
@@ -183,6 +178,12 @@
                 </div>
                 <form action="{{route('giangvien.quanlyhocphan.chitietth')}}" method="POST" class="form-group">
                     @csrf
+                    <input class="rounded w-100 form-control" type="hidden" name="ma_hoc_phan" value="{{$mhp}}">
+                    <input class="rounded w-100 form-control" type="hidden" name="ten_hoc_phan" value="{{$hoc_phan->ten_hoc_phan}}">
+                    <input class="rounded w-100 form-control" type="hidden" name="id_hoc_phan" value="{{$hoc_phan_main->id_hoc_phan}}">
+                    <input class="rounded w-100 form-control" type="hidden" name="id_don_vi" value="{{$hoc_phan->id_don_vi}}">
+                    <input class="rounded w-100 form-control" type="hidden" name="id_hoc_ky" value="{{$hoc_phan->id_hoc_ky}}">
+                    <input class="rounded w-100 form-control" type="hidden" name="id_giang_vien" value="{{$hoc_phan->id_giang_vien}}">
                     <table class="table-bordered table mt-5" style="table-layout: fixed">
                         <thead>
                            <tr>
@@ -232,6 +233,12 @@
                                 </tr>
                             @endfor
                         @endif
+                        <tr>
+                            <td colspan="2" class="text-right font-weight-bold"> Tổng số giờ đã nhập:</td>
+                            <td colspan="1" class="text-danger font-weight-bold text-center tongGioTTiep"></td>
+                            <td colspan="3"></td>
+                            <td class="text-danger font-weight-bold text-center tongGioTTuyen"></td>
+                        </tr>
                         </tbody>
                     </table>
                     <div class="pb-1" style="width: 150px">
@@ -244,6 +251,44 @@
         @endsection
         @section('script')
             <script>
+                // Sự kiện khi click vào nút Xác Nhận
+                document.querySelector('.btnXacNhan').addEventListener('click', function (e) {
+                    e.preventDefault(); // Ngăn chặn form submit ngay lập tức
+
+                    let tinChiLyThuyet = {{$hoc_phan_main->tin_chi_thuc_hanh}};
+                    let tongGioTTiep = parseFloat(document.querySelector('.tongGioTTiep').textContent) || 0;
+                    let tongGioTTuyen = parseFloat(document.querySelector('.tongGioTTuyen').textContent) || 0;
+
+                    // Kiểm tra các điều kiện dựa trên tin_chi_ly_thuyet
+                    if (tinChiLyThuyet == 1) {
+                        // Kiểm tra tổng LT phải bằng 15
+                        if (tongGioTTiep !== 30) {
+                            toastr.error('Số giờ quy định của đề mục phải bằng 30.');
+                            return;
+                        }
+                        // Kiểm tra tổng ghi chú phải bằng 3
+                        if (tongGioTTuyen !== 6) {
+                            toastr.error('Tổng số giờ giảng trực tuyến phải bằng 6.');
+                            return;
+                        }
+                    } else if (tinChiLyThuyet == 2) {
+                        // Kiểm tra tổng LT phải bằng 30
+                        if (tongGioTTiep !== 60) {
+                            toastr.error('Số giờ quy định của đề mục phải bằng 60.');
+                            return;
+                        }
+                        // Kiểm tra tổng ghi chú phải bằng 6
+                        if (tongGioTTuyen !== 12) {
+                            toastr.error('Tổng số giờ giảng trực tuyến phải bằng 12.');
+                            return;
+                        }
+                    }
+
+                    // Nếu vượt qua kiểm tra, submit form
+                    this.closest('form').submit();
+                });
+
+
                 $(document).ready(function(){
                     $('textarea').on('blur', function(){
                         $(this).val($.trim($(this).val()));
@@ -285,6 +330,45 @@
 
                     })
                 })
+
+                function calculateTongGioLT() {
+                    let totalSoGioQD = 0;
+                    document.querySelectorAll('input[name^="so_gio_quy_dinh"]').forEach(input => {
+                        totalSoGioQD += parseFloat(input.value) || 0; // Nếu giá trị không hợp lệ, lấy 0
+                    });
+                    document.querySelector('.tongGioTTiep').textContent = totalSoGioQD;
+                }
+
+                function calculateTongTietTH() {
+                    let totalGhiChu = 0;
+
+                    document.querySelectorAll('textarea[name^="ghi_chu"]').forEach(textarea => {
+                        let value = textarea.value.match(/\d+/g); // Lấy tất cả các số trong chuỗi
+                        if (value) {
+                            totalGhiChu += parseInt(value[0]); // Chỉ lấy số đầu tiên
+                        }
+                    });
+
+                    document.querySelector('.tongGioTTuyen').textContent = totalGhiChu;
+
+
+                    // document.querySelector('.tongTietTH').textContent = totalGhiChu;
+                }
+
+                // Gắn sự kiện khi người dùng nhập liệu
+                document.querySelectorAll('input[name^="so_gio_quy_dinh"]').forEach(input => {
+                    input.addEventListener('input', calculateTongGioLT);
+                });
+
+                document.querySelectorAll('textarea[name^="ghi_chu"]').forEach(textarea => {
+                    textarea.addEventListener('input', calculateTongTietTH);
+                });
+
+                // Gọi các hàm tính tổng khi trang được load (nếu có dữ liệu ban đầu)
+                window.onload = function () {
+                    calculateTongGioLT();
+                    calculateTongTietTH();
+                };
             </script>
         @endsection
         @section('style')
