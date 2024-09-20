@@ -264,16 +264,18 @@
                         $weeks = extractWeeks($hoc_phan->tuan_hoc);
                     @endphp
                     @php
-                        function extractMonths($input) {
-                            // Loại bỏ phần đầu của chuỗi không cần thiết
-                            $trimmedInput = trim(str_replace('Ngày học:', '', $input));
-                            // Tách các ngày tháng bằng dấu phẩy
-                            $dates = array_map('trim', explode(',', $trimmedInput));
-                            // Lấy phần tháng (sau dấu "/")
-                            $months = array_map(function($date) {
-                                return (int)substr(explode('/', $date)[1], 0, 2);
-                            }, $dates);
-                            return $months;
+                        if (!function_exists('extractMonths')) {
+                           function extractMonths($input) {
+                               // Loại bỏ phần đầu của chuỗi không cần thiết
+                               $trimmedInput = trim(str_replace('Ngày học:', '', $input));
+                               // Tách các ngày tháng bằng dấu phẩy
+                               $dates = array_map('trim', explode(',', $trimmedInput));
+                               // Lấy phần tháng (sau dấu "/")
+                               $months = array_map(function($date) {
+                                   return (int)substr(explode('/', $date)[1], 0, 2);
+                               }, $dates);
+                               return $months;
+                           }
                         }
                         $months = extractMonths($hoc_phan->ngay_hoc);
                     @endphp
