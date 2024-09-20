@@ -9,9 +9,7 @@
                 </div><!-- /.col -->
                 <div class="col-sm-3">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a
-                                href="{{action('App\Http\Controllers\giangvien\DashBoardController@getViewDashBoard')}}"><i
-                                    class="nav-icon fas fa-tachometer-alt"></i> Home</a></li>
+                        <li class="breadcrumb-item"><a href="{{action('App\Http\Controllers\giangvien\DashBoardController@getViewDashBoard')}}"><i class="nav-icon fas fa-tachometer-alt"></i> Home</a></li>
                         <li class="breadcrumb-item active">
                             Chi tiết học phần
                         </li>
@@ -29,7 +27,7 @@
                 <button class="btn btn-success bg-gradient-success btnExcel">Thêm bằng Excel</button>
             </div>
             <div class="mb-2 ml-1">
-                                <a href="{{route('giangvien.quanlyhocphan.chitiet.export-th',$mhp)}}" class="btn btn-success bg-gradient-success btnXuatExcel">Xuất biễu mẫu Excel</a>
+                <a href="{{route('giangvien.quanlyhocphan.chitiet.export-th',$mhp)}}" class="btn btn-success bg-gradient-success btnXuatExcel">Xuất biễu mẫu Excel</a>
             </div>
         </div>
 
@@ -39,8 +37,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title text-bold"></h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span></button>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     </div>
                     <div class="modal-body">
                         <div class="row">
@@ -52,7 +49,7 @@
                                 </label>
                                 <input accept=".xlsx" name="file-excel" type="file" class="form-control">
                                 <br>
-                                                                    <p class="text-danger">Khi "Import danh sách", dữ liệu cũ sẽ được xóa khỏi hệ thống</p>
+                                <p class="text-danger">Khi "Import danh sách", dữ liệu cũ sẽ được xóa khỏi hệ thống</p>
                             </div>
                         </div>
                     </div>
@@ -72,14 +69,12 @@
                                 <label class="m-0">Khoa: </label>
                             </div>
                             <div class="col-9">
-                                                                <div class="text-red font-weight-bold">{{$hoc_phan->ma_don_vi}}</div>
+                                <div class="text-red font-weight-bold">{{$hoc_phan->ma_don_vi}}</div>
                             </div>
                         </div>
                     </div>
                     <div class="col-xxl-5">
-
                     </div>
-
                 </div>
 
                 <div class="row my-3">
@@ -89,7 +84,7 @@
                                 <label class="m-0">Năm học: </label>
                             </div>
                             <div class="col-9">
-                                                                <div class="text-red font-weight-bold">{{trim(explode(",",$hoc_phan->ten_hoc_ky)[1])}}, {{trim(explode(",",$hoc_phan->ten_hoc_ky)[0])}}</div>
+                                <div class="text-red font-weight-bold">{{trim(explode(",",$hoc_phan->ten_hoc_ky)[1])}}, {{trim(explode(",",$hoc_phan->ten_hoc_ky)[0])}}</div>
                             </div>
                         </div>
                     </div>
@@ -123,7 +118,7 @@
                                 <label class="m-0">Mã số học phần: </label>
                             </div>
                             <div class="col-9">
-                                                                <div class="text-red font-weight-bold">{{$hoc_phan_main->ma_hoc_phan ?? ''}}</div>
+                                <div class="text-red font-weight-bold">{{$hoc_phan_main->ma_hoc_phan ?? ''}}</div>
                             </div>
                         </div>
                     </div>
@@ -133,7 +128,7 @@
                                 <label class="m-0">Tên học phần: </label>
                             </div>
                             <div class="col-6">
-                                                                <div class="text-red font-weight-bold">{{$hoc_phan_main->ten_hoc_phan ?? $hoc_phan->ten_hoc_ky}}</div>
+                                <div class="text-red font-weight-bold">{{$hoc_phan_main->ten_hoc_phan ?? $hoc_phan->ten_hoc_ky}}</div>
                             </div>
                         </div>
                     </div>
@@ -144,11 +139,9 @@
                             </div>
                             <div class="col-4">
                                 @if(str_contains($ten_hoc_phan_cut, 'BT') || str_contains($hoc_phan_main->ten_hoc_phan, 'CNTT'))
-                                    <div
-                                        class="text-red font-weight-bold">{{!empty($hoc_phan_main) ? $hoc_phan_main->tin_chi_thuc_hanh * 30  : 0}}</div>
+                                    <div class="text-red font-weight-bold">{{!empty($hoc_phan_main) ? $hoc_phan_main->tin_chi_thuc_hanh * 30  : 0}}</div>
                                 @else
-                                    <div
-                                        class="text-red font-weight-bold">{{!empty($hoc_phan_main) ? $hoc_phan_main->tin_chi_ly_thuyet * 15  : 0}}</div>
+                                    <div class="text-red font-weight-bold">{{!empty($hoc_phan_main) ? $hoc_phan_main->tin_chi_ly_thuyet * 15  : 0}}</div>
                                 @endif
                             </div>
                         </div>
@@ -163,7 +156,7 @@
                                     <label class="m-0">Cán bộ giảng dạy: </label>
                                 </div>
                                 <div class="col-9">
-                                                                    <div class="text-red font-weight-bold">{{$hoc_phan->ho_ten}}</div>
+                                    <div class="text-red font-weight-bold">{{$hoc_phan->ho_ten}}</div>
                                 </div>
                             </div>
                         </div>
@@ -173,13 +166,13 @@
                                     <label class="m-0">Cán bộ giảng dạy chính </label>
                                 </div>
                                 <div class="col-6">
-                                                                    <input class="rounded w-75 form-control" type="text" name="ten_can_bo" value="{{array_key_exists(0,$lich_day) ? $lich_day[0]->gv_giang_day_chinh : ''}}">
-                                                                    <input class="rounded w-75 form-control" type="hidden" name="ma_hoc_phan" value="{{$mhp}}">
-                                                                    <input class="rounded w-75 form-control" type="hidden" name="ten_hoc_phan" value="{{$hoc_phan->ten_hoc_phan}}">
-                                                                    <input class="rounded w-75 form-control" type="hidden" name="id_hoc_phan" value="{{$hoc_phan_main->id_hoc_phan}}">
-                                                                    <input class="rounded w-75 form-control" type="hidden" name="id_don_vi" value="{{$hoc_phan->id_don_vi}}">
-                                                                    <input class="rounded w-75 form-control" type="hidden" name="id_hoc_ky" value="{{$hoc_phan->id_hoc_ky}}">
-                                                                    <input class="rounded w-75 form-control" type="hidden" name="id_giang_vien" value="{{$hoc_phan->id_giang_vien}}">
+                                    <input class="rounded w-75 form-control" type="text" name="ten_can_bo" value="{{array_key_exists(0,$lich_day) ? $lich_day[0]->gv_giang_day_chinh : ''}}">
+                                    <input class="rounded w-75 form-control" type="hidden" name="ma_hoc_phan" value="{{$mhp}}">
+                                    <input class="rounded w-75 form-control" type="hidden" name="ten_hoc_phan" value="{{$hoc_phan->ten_hoc_phan}}">
+                                    <input class="rounded w-75 form-control" type="hidden" name="id_hoc_phan" value="{{$hoc_phan_main->id_hoc_phan}}">
+                                    <input class="rounded w-75 form-control" type="hidden" name="id_don_vi" value="{{$hoc_phan->id_don_vi}}">
+                                    <input class="rounded w-75 form-control" type="hidden" name="id_hoc_ky" value="{{$hoc_phan->id_hoc_ky}}">
+                                    <input class="rounded w-75 form-control" type="hidden" name="id_giang_vien" value="{{$hoc_phan->id_giang_vien}}">
                                 </div>
                             </div>
                         </div>
@@ -191,11 +184,9 @@
                                 <div class="col-4">
                                     <div class="text-red font-weight-bold">
                                         @if(str_contains($ten_hoc_phan_cut, 'BT') || str_contains($hoc_phan_main->ten_hoc_phan, 'CNTT'))
-                                            <div class="text-red font-weight-bold">{{!empty($hoc_phan_main) ?
-                                                                    ((int)$hoc_phan_main->tin_chi_thuc_hanh * 6) : 0}}</div>
+                                            <div class="text-red font-weight-bold">{{!empty($hoc_phan_main) ? ((int)$hoc_phan_main->tin_chi_thuc_hanh * 6) : 0}}</div>
                                         @else
-                                            <div class="text-red font-weight-bold">{{!empty($hoc_phan_main) ?
-                                                                    ((int)$hoc_phan_main->tin_chi_ly_thuyet * 3)  : 0}}</div>
+                                            <div class="text-red font-weight-bold">{{!empty($hoc_phan_main) ? ((int)$hoc_phan_main->tin_chi_ly_thuyet * 3)  : 0}}</div>
                                         @endif</div>
                                     </div>
                                 </div>
@@ -229,14 +220,13 @@
 
                             <tbody>
                             @php
-                                function extractWeeks($input) {
-                                    // Loại bỏ phần đầu của chuỗi không cần thiết
-                                    $trimmedInput = trim(str_replace('Tuần học:', '', $input));
-                                    // Tách các tuần bằng dấu -
-                                    $weeks = array_map('trim', explode('-', $trimmedInput));
-                                    // Lọc các giá trị rỗng và chuyển đổi sang số nguyên
-                                    $weeks = array_filter($weeks, fn($week) => is_numeric($week));
-                                    return array_values(array_map('intval', $weeks));
+                                if (!function_exists('extractWeeks')) {
+                                     function extractWeeks($input) {
+                                         $trimmedInput = trim(str_replace('Tuần học:', '', $input));
+                                         $weeks = array_map('trim', explode('-', $trimmedInput));
+                                         $weeks = array_filter($weeks, fn($week) => is_numeric($week));
+                                         return array_values(array_map('intval', $weeks));
+                                     }
                                 }
                                 $weeks = extractWeeks($hoc_phan->tuan_hoc);
                             @endphp
@@ -255,7 +245,7 @@
                                         </td>
                                         <td>{{$i > count($weeks) - 1 ? '' : $weeks[$i] }}</td>
                                         <td class="" style="width: 200px">
-                                    <textarea class="h-100 py-2 border border-white form-control" style=" " rows="3" name="ghi_chu[{{$i}}]">{{array_key_exists($i,$lich_day) ? $lich_day[$i]->ghi_chu : ''}}</textarea>
+                                            <textarea class="h-100 py-2 border border-white form-control" style=" " rows="3" name="ghi_chu[{{$i}}]">{{array_key_exists($i,$lich_day) ? $lich_day[$i]->ghi_chu : ''}}</textarea>
                                         </td>
                                     </tr>
                                 @endfor
@@ -271,11 +261,11 @@
                                             <input class="input-custom" type="number" name="thu_tu_bai_hoc[{{$i}}]" value="{{array_key_exists($i,$lich_day) ? $lich_day[$i]->thu_tu_bai_hoc : ''}}">
                                         </td>
                                         <td class="p-1 w-25">
-                                    <textarea class="h-100 py-2 border border-white form-control" style=" " rows="3" name="noi_dung[{{$i}}]">{{array_key_exists($i,$lich_day) ? $lich_day[$i]->noi_dung : ''}}</textarea>
+                                            <textarea class="h-100 py-2 border border-white form-control" style=" " rows="3" name="noi_dung[{{$i}}]">{{array_key_exists($i,$lich_day) ? $lich_day[$i]->noi_dung : ''}}</textarea>
                                         </td>
                                         <td>{{$i > count($weeks) - 1 ? '' : $weeks[$i] }}</td>
                                         <td class="" style="width: 200px">
-                                    <textarea class="h-100 py-2 border border-white form-control" style=" " rows="3" name="ghi_chu[{{$i}}]">{{array_key_exists($i,$lich_day) ? $lich_day[$i]->ghi_chu : ''}}</textarea>
+                                            <textarea class="h-100 py-2 border border-white form-control" style=" " rows="3" name="ghi_chu[{{$i}}]">{{array_key_exists($i,$lich_day) ? $lich_day[$i]->ghi_chu : ''}}</textarea>
                                         </td>
                                     </tr>
                                 @endfor
