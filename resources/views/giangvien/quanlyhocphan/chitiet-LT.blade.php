@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-9">
-                    <h1 class="m-0">Quản lý lịch trình / Lớp học phần lý thuyết/ <b>{{$mhp}}</b> </h1>
+                    <h1 class="m-0">Quản lý lịch trình / Lớp học phần lý thuyết/ <b>{{ preg_replace('/\s*\(\d+\s*sv\)$/', '', $mhp) }}</b> </h1>
                 </div><!-- /.col -->
                 <div class="col-sm-3">
                     <ol class="breadcrumb float-sm-right">
@@ -244,7 +244,7 @@
                         <th>Bài giảng</th>
                         <th>Bài tập</th>
                         <th>Thực hành</th>
-                        <th>{{$mhp}}</th>
+                        <th>{{ preg_replace('/\s*\(\d+\s*sv\)$/', '', $mhp) }}</th>
                     </tr>
                     </thead>
 

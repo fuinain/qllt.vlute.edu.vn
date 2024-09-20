@@ -12,6 +12,8 @@ class HocPhanController extends Controller
 {
     public function getViewChiTiet($ma_hoc_phan, Request $request)
     {
+//        $ma_hoc_phan = preg_replace('/\s*\(\d+\s*sv\)$/', '', $ma_hoc_phan);
+//        dd($ma_hoc_phan);
         $hocPhanModel = new HocPhanModel();
         $hoc_phan = $hocPhanModel->getHocPhan($ma_hoc_phan);
         $hoc_phan_main = $hocPhanModel->getMain($hoc_phan->ten_hoc_phan_cut);
@@ -150,7 +152,8 @@ class HocPhanController extends Controller
         $tuan_hoc = $hocPhanModel->getTuanHoc($hoc_phan->tuan_hoc, $hoc_phan_main->ma_hoc_phan);
         $all_tuan = '';
         foreach ($tuan_hoc as $tuan) {
-        $all_tuan = $all_tuan . $tuan->ma_hoc_phan . PHP_EOL;
+            $ma_hoc_phan_clean = preg_replace('/\s*\(\d+\s*sv\)$/', '', $tuan->ma_hoc_phan);
+            $all_tuan = $all_tuan . $ma_hoc_phan_clean . PHP_EOL;
         }
         $templatePath = storage_path('/public/excel/BieuMauHP.xlsx');
         if (!($hoc_phan->loai_hoc_ky == 1 || $hoc_phan->loai_hoc_ky == 2)) {
