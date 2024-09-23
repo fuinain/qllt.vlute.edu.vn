@@ -9,6 +9,17 @@ use Illuminate\Support\Facades\DB;
 class HocPhanModel extends Model
 {
     use HasFactory;
+    protected $table = 'hoc_phan';
+    protected $primaryKey = 'id_hoc_phan';
+    protected $fillable = [
+        'ma_hoc_phan',
+        'ten_hoc_phan',
+        'so_tin_chi',
+        'tin_chi_ly_thuyet',
+        'tin_chi_thuc_hanh',
+    ];
+
+    public $timestamps = false;
 
     public function danhSach()
     {

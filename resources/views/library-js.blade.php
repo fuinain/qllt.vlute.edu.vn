@@ -83,6 +83,8 @@
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{asset('dist/js/pages/dashboard.js')}}"></script>
 <script src="{{asset('plugins/toastr/toastr.min.js')}}"></script>
+
+<script src="{{asset('dist/js/datatables.js')}}"></script>
 <script>
     $(document).ready(function(){
         $('.dropdown-toggle').click(function(){

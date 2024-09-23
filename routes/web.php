@@ -41,6 +41,7 @@ Route::group(['prefix' => '/auth', 'middleware' => 'is.login'], function (){
     //Thêm học phần
     Route::get('/admin/quanlyhocphan/them', 'App\Http\Controllers\admin\HocPhanController@getViewThem');
     Route::put('/admin/quanlyhocphan/them', 'App\Http\Controllers\admin\HocPhanController@putHocPhan');
+    Route::post('/admin/quanlyhocphan/them', 'App\Http\Controllers\admin\HocPhanController@postImportHocPhan');
 
     //Cập nhật học phần
     Route::get('/admin/quanlyhocphan/cap-nhat/{id_hoc_phan}', 'App\Http\Controllers\admin\HocPhanController@getViewCapNhat');

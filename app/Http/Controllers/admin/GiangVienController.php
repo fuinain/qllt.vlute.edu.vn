@@ -120,17 +120,6 @@ class GiangVienController extends Controller
                 'id_don_vi'     => trim($item[7]),
                 'quyen'         => trim($item[8]),
             ];
-//            if( strlen(trim($item[0])) == 0 ||
-//                strlen(trim($item[1])) == 0 ||
-//                strlen(trim($item[2])) == 0 ||
-//                strlen(trim($item[3])) == 0 ||
-//                strlen(trim($item[4])) == 0 ||
-//                strlen(trim($item[5])) == 0 ||
-//                strlen(trim($item[6])) == 0 ||
-//                strlen(trim($item[7])) == 0 ||
-//                strlen(trim($item[8])) == 0) {
-//                return response()->json(['message' => 'Có trường dữ liệu trống', 'status' => 500],500);
-//            }
             $dataArray[] = $data;
         }
 

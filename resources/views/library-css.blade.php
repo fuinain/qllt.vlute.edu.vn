@@ -35,6 +35,7 @@
 <link rel="stylesheet" href="{{asset('docs/assets/css/adminlte.min.css')}}">
 <link rel="stylesheet" href="{{asset('dist/css/adminlte.min.css')}}">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.2.3/dist/js/bootstrap.min.js">
+<link rel="stylesheet" href="{{asset('dist/css/datatables.min.css')}}">
 
 
 
