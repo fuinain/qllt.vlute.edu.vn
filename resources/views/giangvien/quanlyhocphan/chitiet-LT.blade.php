@@ -279,10 +279,10 @@
                                 <td class="align-middle text-center">{{$i > count($months) - 1 ? '' : $months[$i] }}</td>
                                 <td class="align-middle text-center">{{$i > count($weeks) - 1 ? '' : $weeks[$i] }}</td>
                                 <td class="p-1 w-25"><textarea class="h-100 py-2 border border-white form-control" style="resize: none;" rows="6" name="noi_dung[{{$i}}]">{{array_key_exists($i,$lich_day) ? trim($lich_day[$i]->noi_dung_giang_day) : ''}}</textarea></td>
-                                <td class="p-1 align-middle"><input class="w-100 h-100 py-2" type="number" name="bai_giang[{{$i}}]" value={{array_key_exists($i,$lich_day) ? $lich_day[$i]->bai_giang : ''}}></td>
-                                <td class="p-1 align-middle"><input class="w-100 h-100 py-2" type="number" name="bai_tap[{{$i}}]" value={{array_key_exists($i,$lich_day)? $lich_day[$i]->bai_tap : ''}}></td>
-                                <td class="p-1 align-middle"><input class="w-100 h-100 py-2" type="number" name="thuc_hanh[{{$i}}]" value={{array_key_exists($i,$lich_day) ? $lich_day[$i]->thuc_hanh : ''}}></td>
-                                <td class="p-1 align-middle"><input class="w-100 h-100 py-2" type="number" name="thoi_gian_thuc_te[{{$i}}]" value="{{array_key_exists($i,$lich_day) ? $lich_day[$i]->thoi_gian_thuc_te : ''}}"></td>
+                                <td class="p-1 align-middle"><input class="w-100 h-100 py-2 text-center" type="number" name="bai_giang[{{$i}}]" value={{array_key_exists($i,$lich_day) ? $lich_day[$i]->bai_giang : ''}}></td>
+                                <td class="p-1 align-middle"><input class="w-100 h-100 py-2 text-center" type="number" name="bai_tap[{{$i}}]" value={{array_key_exists($i,$lich_day)? $lich_day[$i]->bai_tap : ''}}></td>
+                                <td class="p-1 align-middle"><input class="w-100 h-100 py-2 text-center" type="number" name="thuc_hanh[{{$i}}]" value={{array_key_exists($i,$lich_day) ? $lich_day[$i]->thuc_hanh : ''}}></td>
+                                <td class="p-1 align-middle"><input class="w-100 h-100 py-2 text-center" type="number" name="thoi_gian_thuc_te[{{$i}}]" value="{{array_key_exists($i,$lich_day) ? $lich_day[$i]->thoi_gian_thuc_te : ''}}"></td>
                                 <td class="p-1 w-25"><textarea class="h-100 py-2 border border-white form-control" style="resize: none;" rows="6" name="cong_viec[{{$i}}]">{{array_key_exists($i,$lich_day) ? $lich_day[$i]->cong_viec_chuan_bi : ''}}</textarea></td>
                                 <td class="p-1 w-25"><textarea class="h-100 py-2 border border-white form-control text-center" style="resize: none;" rows="6" name="ghi_chu[{{$i}}]">{{array_key_exists($i,$lich_day) ? $lich_day[$i]->ghi_chu : ''}}</textarea></td>
                             </tr>
@@ -294,10 +294,10 @@
                                 <td class="align-middle text-center">{{$i > count($months) - 1 ? '' : $months[$i] }}</td>
                                 <td class="align-middle text-center">{{$i > count($weeks) - 1 ? '' : $weeks[$i] }}</td>
                                 <td class="p-1 w-25"><textarea class="h-100 py-2 border border-white form-control" style="resize: none;" rows="5" name="noi_dung[{{$i}}]">{{array_key_exists($i,$lich_day) ? trim($lich_day[$i]->noi_dung_giang_day) : ''}}</textarea></td>
-                                <td class="p-1 align-middle"><input class="w-100 h-100 py-2" type="number" name="bai_giang[{{$i}}]" value={{array_key_exists($i,$lich_day) ? $lich_day[$i]->bai_giang : ''}}></td>
-                                <td class="p-1 align-middle"><input class="w-100 h-100 py-2" type="number" name="bai_tap[{{$i}}]" value={{array_key_exists($i,$lich_day)? $lich_day[$i]->bai_tap : ''}}></td>
-                                <td class="p-1 align-middle"><input class="w-100 h-100 py-2" type="number" name="thuc_hanh[{{$i}}]" value={{array_key_exists($i,$lich_day) ? $lich_day[$i]->thuc_hanh : ''}}></td>
-                                <td class="p-1 align-middle"><input class="w-100 h-100 py-2" type="number" name="thoi_gian_thuc_te[{{$i}}]" value="{{array_key_exists($i,$lich_day) ? $lich_day[$i]->thoi_gian_thuc_te : ''}}"></td>
+                                <td class="p-1 align-middle"><input class="w-100 h-100 py-2 text-center" type="number" name="bai_giang[{{$i}}]" value={{array_key_exists($i,$lich_day) ? $lich_day[$i]->bai_giang : ''}}></td>
+                                <td class="p-1 align-middle"><input class="w-100 h-100 py-2 text-center" type="number" name="bai_tap[{{$i}}]" value={{array_key_exists($i,$lich_day)? $lich_day[$i]->bai_tap : ''}}></td>
+                                <td class="p-1 align-middle"><input class="w-100 h-100 py-2 text-center" type="number" name="thuc_hanh[{{$i}}]" value={{array_key_exists($i,$lich_day) ? $lich_day[$i]->thuc_hanh : ''}}></td>
+                                <td class="p-1 align-middle"><input class="w-100 h-100 py-2 text-center" type="number" name="thoi_gian_thuc_te[{{$i}}]" value="{{array_key_exists($i,$lich_day) ? $lich_day[$i]->thoi_gian_thuc_te : ''}}"></td>
                                 <td class="p-1 w-25"><textarea class="h-100 py-2 border border-white form-control" style="resize: none;" rows="5" name="cong_viec[{{$i}}]">{{array_key_exists($i,$lich_day) ? $lich_day[$i]->cong_viec_chuan_bi : ''}}</textarea></td>
                                 <td class="p-1 w-25"><textarea class="h-100 py-2 border border-white form-control text-center" style="resize: none;" rows="5" name="ghi_chu[{{$i}}]">{{array_key_exists($i,$lich_day) ? $lich_day[$i]->ghi_chu : ''}}</textarea></td>
                             </tr>
