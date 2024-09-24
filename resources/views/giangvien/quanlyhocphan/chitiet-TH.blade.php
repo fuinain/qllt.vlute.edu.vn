@@ -213,8 +213,8 @@
                                 <tr>
                                     <td class="align-middle text-center">{{$i+1}}</td>
                                     <td class="p-1 w-25"><textarea class="h-100 py-2 border border-white form-control" style=" " rows="3" name="ten_de_muc[{{$i}}]">{{array_key_exists($i,$lich_day) ? $lich_day[$i]->ten_de_muc : ''}}</textarea></td>
-                                    <td class="p-1 align-middle text-center"><input class="input-custom w-100 h-100 py-2" type="number" name="so_gio_quy_dinh[{{$i}}]" value="{{array_key_exists($i,$lich_day) ? $lich_day[$i]->so_gio_quy_dinh : ''}}"></td>
-                                    <td class="p-1 align-middle text-center"><input class="input-custom w-100 h-100 py-2" type="number" name="thu_tu_bai_hoc[{{$i}}]" value="{{array_key_exists($i,$lich_day) ? $lich_day[$i]->thu_tu_bai_hoc : ''}}"></td>
+                                    <td class="p-1 align-middle text-center"><input class="input-custom w-100 h-100 py-2 text-center" type="number" name="so_gio_quy_dinh[{{$i}}]" value="{{array_key_exists($i,$lich_day) ? $lich_day[$i]->so_gio_quy_dinh : ''}}"></td>
+                                    <td class="p-1 align-middle text-center"><input class="input-custom w-100 h-100 py-2 text-center" type="number" name="thu_tu_bai_hoc[{{$i}}]" value="{{array_key_exists($i,$lich_day) ? $lich_day[$i]->thu_tu_bai_hoc : ''}}"></td>
                                     <td class="p-1 w-25"><textarea class="h-100 py-2 border border-white form-control" style=" " rows="3" name="noi_dung[{{$i}}]">{{array_key_exists($i,$lich_day) ? $lich_day[$i]->noi_dung : ''}}</textarea></td>
                                     <td class="align-middle text-center">{{$i > count($weeks) - 1 ? '' : $weeks[$i] }}</td>
                                     <td class="" style="width: 200px"><textarea class="h-100 py-2 border border-white form-control" style=" " rows="3" name="ghi_chu[{{$i}}]">{{array_key_exists($i,$lich_day) ? $lich_day[$i]->ghi_chu : ''}}</textarea></td>
@@ -225,8 +225,8 @@
                                 <tr>
                                     <td class="align-middle text-center">{{$i+1}}</td>
                                     <td class="p-1 w-25"><textarea class="h-100 py-2 border border-white form-control" style=" " rows="3" name="ten_de_muc[{{$i}}]">{{array_key_exists($i,$lich_day) ? $lich_day[$i]->ten_de_muc : ''}}</textarea></td>
-                                    <td class="p-1 align-middle text-center"><input class="input-custom w-100 h-100 py-2" type="number" name="so_gio_quy_dinh[{{$i}}]" value="{{array_key_exists($i,$lich_day) ? $lich_day[$i]->so_gio_quy_dinh : ''}}"></td>
-                                    <td class="p-1 align-middle text-center"><input class="input-custom w-100 h-100 py-2" type="number" name="thu_tu_bai_hoc[{{$i}}]" value="{{array_key_exists($i,$lich_day) ? $lich_day[$i]->thu_tu_bai_hoc : ''}}"></td>
+                                    <td class="p-1 align-middle text-center"><input class="input-custom w-100 h-100 py-2 text-center" type="number" name="so_gio_quy_dinh[{{$i}}]" value="{{array_key_exists($i,$lich_day) ? $lich_day[$i]->so_gio_quy_dinh : ''}}"></td>
+                                    <td class="p-1 align-middle text-center"><input class="input-custom w-100 h-100 py-2 text-center" type="number" name="thu_tu_bai_hoc[{{$i}}]" value="{{array_key_exists($i,$lich_day) ? $lich_day[$i]->thu_tu_bai_hoc : ''}}"></td>
                                     <td class="p-1 w-25"><textarea class="h-100 py-2 border border-white form-control" style=" " rows="3" name="noi_dung[{{$i}}]">{{array_key_exists($i,$lich_day) ? $lich_day[$i]->noi_dung : ''}}</textarea></td>
                                     <td class="align-middle text-center">{{$i > count($weeks) - 1 ? '' : $weeks[$i] }}</td>
                                     <td class="" style="width: 200px"><textarea class="h-100 py-2 border border-white form-control" style=" " rows="3" name="ghi_chu[{{$i}}]">{{array_key_exists($i,$lich_day) ? $lich_day[$i]->ghi_chu : ''}}</textarea></td>

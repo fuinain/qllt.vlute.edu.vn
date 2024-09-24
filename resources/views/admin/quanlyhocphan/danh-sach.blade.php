@@ -33,7 +33,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <label for="">Chọn file (*.xlsx) hoặc tải về
-                                <a target="_blank" href="{{asset('excel/template_file.xlsx')}}">
+                                <a target="_blank" href="{{asset('excel/import_hocphan.xlsx')}}">
                                     File mẫu
                                 </a>
                             </label>
@@ -70,12 +70,12 @@
                     <table id="hocPhanTable" class="table table-hover text-nowrap">
                         <thead>
                         <tr>
-                            <th>STT</th>
-                            <th>Mã học phần</th>
-                            <th>Tên học</th>
-                            <th>Số TC</th>
-                            <th>Tín chỉ LT</th>
-                            <th>Tín chỉ TH</th>
+                            <th class="text-center">STT</th>
+                            <th class="text-center">Mã học phần</th>
+                            <th>Tên học phần</th>
+                            <th class="text-center">Số TC</th>
+                            <th class="text-center">Tín chỉ LT</th>
+                            <th class="text-center">Tín chỉ TH</th>
                             <th></th>
 
                         </tr>
@@ -85,13 +85,13 @@
                         @php $stt = 1;@endphp
                         @foreach($dshp as $item)
                             <tr>
-                                <td>{{ $stt++ }}</td>
-                                <td>{{ $item->ma_hoc_phan}}</td>
+                                <td class="text-center">{{ $stt++ }}</td>
+                                <td class="text-center">{{ $item->ma_hoc_phan}}</td>
                                 <td>{{ $item->ten_hoc_phan}}</td>
-                                <td>{{ $item->so_tin_chi}}</td>
-                                <td>{{ $item->tin_chi_ly_thuyet}}</td>
-                                <td>{{ $item->tin_chi_thuc_hanh}}</td>
-                                <td>
+                                <td class="text-center">{{ $item->so_tin_chi}}</td>
+                                <td class="text-center">{{ $item->tin_chi_ly_thuyet}}</td>
+                                <td class="text-center">{{ $item->tin_chi_thuc_hanh}}</td>
+                                <td class="text-center">
                                     <a href="{{action('App\Http\Controllers\admin\HocPhanController@getViewCapNhat', ['id_hoc_phan'=>$item->id_hoc_phan])}}"><i class="nav-icon fas fa-edit"></i></a> |
                                     <a class="btnXoa" href="#" data="{{$item->id_hoc_phan}}"><i class="fa fa-fw fa-close"></i></a>
                                 </td>
