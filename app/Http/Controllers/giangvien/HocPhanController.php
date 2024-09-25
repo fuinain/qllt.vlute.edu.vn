@@ -290,7 +290,6 @@ class HocPhanController extends Controller
                 'status' => 200
             ]);
         } catch (\Exception $e) {
-            dd($e->getMessage());
             return response()->json([
                 'message' => 'Thất bại',
                 'status' => 500
@@ -344,15 +343,25 @@ class HocPhanController extends Controller
         $sheet = $spreadsheet->getActiveSheet();
         // Example: Replace placeholder with dynamic content
         $sheet->setCellValue('A4', 'Khoa: ' .$hoc_phan->ma_don_vi);
+        $sheet->getStyle('A4')->getFont()->setBold(true);
         $sheet->setCellValue('A5', 'Năm học: '.trim(explode(",",$hoc_phan->ten_hoc_ky)[1]));
+        $sheet->getStyle('A5')->getFont()->setBold(true);
         $sheet->setCellValue('C5', 'Học kỳ: '.trim(explode(",",$hoc_phan->ten_hoc_ky)[0]));
+        $sheet->getStyle('C5')->getFont()->setBold(true);
         $sheet->setCellValue('C6','Tên học phần: ' . $hoc_phan_main->ten_hoc_phan);
+        $sheet->getStyle('C6')->getFont()->setBold(true);
         $sheet->setCellValue('A6', 'Mã số học phần: '. $hoc_phan_main->ma_hoc_phan);
+        $sheet->getStyle('A6')->getFont()->setBold(true);
         $sheet->setCellValue('C7', 'Cán bộ giảng dạy chính: ' .  (array_key_exists(0, $lich_day) ? $lich_day[0]->gv_giang_day_chinh : ''));
+        $sheet->getStyle('C7')->getFont()->setBold(true);
         $sheet->setCellValue('A7', 'Cán bộ giảng dạy: ' . $hoc_phan->ho_ten);
+        $sheet->getStyle('A7')->getFont()->setBold(true);
         $sheet->setCellValue('F5','Tổng số giờ giảng: ' . ($total ?? 0));
+        $sheet->getStyle('F5')->getFont()->setBold(true);
         $sheet->setCellValue('F6', 'Số giờ giảng trực tiếp: ' . $online);
+        $sheet->getStyle('F6')->getFont()->setBold(true);
         $sheet->setCellValue('F7','Số giờ giảng trực tuyến: ' . $offline);
+        $sheet->getStyle('F7')->getFont()->setBold(true);
 
         if (count($weeks) > 5) {
             $sheet->mergeCells('E21:G21');

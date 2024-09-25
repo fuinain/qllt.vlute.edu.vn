@@ -137,7 +137,8 @@
                         </div>
                     </div>
                 </div>
-
+                <form action="{{route('giangvien.quanlyhocphan.chitietth')}}" method="POST" class="form-group">
+                    @csrf
                 <div class="row my-3">
                     <div class="col-xxl-3">
                         <div class="row align-items-center">
@@ -176,8 +177,6 @@
                         </div>
                     </div>
                 </div>
-                <form action="{{route('giangvien.quanlyhocphan.chitietth')}}" method="POST" class="form-group">
-                    @csrf
                     <input class="rounded w-100 form-control" type="hidden" name="ma_hoc_phan" value="{{$mhp}}">
                     <input class="rounded w-100 form-control" type="hidden" name="ten_hoc_phan" value="{{$hoc_phan->ten_hoc_phan}}">
                     <input class="rounded w-100 form-control" type="hidden" name="id_hoc_phan" value="{{$hoc_phan_main->id_hoc_phan}}">
